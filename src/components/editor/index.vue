@@ -1,13 +1,21 @@
 <template>
   <div>
     <div class="editor">
-      <!-- <quillEditor id="editor" v-model="art.content" :options="editorOptions"/> -->
       <markdownEditor :configs="configs" ref="editor" v-model="art.content"></markdownEditor>
       <div class="editor-option">
+        <mu-text-field hintText="created at" v-model="art.created"/>
         <mu-text-field hintText="title" v-model="art.title"/>
         <mu-select-field v-model="art.cateId" :labelFocusClass="['label-foucs']" label="category">
           <mu-menu-item v-for="(cate,index) in category" :key="index" :value="cate.id" :title="cate.name" />
         </mu-select-field>
+        <br/>
+        <div v-on:keydown.enter="tag">
+          <mu-text-field v-model="tagValue" hintText="标签，enter 完成输入"/>
+        </div>
+        <br/>
+        <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
+          {{tag}}
+        </mu-chip>
         <br/>
         <div class="permission">
           <mu-radio label="public" name="permission" :nativeValue="permission" v-model="art.permission" />
@@ -28,20 +36,12 @@
   @import '../admin/main.css';
 </style>
 <style>
-  .permission {
-    margin-top: 1em;
-  }
-  .markdown-editor {
-    width: 65%;
-     display: inline-block;
-  }
-  .markdown-editor .CodeMirror, .markdown-editor .CodeMirror-scroll {
-    min-height: 40em;
-  }
 </style>
 <script>
 import { markdownEditor } from 'vue-simplemde';
 import SimpleMDE from 'simplemde';
+import fecha from 'fecha';
+
 export default {
   props: {
     article: {
@@ -50,11 +50,11 @@ export default {
       default: function () {
         return {
           permission: "1",
-          tags: [],
+          tags: '',
           title: '',
           content: '',
           cateId: 1,
-          created: new Date().toLocaleDateString(),
+          created: '',
         };
       },
     }
@@ -66,6 +66,8 @@ export default {
         show: false,
         snackTimer: 3000,
       },
+      tagValue: '',
+      tags: [],
       editor: null,
       category: [],
       content: '',
@@ -87,12 +89,14 @@ export default {
   async mounted() {
     await this.$store.dispatch('category');
     this.category = this.$store.getters.getCategory;
-    console.log('>>>>>>', this.article);
-    console.log();
   },
   methods: {
     tag() {
-
+      this.tags.push(this.tagValue);
+      this.tagValue = '';
+    },
+    deleteTag(index) {
+      this.tags.splice(index, 1);
     },
     async commit() {
       const id = this.$route.params.id;
@@ -112,7 +116,6 @@ export default {
         content: article.content,
         tags: article.tags,
       }
-      console.log('$$$$$$$$', data);
       if (!id) {
         await this.$store.dispatch('addArticle', data);
       } else {
@@ -137,14 +140,15 @@ export default {
   },
   computed: {
     art: function() {
-      console.log('ffffuck')
       const data = Object.assign({}, this.article);
       data.permission = String(data.permission);
-
+      const created = data.created ? new Date(data.created * 1000) : new Date();
+      data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+      data.tags = data.tags ? data.tags.split(',') : [];
+      this.tags = data.tags;
       return data;
     },
     simplemde (){
-      console.log('---|---', this.$refs);
       return this.$refs.editor.simplemde
     }
   },

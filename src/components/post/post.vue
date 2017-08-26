@@ -2,9 +2,9 @@
   <div>
     <div class="content">
       <mu-card>
-        <mu-card-header @click="detail(result.id)" :title="result.title"
-          :subTitle="new Date(result.created * 1000).toLocaleDateString()">
-          <mu-avatar src="../../assets/avatar.png" slot="avatar"/>
+        <mu-card-header :title="result.title"
+          :subTitle="result.created">
+            <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
         </mu-card-header>
         <mu-card-text>
           <div v-html="result.content"></div>
@@ -29,7 +29,7 @@
         </div>
         <div class="from-btn">
           <div @click="submit">
-            <mu-button class="mu-raised mu-primary">发表评论</mu-button>
+             <mu-raised-button label="发表评论"/>
           </div>
         </div>
       </div>
@@ -39,6 +39,7 @@
 </template>
 <script>
   import marked from 'marked';
+  import fecha from 'fecha';
 
   export default {
     props: {
@@ -46,7 +47,10 @@
         type: Object,
         required: false,
         default: function () {
-          return {};
+          return {
+            content: '',
+            title: '',
+          };
         }
       },
     },
@@ -61,7 +65,7 @@
         comments: {},
       }
     },
-    async beforeMount() {
+    async mounted() {
       const id = this.$route.params.id;
       await this.$store.dispatch('getCommentsByPostId', id);
       let comments = this.$store.state.comment;
@@ -74,9 +78,6 @@
           pageSize: comment.pageSize || 20,
         };
       }
-    },
-    mounted() {
-      console.log(this.article);
     },
     methods: {
       async submit() {
@@ -108,23 +109,17 @@
     },
     computed: {
       result: function () {
-        console.log('nimabi');
         const data = Object.assign({}, this.article);
-        // console.log('//////', simplemde.value);
         data.content =  marked(data.content);
-        console.log('xxxxx-----====>>>', data);
-
+        const created = data.created ? new Date(data.created * 1000) : new Date();
+        data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
         return data;
       }
     }
   }
 </script>
 <style>
-  .content {
-    position: relative;
-    display: block;
-  }
-
+  @import './post.css';
   .comment-wrapper {
     position: relative;
     width: 100%;

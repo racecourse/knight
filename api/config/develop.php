@@ -1,6 +1,6 @@
 <?php
 /**
- * @license   https://github.com/Init/licese.md
+ * @license   MIT
  * @copyright Copyright (c) 2017
  * @author    : bugbear
  * @date      : 2017/3/16
@@ -30,9 +30,9 @@ return [
         'key' => 'develop',
     ],
     'jwt' => [
-        'issuer' => 'localhost',
-        'audience' => '127.0.0.1',
-        'expired' => 3600,
+        'issuer' => 'mulberry10',
+        'audience' => 'mulberry10.com',
+        'expired' => 86400,
         'key' => 'test',
     ],
     'eclogue' => [
