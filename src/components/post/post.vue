@@ -2,12 +2,12 @@
   <div>
     <div class="content">
       <mu-card>
-        <mu-card-header @click="detail(article.id)" :title="article.title"
-          :subTitle="new Date(article.created * 1000).toLocaleDateString()">
-          <mu-avatar src="../../assets/avatar.png" slot="avatar"/>
+        <mu-card-header :title="result.title"
+          :subTitle="result.created">
+            <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
         </mu-card-header>
         <mu-card-text>
-          <div v-html="article.content"></div>
+          <div v-html="result.content"></div>
         </mu-card-text>
       </mu-card>
     </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="from-btn">
           <div @click="submit">
-            <mu-button class="mu-raised mu-primary">发表评论</mu-button>
+             <mu-raised-button label="发表评论"/>
           </div>
         </div>
       </div>
@@ -38,13 +38,19 @@
   </div>
 </template>
 <script>
+  import marked from 'marked';
+  import fecha from 'fecha';
+
   export default {
     props: {
       article: {
         type: Object,
         required: false,
         default: function () {
-          return {};
+          return {
+            content: '',
+            title: '',
+          };
         }
       },
     },
@@ -59,7 +65,7 @@
         comments: {},
       }
     },
-    async beforeMount() {
+    async mounted() {
       const id = this.$route.params.id;
       await this.$store.dispatch('getCommentsByPostId', id);
       let comments = this.$store.state.comment;
@@ -100,15 +106,20 @@
       snackbar() {
         this.$refs.snackbar.open();
       }
+    },
+    computed: {
+      result: function () {
+        const data = Object.assign({}, this.article);
+        data.content =  marked(data.content);
+        const created = data.created ? new Date(data.created * 1000) : new Date();
+        data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+        return data;
+      }
     }
   }
 </script>
 <style>
-  .content {
-    position: relative;
-    display: block;
-  }
-
+  @import './post.css';
   .comment-wrapper {
     position: relative;
     width: 100%;

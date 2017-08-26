@@ -54,15 +54,3 @@
     }
   }
 </script>
-<style type="text/css">
-  html, body {
-    margin: 0;
-    padding: 0;
-  }
-  .post {
-    position: relative;
-    padding: 1em;
-    display: block;
-  }
-
-</style>

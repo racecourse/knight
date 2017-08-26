@@ -15,13 +15,12 @@
     "lcobucci/jwt": "^3.2",
     "illuminate/support": "^5.4",
     "pimple/pimple": "^3.1",
-    "psr/http-message": "^1.0",
-    "racecourse/marmot": "dev-master"
+    "psr/http-message": "^1.0"
   },
   "require-dev": {
-    "racecourse/courser": "dev-develop",
-    "racecourse/mews": "dev-master",
-    "racecourse/ben": "dev-master"
+    "eclogue/courser": "dev-develop",
+    "eclogue/mews": "dev-master",
+    "eclogue/ben": "dev-master"
   },
   "minimum-stability": "dev"
 }

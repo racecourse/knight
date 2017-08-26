@@ -4,6 +4,10 @@
       <mu-appbar title="knight"/>
       <div>
         <mu-list>
+          <mu-list-item to="/admin/dashboard">
+            <mu-icon>create</mu-icon>
+            <span>dashboard</span>
+          </mu-list-item>
           <mu-list-item to="/admin/create">
             <mu-icon>create</mu-icon>
             <span>写文章</span>
