@@ -164,6 +164,9 @@ class Admin extends Controller
                 'code' => 2,
             ]);
         }
+        if (is_array($tags)) {
+            $tags = implode(',', $tags);
+        }
         $art->title = $title;
         $art->content = $content;
         $art->cateId = $cateId;
@@ -173,7 +176,6 @@ class Admin extends Controller
             $time = mktime($time);
             $art->created = $time;
         }
-        var_dump($this->payload);
         $result = $art->update();
         var_dump($result->toArray());
         $this->response->json([

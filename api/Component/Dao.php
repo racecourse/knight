@@ -21,7 +21,6 @@ class Dao extends Model
             $config = Config::get('db');
         }
 
-        var_dump($config);
         parent::__construct($config);
     }
 
