@@ -13,6 +13,7 @@ use Courser\App;
 use Courser\Server\HttpServer;
 use Knight\Middleware\Cors;
 use Knight\Middleware\Auth;
+use Marmot\Session;
 use Courser\Http\Request;
 use Courser\Http\Response;
 use Ben\Config;
@@ -20,8 +21,10 @@ use Ben\Config;
 Config::load(APP_ROOT . '/api/config');
 $app = new App();
 $cors = new Cors();
+$session = new Session();
 
 $app->used($cors);
+$app->used($session);
 $app->get('/posts', [Knight\Controller\Article::class => 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class => 'detail']);
 $app->get('/posts/:id/comments', [Knight\Controller\Article::class => 'comments']);
