@@ -4,7 +4,7 @@
       <mu-icon-button icon="menu" @click="toggle()"/>
     </div>
     <mu-drawer left :open="open" @close="toggle()">
-      <div class="resume">
+      <div class="resume" @click="toggle()">
         <div class="avatar">
           <img src="../../assets/avatar.png">
         </div>
@@ -60,7 +60,6 @@
     },
     methods: {
       async toggle() {
-        console.log('Opened: ');
         if(!this.category.length) {
           await this.$store.dispatch('category');
           this.category = this.$store.getters.getCategory;

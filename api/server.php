@@ -43,6 +43,8 @@ $app->group('/admin', function () {
     $this->put('/article/:id', [Knight\Controller\Admin::class => 'edit']);
     $this->post('/article', [Knight\Controller\Admin::class => 'create']);
     $this->get('/comments', [Knight\Controller\Admin::class => 'comments']);
+    $this->post('/category', [Knight\Controller\Category::class => 'create']);
+    $this->delete('/category/:id', [Knight\Controller\Category::class => 'drop']);
 });
 $app->notFound(function (Request $req, Response $res) {
     $res->withStatus(404)->json(['message' => 'Not Found']);

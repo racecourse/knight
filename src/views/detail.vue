@@ -8,7 +8,11 @@
   export default {
     data() {
       return {
-        post: {},
+        post: {
+          content: '',
+          title: '',
+          created: '',
+        },
         ok: false,
         message: '',
         comments: {

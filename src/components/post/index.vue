@@ -2,18 +2,25 @@
   <div>
     <div class="content">
       <mu-card>
-        <mu-card-header @click="detail(article.id)" :title="article.title"
-          :subTitle="new Date(article.created * 1000).toLocaleDateString()">
-            <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
-        </mu-card-header>
+        <div @click="detail(post.id)">
+          <mu-card-header :title="post.title"
+            :subTitle="new Date(post.created * 1000).toLocaleDateString()">
+              <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
+          </mu-card-header>
+        </div>
         <mu-card-text>
-          <div v-html="article.content"></div>
+          <div v-html="post.content"></div>
         </mu-card-text>
       </mu-card>
     </div>
   </div>
 </template>
+<<style>
+@import './post.css';
+</style>
+
 <script>
+  import marked from 'marked';
   export default {
     props: {
       article: {}
@@ -25,10 +32,20 @@
 
     },
     mounted () {
+      console.log(this.article);
     },
     methods: {
       detail(id) {
-        console.log(this);
+        console.log(this.$router);
+        this.$router.push('/posts/' + id);
+      }
+    },
+    computed: {
+      post()  {
+        const post = Object.assign({}, this.article);
+        post.content =  marked(post.content);
+
+        return post;
       }
     }
   }

@@ -6,8 +6,11 @@ import FastClick from 'fastclick';
 import { sync } from 'vuex-router-sync';
 import Cellar from './util/storage';
 import App from './App.vue';
-import MuseUI from 'muse-ui'
-import 'muse-ui/dist/muse-ui.css'
+import MuseUI from 'muse-ui';
+import 'muse-ui/dist/muse-ui.css';
+import teal from 'muse-ui/dist/theme-teal.css'
+import './assets/reset.css';
+
 Vue.use(MuseUI)
 const storage = new Cellar();
 window.addEventListener('load', () => {
