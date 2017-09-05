@@ -83,7 +83,7 @@ class Admin extends Controller
         var_dump($this->payload);
         $title = $this->body('title');
         $content = $this->body('content');
-        $tags = $this->body('body');
+        $tags = $this->body('tags');
         $cateId = $this->body('cateId');
         $permission = $this->body('permission');
         if (!in_array($permission, [0, 1, 2])) {
@@ -159,7 +159,9 @@ class Admin extends Controller
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
-            return $this->response->withStatus(400)->json([
+            return $this->response
+            ->withStatus(400)
+            ->json([
                 'message' => 'article not found',
                 'code' => 2,
             ]);
@@ -198,16 +200,19 @@ class Admin extends Controller
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
-            return $this->response->withStatus(400)->json([
+            return $this->response
+            ->withStatus(400)
+            ->json([
                 'message' => 'article not found',
                 'code' => 2,
             ]);
         }
         $art->delete();
-        $this->response->json([
-            'message' => 'ok',
-            'code' => 0,
-        ]);
+        $this->response
+            ->json([
+                'message' => 'ok',
+                'code' => 0,
+            ]);
     }
 
     public function detail()
