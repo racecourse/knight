@@ -13,6 +13,7 @@ use Courser\App;
 use Courser\Server\HttpServer;
 use Knight\Middleware\Cors;
 use Knight\Middleware\Auth;
+use Marmot\Session;
 use Courser\Http\Request;
 use Courser\Http\Response;
 use Ben\Config;
