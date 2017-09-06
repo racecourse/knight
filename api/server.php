@@ -21,7 +21,7 @@ use Ben\Config;
 Config::load(APP_ROOT . '/api/config');
 $app = new App();
 $cors = new Cors();
-$session = new Session();
+$session = new Session(Config::get('session'));
 
 $app->used($cors);
 $app->used($session);
