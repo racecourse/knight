@@ -43,8 +43,14 @@
     computed: {
       post()  {
         const post = Object.assign({}, this.article);
+        const markedOptions = {
+          highlight: function(code) {
+            return window.hljs.highlightAuto(code).value;
+          },
+        };
+        marked.setOptions(markedOptions);
         post.content =  marked(post.content);
-
+        console.log(post.content);
         return post;
       }
     }
