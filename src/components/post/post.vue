@@ -110,6 +110,12 @@
     computed: {
       result: function () {
         const data = Object.assign({}, this.article);
+        const markedOptions = {
+          highlight: function(code) {
+            return window.hljs.highlightAuto(code).value;
+          },
+        };
+        marked.setOptions(markedOptions);
         data.content =  marked(data.content);
         const created = data.created ? new Date(data.created * 1000) : new Date();
         data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');

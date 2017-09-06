@@ -22,7 +22,6 @@
       const state = this.$store.state;
       const article = state.admin.article;
       this.article = article;
-      console.log('*****', this.article);
     },
     components: {
       Editor

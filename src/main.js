@@ -10,7 +10,9 @@ import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import teal from 'muse-ui/dist/theme-teal.css'
 import './assets/reset.css';
+import hljs from 'highlight.js';
 
+window.hljs = hljs;
 Vue.use(MuseUI)
 const storage = new Cellar();
 window.addEventListener('load', () => {
