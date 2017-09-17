@@ -15,7 +15,7 @@ return [
         'worker_num' => 1,
     ],
     'db' => [
-//        'servers' => [
+       'servers' => [
             'host' => '127.0.0.1',
             'port' => '3306',
             'user' => 'root',
@@ -24,7 +24,7 @@ return [
             'charset' => 'UTF8',
             'poolSize' => 50,
             'pool' => true,
-//        ],
+        ],
         'debug' => true,
     ],
     'session' => [
