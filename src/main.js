@@ -9,8 +9,9 @@ import App from './App.vue';
 import MuseUI from 'muse-ui';
 import 'muse-ui/dist/muse-ui.css';
 import teal from 'muse-ui/dist/theme-teal.css'
-import './assets/reset.css';
 import hljs from 'highlight.js';
+// import './assets/reset.css';
+// import './assets/markdown.css';
 
 window.hljs = hljs;
 Vue.use(MuseUI)
