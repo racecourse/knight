@@ -28,6 +28,7 @@ return [
         'debug' => true,
     ],
     'session' => [
+        'class' =>'Marmot\Session',
         'issuer' => 'localhost',
         'audience' => '127.0.0.1',
         'expired' => 3600,

@@ -15,6 +15,8 @@ use Courser\Http\Response;
 
 class Controller
 {
+    use Common;
+    
     public $request;
 
     public $response;
