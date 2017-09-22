@@ -80,7 +80,6 @@ class Admin extends Controller
     {
         $request = $this->request;
         $response = $this->response;
-        var_dump($this->payload);
         $title = $this->body('title');
         $content = $this->body('content');
         $tags = $this->body('tags');
@@ -109,6 +108,9 @@ class Admin extends Controller
                     'message' => 'content can not empty'
                 ]);
         }
+        $created = $this->body('created');
+        $created = $created ? strtotime($created) : time();
+        $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
         $post = [
             'userId' => 1,
             'title' => $title,
@@ -116,7 +118,7 @@ class Admin extends Controller
             'tags' => $tags,
             'permission' => $permission,
             'cateId' => $cateId,
-            'created' => time(),
+            'created' => $created,
         ];
         $article = new Post();
         $article->insert($post);

@@ -132,6 +132,7 @@ export default {
         permission: article.permission,
         content: article.content,
         tags: article.tags,
+        created: article.created,
       }
       if (!id) {
         await this.$store.dispatch('addArticle', data);
