@@ -148,7 +148,7 @@ class Admin extends Controller
         $tags = $this->body('tags');
         $content = $this->body('content');
         $cateId = $this->body('cateId');
-        $time = $this->body('time');
+        $time = $this->body('created');
         $permission = $this->body('permission');
         if (!$title || !$content) {
             return $this->response
@@ -177,8 +177,7 @@ class Admin extends Controller
         $art->tags = $tags;
         $art->permission = $permission;
         if ($time) {
-            $time = mktime($time);
-            $art->created = $time;
+            $art->created = strtotime($time);
         }
         $result = $art->update();
         var_dump($result->toArray());

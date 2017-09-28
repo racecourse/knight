@@ -1,34 +1,39 @@
 <template>
-  <div>
+  <div class="container">
     <SideBar></SideBar>
-    <div class="header">
-      <ul class="nav">
-        <li><router-link to="/">home</router-link></li>
-        <li><router-link to="/archive">archive</router-link></li>
-        <li><a href="//github.com/racecourse/knight">github</a></li>
-        <li><router-link to="/">about</router-link></li>
-      </ul>
-      <div class="search">
-        <!-- <input class="filter" id="keyword" type="text" name="search" placeholder="keyword"> -->
-        <mu-text-field class="filter" hintText="forbidden"/>
-        <mu-icon-button icon="search" @click="search"/>
+      <div class="header">
+        <ul class="nav">
+          <li><router-link to="/">home</router-link></li>
+          <li><router-link to="/archive">archive</router-link></li>
+          <li><a href="//github.com/racecourse/knight">github</a></li>
+          <li><router-link to="/">about</router-link></li>
+        </ul>
+        <div class="search">
+          <!-- <input class="filter" id="keyword" type="text" name="search" placeholder="keyword"> -->
+          <mu-text-field class="filter" hintText="keyword"/>
+          <mu-icon-button icon="search" @click="search"/>
+        </div>
       </div>
-    </div>
-    <div class="content-warp">
-      <transition>
-        <router-view></router-view>
-      </transition>
-    </div>
-    <Bottom></Bottom>
+      <mu-row>
+        <mu-col width="100" tablet="95" desktop="70" class="content-warp">
+        <div>
+          <transition>
+            <router-view></router-view>
+          </transition>
+        </div>  
+        <Bottom></Bottom>
+      </mu-col>
+    </mu-row>  
   </div>
 </template>
 <style>
-  .content-warp {
-    position: relative;
-    margin: 20px auto;
-    width: 60%;
-    max-width: 760px;
-    margin-top: -1.5em;
+  .container {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 0;
+  }
+  .col {
+    margin: 0 auto;
   }
   .header {
     position: relative;
@@ -37,8 +42,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
-    max-width: 760px;
     height: 10em;
     /* background: #00aaaa; */
     overflow: hidden;
