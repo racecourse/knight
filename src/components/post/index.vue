@@ -64,6 +64,7 @@
           },
         };
         marked.setOptions(markedOptions);
+        post.content = post.content.substr(0, 500);
         post.content =  marked(post.content);
         console.log(post.content);
         return post;

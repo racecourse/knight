@@ -10,8 +10,8 @@
 namespace Knight\Component;
 
 
-use Courser\Http\Request;
-use Courser\Http\Response;
+use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 
 class Controller
 {

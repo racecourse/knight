@@ -13,8 +13,8 @@ use Courser\App;
 use Courser\Server\HttpServer;
 use Knight\Middleware\Cors;
 use Knight\Middleware\Auth;
-use Courser\Http\Request;
-use Courser\Http\Response;
+use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 use Ben\Config;
 
 Config::load(APP_ROOT . '/api/config');

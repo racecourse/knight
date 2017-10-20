@@ -11,6 +11,7 @@
     "build": "webpack --config build/webpack.prod.config.js --env=production"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "cli-color": "^1.1.0",
     "eslint": "^4.3.0",
     "eslint-plugin-vue": "^2.0.1",

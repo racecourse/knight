@@ -21,9 +21,9 @@
             <router-view></router-view>
           </transition>
         </div>  
-        <Bottom></Bottom>
       </mu-col>
-    </mu-row>  
+    </mu-row>
+    <Bottom></Bottom>
   </div>
 </template>
 <style>
