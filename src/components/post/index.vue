@@ -1,17 +1,6 @@
 <template>
   <div>
     <div class="content">
-      <!-- <mu-card>
-        <div @click="detail(post.id)">
-          <mu-card-header :title="post.title"
-            :subTitle="new Date(post.created * 1000).toLocaleDateString()">
-              <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
-          </mu-card-header>
-        </div>
-        <mu-card-text>
-          <div v-html="post.content"></div>
-        </mu-card-text>
-      </mu-card> -->
       <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
       <div class="title" @click="detail(post.id)">
         <h4>{{post.title}}</h4>
@@ -65,8 +54,11 @@
         };
         marked.setOptions(markedOptions);
         post.content = post.content.substr(0, 500);
-        post.content =  marked(post.content);
+        if (post.content.search(/```[^`]+$/) !== -1) {
+          post.content += '```';
+        }
         console.log(post.content);
+        post.content =  marked(post.content);
         return post;
       }
     }

@@ -1,21 +1,46 @@
 <template>
-  <div class="container">
-    <SideBar></SideBar>
-      <div class="header">
-        <ul class="nav">
-          <li><router-link to="/">home</router-link></li>
-          <li><router-link to="/archive">archive</router-link></li>
-          <li><a href="//github.com/racecourse/knight">github</a></li>
-          <li><router-link to="/">about</router-link></li>
-        </ul>
-        <div class="search">
-          <!-- <input class="filter" id="keyword" type="text" name="search" placeholder="keyword"> -->
-          <mu-text-field class="filter" hintText="keyword"/>
-          <mu-icon-button icon="search" @click="search"/>
+  <div class="layout">
+    <div class="header">
+      <div class="nav">
+        <div class="nav-item">
+          <SideBar></SideBar>
+        </div>
+        <div class="nav-item">首页</div>
+        <div class="nav-item">归档</div>
+        <div class="nav-item">关于</div>
+        <div class="filter">
+          <!-- <input type="text" name="keyword"/> -->
         </div>
       </div>
+    </div>
+    <div class="container">
       <mu-row>
-        <mu-col width="100" tablet="95" desktop="70" class="content-warp">
+        <mu-col width="100" tablet="95" desktop="100" class="content-warp">
+          <div>
+            <transition>
+              <router-view></router-view>
+            </transition>
+          </div>  
+        </mu-col>
+      </mu-row>
+    </div>
+    <div class="footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          © 1970-2017 knight, all rights reserved. 公网安备 ********** 号
+        </div>
+        <div class="footer-rigth">
+          <a href="https://github.com/eclogue/knight">
+            <img class="repo" src="./github.png">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="container">
+    <SideBar></SideBar>
+    <mu-row>
+      <mu-col width="100" tablet="95" desktop="70" class="content-warp">
         <div>
           <transition>
             <router-view></router-view>
@@ -24,56 +49,51 @@
       </mu-col>
     </mu-row>
     <Bottom></Bottom>
-  </div>
+  </div> -->
 </template>
 <style>
+  .layout {
+    padding: 0;
+    color: rgb(28, 28, 28);
+    background-color: #fefefe;
+  }
   .container {
-    height: auto;
-    min-height: 100%;
+    height: 100%;
+    /* min-height: 760px; */
     padding-bottom: 0;
-  }
-  .col {
     margin: 0 auto;
   }
+
   .header {
-    position: relative;
-    margin: 0 auto;
-    padding: 1em;
-    display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
-    height: 10em;
-    /* background: #00aaaa; */
+    background: #5e90b8;
     overflow: hidden;
-    border: 1em solid#ffffff;
   }
 
-  .header ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+  .logo{
+    font-size: 24px;
+    color: white;
+    display: block;
   }
 
-  .header .nav {
-    display: inline;
+  .nav {
+    position: relative;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: .3em 0;
+    display: block;
   }
 
-  .header li {
-    text-align: -webkit-match-parent;
-    margin: 1em;
-    padding: 1rem;
-    display: inline;
-    cursor: pointer;
-  }
-
-  .header li:hover {
-    border-bottom: 2px dashed #0F769F;
-  }
-  .header .search {
-    height: 2em;
+  .nav-item {
+    padding:0 1.5em;
+    color: #ffffff;
+    display: inline-block;
   }
 
   .header .filter {
+    display: inline-block;
     margin-left: 5em;
     border: 0;
     padding-left: 5px;
@@ -85,8 +105,35 @@
     border: none;
     line-height: 24px;
   }
+  .filter input {
+    padding: 0 1em;
+    line-height: 2em;
+    height: 2em !important;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+  }
   .search-btn {
     cursor: pointer;
+  }
+
+  .footer {
+    margin-top: 2em;
+    padding: 1em 0;
+    background: #eeeeee;
+    color: #105028;
+  }
+  .footer-content {
+    margin: auto;
+    display: block;
+    max-width: 720px;
+    padding: 1em 2em;
+  }
+  .footer-left {
+    float: left;
+  }
+
+  .footer-rigth {
+    float: right;
   }
 </style>
 <script>
