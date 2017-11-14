@@ -15,22 +15,7 @@ use Hayrick\Http\Response;
 
 class Controller
 {
-    use Common;
-    
-    public $request;
 
-    public $response;
 
-    protected $payload  = [];
 
-    public function __construct(Request $req, Response $res)
-    {
-        $this->request = $req;
-        $this->response = $res;
-        $this->payload = $this->request->getParsedBody();
-    }
-
-    public function body($key = null, $default = null) {
-        return $this->payload[$key] ?? $default;
-    }
 }

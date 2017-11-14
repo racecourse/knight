@@ -8,20 +8,22 @@
  */
 namespace Knight\Controller;
 
+use Hayrick\Http\Response;
 use Knight\Model\Category;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Component\Controller;
 use Knight\Model\User;
+use Hayrick\Http\Request;
 
 class Article extends Controller
 {
 
-    public function posts()
+    public function posts(Request $request)
     {
-        $page = abs($this->request->getQuery('page'));
-        $order = $this->request->getQuery('order');
-        $keyword = $this->request->getQuery('q');
+        $page = abs($request->getQuery('page', 1));
+        $order = $request->getQuery('order');
+        $keyword = $request->getQuery('q');
         $order = $order === 'archive' ? 'created' : 'id';
         $page = $page ?: 1;
         $pageSize = 10;
@@ -42,10 +44,13 @@ class Article extends Controller
 //                'tags' => $keyword,
 //            ]];
 //        }
-        $list = $article->find($condition, $options);
+        $list = yield $article->find($condition, $options);
+        var_dump(count($list));
         $list = $article->toArray($list);
         $total = $article->count($condition);
-        $this->response->json([
+        $response = new Response();
+
+        return $response->json([
             'message' => 'ok',
             'code' => '0',
             'data' => [
@@ -64,17 +69,18 @@ class Article extends Controller
      * @param int $id path required
      * @return $ref Detail
      */
-    public function detail()
+    public function detail(Request $request)
     {
-        $id = $this->request->getParam('id');
+        $id = $request->getParam('id');
         $article = new Post();
         $condition = [
             'id' => $id,
             'permission' => ['$lte' => 1]
         ];
-        $art = $article->findOne($condition);
+        $art = yield $article->findOne($condition);
         $art = $art->toArray();
-        $this->response->json([
+
+        return (new Response())->json([
             'message' => 'ok',
             'code' => '0',
             'data' => $art,
@@ -84,13 +90,13 @@ class Article extends Controller
     /**
      * get article list
      */
-    public function article()
+    public function article(Request $request)
     {
-        $page = abs($this->request->getQuery('page'));
+        $page = abs($request->getQuery('page'));
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
-        $session = $this->request->session;
+        $session = $request->session;
         $userId = $session->userId;
         $article = new Post();
         $where = [
@@ -101,9 +107,10 @@ class Article extends Controller
             'limit' => $pageSize,
             'order' => ['id' => 'DESC'],
         ];
-        $articles = $article->find($where, $option);
+        $articles = yield $article->find($where, $option);
         $list = $article->toArray($articles);
-        $this->response->json([
+
+        return (new Response())->json([
             'message' => 'ok',
             'data' => [
                 'page' => $page,
@@ -121,16 +128,18 @@ class Article extends Controller
      * @query int $pageSize required
      * @return $ref comment
      */
-    public function comments()
+    public function comments(Request $request)
     {
-        $id = $this->request->getParam('id');
+        $id = $request->getParam('id');
+        $response = new Response();
         if (!$id) {
-            return $this->response->withStatus(400)->json([
+            return $response->withStatus(400)->json([
                 'message' => 'param id required',
                 'code' => 1,
             ]);
         }
-        $page = abs($this->request->getQuery('page'));
+
+        $page = abs($request->getQuery('page'));
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
@@ -144,7 +153,8 @@ class Article extends Controller
             ]);
         $total = 0; // @todo
         $comments = $comment->toArray($comments);
-        $this->response->json([
+
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -166,13 +176,13 @@ class Article extends Controller
      * @body string $tags
      * @return mixed
      */
-    public function create()
+    public function create(Request $request)
     {
-        $response = $this->response;
-        $title = $this->body('title');
-        $content = $this->body('content');
-        $tags = $this->body('body');
-        $cateId = $this->body('cateId');
+        $response = new Response();
+        $title = $request->getPayload('title');
+        $content = $request->getPayload('content');
+        $tags = $request->getPayload('body');
+        $cateId = $request->getPayload('cateId');
         if (!$title) {
             return $response
                 ->withStatus(400)
@@ -181,6 +191,7 @@ class Article extends Controller
                     'code' => 1,
                 ]);
         }
+
         if (!$content) {
             return $response
                 ->withStatus(400)
@@ -189,6 +200,7 @@ class Article extends Controller
                     'code' => 4,
                 ]);
         }
+
         if ($cateId) {
             $category = new Category();
             $cate = $category->findById($cateId);
@@ -201,6 +213,7 @@ class Article extends Controller
                     ]);
             }
         }
+
         $post = [
             'tags' => $tags,
             'cateId' => $cateId,
@@ -209,8 +222,9 @@ class Article extends Controller
             'created' => time(),
         ];
         $article = new Post();
-        $article->insert($post);
-        $this->response->json([
+        yield $article->insert($post);
+
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
         ]);

@@ -22,7 +22,7 @@ $app = new App();
 $cors = new Cors();
 
 $app->used($cors);
-$app->get('/posts', [Knight\Controller\Article::class => 'posts']);
+$app->get('/posts', [Knight\Controller\Article::class, 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class => 'detail']);
 $app->get('/posts/:id/comments', [Knight\Controller\Article::class => 'comments']);
 $app->post('/posts/:id/comments', [Knight\Controller\Comment::class => 'add']);
@@ -43,8 +43,9 @@ $app->group('/admin', function () {
     $this->post('/category', [Knight\Controller\Category::class => 'create']);
     $this->delete('/category/:id', [Knight\Controller\Category::class => 'drop']);
 });
-$app->notFound(function (Request $req, Response $res) {
-    $res->withStatus(404)->json(['message' => 'Not Found']);
+$app->notFound(function (Request $req, Closure $next) {
+    $response = $next($req);
+    return $response->withStatus(404)->json(['message' => 'Not Found']);
 });
 $app->error(function (Request $req, Response $res, Exception $err) {
     $res->withStatus(500)->json([

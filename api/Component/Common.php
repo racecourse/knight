@@ -17,8 +17,7 @@ trait Common
     
     public function __get($name)
     {
-        // TODO: Implement __get() method.
-        if (isset($this->$name)) 
+        if (isset($this->$name))
             return $this->$name;
         
         if (isset($this->component[$name]))
