@@ -21,9 +21,9 @@ Config::load(APP_ROOT . '/api/config');
 $app = new App();
 $cors = new Cors();
 
-$app->used($cors);
+//$app->used($cors);
 $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
-$app->get('/posts/:id', [Knight\Controller\Article::class => 'detail']);
+$app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);
 $app->get('/posts/:id/comments', [Knight\Controller\Article::class => 'comments']);
 $app->post('/posts/:id/comments', [Knight\Controller\Comment::class => 'add']);
 $app->get('category', [Knight\Controller\Admin::class => 'category']);

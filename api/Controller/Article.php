@@ -45,12 +45,10 @@ class Article extends Controller
 //            ]];
 //        }
         $list = yield $article->find($condition, $options);
-        var_dump(count($list));
         $list = $article->toArray($list);
         $total = $article->count($condition);
         $response = new Response();
-
-        return $response->json([
+        $response =  $response->json([
             'message' => 'ok',
             'code' => '0',
             'data' => [
@@ -60,6 +58,8 @@ class Article extends Controller
                 'pageSize' => $pageSize,
             ],
         ]);
+
+        return $response;
     }
 
     /**
