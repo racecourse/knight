@@ -120,5 +120,13 @@ export default {
   },
   logout({commit}) {
     commit('LOGOUT_REQUEST');
+  },
+  async addCategory({commit}, name) {
+    const res = await fetch('/admin/category', 'post', {name});
+    if (res.ok) {
+      commit('CATEGORY_FETCH_SUCCESS', res);
+    } else {
+      commit('FETCH_FAILURE');
+    }
   }
 }

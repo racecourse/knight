@@ -8,23 +8,25 @@
  */
 namespace Knight\Controller;
 
+use Hayrick\Http\Response;
 use Knight\Component\Controller;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Model\Category;
-use Photo;
+use Hayrick\Http\Request;
 
 class Admin extends Controller
 {
 
-    public function survey()
+    public function survey(Request $request)
     {
         $article = new Post();
 //        $articleNumber = $article->count();
 //        $commentNumber = (new Comment())->count();
         $photoNumber = 0;
         $albumNumber = 0;
-        $this->response->json([
+        $response = new Response();
+        $response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -38,10 +40,10 @@ class Admin extends Controller
         ]);
     }
 
-    public function article()
+    public function article(Request $request)
     {
         $pageSize = 10;
-        $page = $this->request->getQuery('page');
+        $page = $request->getQuery('page');
         $page = abs($page) ?: 1;
         $offset = ($page - 1) * $pageSize;
         $article = new Post();
@@ -64,7 +66,8 @@ class Admin extends Controller
             'pageSize' => $pageSize,
             'list' => $posts,
         ];
-        $this->response->json([
+        $response = new Response();
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => $ret,
@@ -76,39 +79,37 @@ class Admin extends Controller
      * @body string content
      * @body integer cateId
      */
-    public function create()
+    public function create(Request $request)
     {
-        $request = $this->request;
-        $response = $this->response;
-        var_dump($this->payload);
-        $title = $this->body('title');
-        $content = $this->body('content');
-        $tags = $this->body('body');
-        $cateId = $this->body('cateId');
-        $permission = $this->body('permission');
+        $response = new Response();
+        $title = $request->getPayload('title');
+        $content = $request->getPayload('content');
+        $tags = $request->getPayload('tags');
+        $cateId = $request->getPayload('cateId');
+        $permission = $request->getPayload('permission');
         if (!in_array($permission, [0, 1, 2])) {
-            return $this->response
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'Illegal param permission',
                     'code' => 1,
                 ]);
         }
         if (!$title) {
-            return $response
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'title required',
                     'code' => 1,
                 ]);
         }
         if (!$content) {
-            return $response
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'content can not empty'
                 ]);
         }
+        $created = $request->getPayload('created');
+        $created = $created ? strtotime($created) : time();
+        $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
         $post = [
             'userId' => 1,
             'title' => $title,
@@ -116,41 +117,43 @@ class Admin extends Controller
             'tags' => $tags,
             'permission' => $permission,
             'cateId' => $cateId,
-            'created' => time(),
+            'created' => $created,
         ];
         $article = new Post();
         $article->insert($post);
-        $response->json([
+
+        return $response->json([
             'code' => 0,
             'message' => 'ok',
         ]);
     }
 
     
-    public function category()
+    public function category(Request $request)
     {
         $category = new Category();
         $cate = $category->findAll();
         $list = $category->toArray($cate);
-        $this->response->json([
+
+        return [
             'message' => 'ok',
             'code' => 0,
             'data' => $list,
-        ]);
+        ];
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
-        $id = $this->request->getParam('id');
-        $title = $this->body('title');
-        $tags = $this->body('tags');
-        $content = $this->body('content');
-        $cateId = $this->body('cateId');
-        $time = $this->body('time');
-        $permission = $this->body('permission');
+        $id = $request->getParam('id');
+        $title = $request->getPayload('title');
+        $tags = $request->getPayload('tags');
+        $content = $request->getPayload('content');
+        $cateId = $request->getPayload('cateId');
+        $time = $request->getPayload('created');
+        $permission = $request->getPayload('permission');
+        $response = new Response();
         if (!$title || !$content) {
-            return $this->response
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'content && title are required',
                     'code' => 1,
@@ -159,10 +162,15 @@ class Admin extends Controller
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
-            return $this->response->withStatus(400)->json([
+            return $response
+            ->withStatus(400)
+            ->json([
                 'message' => 'article not found',
                 'code' => 2,
             ]);
+        }
+        if (is_array($tags)) {
+            $tags = implode(',', $tags);
         }
         $art->title = $title;
         $art->content = $content;
@@ -170,23 +178,22 @@ class Admin extends Controller
         $art->tags = $tags;
         $art->permission = $permission;
         if ($time) {
-            $time = mktime($time);
-            $art->created = $time;
+            $art->created = strtotime($time);
         }
-        var_dump($this->payload);
-        $result = $art->update();
-        var_dump($result->toArray());
-        $this->response->json([
+
+        $art->update();
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
         ]);
     }
 
-    public function drop()
+    public function drop(Request $request)
     {
-        $id = $this->request->getParam('id');
+        $id = $request->getParam('id');
+        $response = new Response();
         if (!intval($id)) {
-            return $this->response
+            return $response
                 ->withStatus(400)
                 ->json([
                     'message' => 'Illegal ID',
@@ -196,23 +203,25 @@ class Admin extends Controller
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
-            return $this->response->withStatus(400)->json([
+            return $response->withStatus(400)
+            ->json([
                 'message' => 'article not found',
                 'code' => 2,
             ]);
         }
         $art->delete();
-        $this->response->json([
-            'message' => 'ok',
-            'code' => 0,
-        ]);
+        return $response->json([
+                'message' => 'ok',
+                'code' => 0,
+            ]);
     }
 
-    public function detail()
+    public function detail(Request $request)
     {
-        $id = $this->request->getParam('id');
+        $id = $request->getParam('id');
+        $response = new Response();
         if (!intval($id)) {
-            return $this->response
+            return $response
                 ->withStatus(400)
                 ->json([
                     'message' => 'Illegal ID',
@@ -222,13 +231,13 @@ class Admin extends Controller
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
-            return $this->response->withStatus(400)->json([
+            return $response->withStatus(400)->json([
                 'message' => 'article not found',
                 'code' => 2,
             ]);
         }
         $art = $art->toArray();
-        $this->response->json([
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => $art,
@@ -244,9 +253,9 @@ class Admin extends Controller
      * @query int $pageSize required
      * @return $ref comment
      */
-    public function comments()
+    public function comments(Request $request)
     {
-        $page = abs($this->request->getQuery('page'));
+        $page = abs($request->getQuery('page'));
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
@@ -261,7 +270,8 @@ class Admin extends Controller
             ]);
         $total = 0; // @todo
         $comments = $comment->toArray($comments);
-        $this->response->json([
+        $response = new Response();
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -273,12 +283,13 @@ class Admin extends Controller
         ]);
     }
 
-    public function dropComment()
+    public function dropComment(Request $request)
     {
-        $ids = $this->body('ids');
+        $ids = $request->getPayload('ids');
         $ids = explode(',', $ids);
+        $response = new Response();
         if (empty(($ids))) {
-            return $this->response->withStatus(400)->json([
+            return $response->withStatus(400)->json([
                 'message' => '参数错误',
                 'code' => 1,
             ]);
@@ -286,7 +297,7 @@ class Admin extends Controller
         $comment = new Comment();
         $where = ['id' => ['$in' => $ids]];
         $comment->delete($where);
-        $this->response->json([
+        return $response->json([
             'message' => 'ok',
             'code' => 0,
         ]);

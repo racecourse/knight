@@ -15,7 +15,7 @@ return [
         'worker_num' => 1,
     ],
     'db' => [
-        'servers' => [
+       'servers' => [
             'host' => '127.0.0.1',
             'port' => '3306',
             'user' => 'root',
@@ -28,6 +28,7 @@ return [
         'debug' => true,
     ],
     'session' => [
+        'class' =>'Marmot\Session',
         'issuer' => 'localhost',
         'audience' => '127.0.0.1',
         'expired' => 3600,

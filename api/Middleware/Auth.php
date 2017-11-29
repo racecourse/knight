@@ -12,8 +12,8 @@ namespace Knight\Middleware;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
-use Courser\Http\Request;
-use Courser\Http\Response;
+use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 
 class Auth
 {
@@ -54,8 +54,9 @@ class Auth
         return $config;
     }
 
-    public function __invoke(Request $req, Response $res)
+    public function __invoke(Request $req, $next)
     {
+        $res = new Response();
         $authorization = $req->getHeader('authorization');
         if (!$authorization) {
             return $res->withStatus(401)->json([
@@ -85,6 +86,8 @@ class Auth
             ]);
         }
         $req->auth = $user;
+
+        return $next($req);
     }
 
     public function decode($token)

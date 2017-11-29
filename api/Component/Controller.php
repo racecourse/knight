@@ -10,25 +10,16 @@
 namespace Knight\Component;
 
 
-use Courser\Http\Request;
-use Courser\Http\Response;
+use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 
 class Controller
 {
-    public $request;
+    protected $response;
 
-    public $response;
-
-    protected $payload  = [];
-
-    public function __construct(Request $req, Response $res)
+    public function __construct()
     {
-        $this->request = $req;
-        $this->response = $res;
-        $this->payload = $this->request->getParsedBody();
+        $this->response = new Response();
     }
 
-    public function body($key = null, $default = null) {
-        return $this->payload[$key] ?? $default;
-    }
 }

@@ -1,10 +1,14 @@
 <template>
-  <div>
-    <SideNav></SideNav>
+  <div class="layout">
+    <div class="header">
+      <SideNav></SideNav>
+    </div>
     <div class="main-wrapper">
       <router-view></router-view>
     </div>
-    <Bottom></Bottom>
+    <div class="footer">
+      <Bottom></Bottom>
+    </div>
   </div>
 </template>
 <style>

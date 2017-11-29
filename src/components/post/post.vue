@@ -1,15 +1,19 @@
 <template>
   <div>
     <div class="content">
-      <mu-card>
-        <mu-card-header :title="result.title"
-          :subTitle="result.created">
-            <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
-        </mu-card-header>
-        <mu-card-text>
-          <div v-html="result.content"></div>
-        </mu-card-text>
-      </mu-card>
+      <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
+      <div class="title"><h4>{{result.title}}</h4></div>
+      <mu-sub-header>
+        <span>{{new Date(result.created * 1000).toLocaleDateString()}}</span>
+      </mu-sub-header>
+      <mu-content-block>
+        <section v-html="result.content"></section>
+      </mu-content-block>
+      <div class="post-footer">
+        <div class="cate">桑下语</div>
+        <div class="tags">php</div>
+      </div>
+      <div class="split"></div>
     </div>
     <div class="comment-wrapper">
       <div v-for="comment in comments.list" :key="comment.id">
@@ -25,7 +29,7 @@
           <mu-text-field label="username" hintText="username" v-model="username"/>
           <mu-text-field label="email" hintText="email" v-model="email"/>
           <mu-text-field label="site" hintText="site" v-model="site"/>
-          <mu-text-field label="content" hintText="content" v-model="content" multiLine :rows="10" :rowsMax="60" :maxLength="100"/>
+          <mu-text-field label="content" hintText="content" v-model="content" multiLine :rows="10" :rowsMax="60" :maxLength="200"/>
         </div>
         <div class="from-btn">
           <div @click="submit">
@@ -110,6 +114,12 @@
     computed: {
       result: function () {
         const data = Object.assign({}, this.article);
+        const markedOptions = {
+          highlight: function(code) {
+            return window.hljs.highlightAuto(code).value;
+          },
+        };
+        marked.setOptions(markedOptions);
         data.content =  marked(data.content);
         const created = data.created ? new Date(data.created * 1000) : new Date();
         data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
@@ -131,7 +141,7 @@
     -webkit-box-direction: normal;
     flex-direction: column;
     z-index: 1;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12);
+    /* box-shadow: 0 1px 5px rgba(0, 0, 0, .2), 0 2px 2px rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .12); */
   }
 
   .comments {
@@ -160,7 +170,7 @@
 
   .form-inside {
     position: relative;
-    width: 60%;
+    width: 80%;
     margin: 1em auto;
     border: 1px solid #b2b2b2;
     padding: 2em;

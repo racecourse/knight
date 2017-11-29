@@ -13,6 +13,8 @@ use Ben\Config;
 
 class Dao extends Model
 {
+    use Common;
+    
     protected $table = '';
 
     public function __construct($config = [])
@@ -21,7 +23,6 @@ class Dao extends Model
             $config = Config::get('db');
         }
 
-        var_dump($config);
         parent::__construct($config);
     }
 

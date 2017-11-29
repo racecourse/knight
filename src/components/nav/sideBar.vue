@@ -25,9 +25,7 @@
 
 <style type="css">
   .menu {
-    position: fixed;
-    left: 1em;
-    top: 1em;
+    position: flex;
     z-index: 100;
   }
   

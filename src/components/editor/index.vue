@@ -7,6 +7,9 @@
         <mu-text-field hintText="title" v-model="art.title"/>
         <mu-select-field v-model="art.cateId" :labelFocusClass="['label-foucs']" label="category">
           <mu-menu-item v-for="(cate,index) in category" :key="index" :value="cate.id" :title="cate.name" />
+          <div class="newcate" v-on:keydown.enter="addCate">
+            <mu-text-field hintText="new category enter完成输入" v-model="newCate"/>
+          </div>
         </mu-select-field>
         <br/>
         <div v-on:keydown.enter="tag">
@@ -36,6 +39,9 @@
   @import '../admin/main.css';
 </style>
 <style>
+  .newcate {
+    padding: 5px 25px;
+  }
 </style>
 <script>
 import { markdownEditor } from 'vue-simplemde';
@@ -70,6 +76,7 @@ export default {
       tags: [],
       editor: null,
       category: [],
+      newCate: '',
       content: '',
       title: '',
       tags: [],
@@ -98,6 +105,16 @@ export default {
     deleteTag(index) {
       this.tags.splice(index, 1);
     },
+    async addCate() {
+      if (!this.newCate) {
+        return this.tip('category name reuqired');
+      }
+      this.$store.dispatch('addCategory', this.newCate);
+      await this.$store.dispatch('category');
+      this.category = this.$store.getters.getCategory;
+      this.tip('add new category success~!');
+      this.newCate = '';
+    },
     async commit() {
       const id = this.$route.params.id;
       const article = Object.assign({}, this.art);
@@ -115,6 +132,7 @@ export default {
         permission: article.permission,
         content: article.content,
         tags: article.tags,
+        created: article.created,
       }
       if (!id) {
         await this.$store.dispatch('addArticle', data);
@@ -158,11 +176,4 @@ export default {
   },
 }
 </script>
-<style>
-  .ql-container .ql-editor {
-    min-height: 30em;
-    padding-bottom: 1em;
-    max-height: 50em;
-  }
-</style>
 

@@ -7,10 +7,15 @@ import { sync } from 'vuex-router-sync';
 import Cellar from './util/storage';
 import App from './App.vue';
 import MuseUI from 'muse-ui';
+import hljs from 'highlight.js';
 import 'muse-ui/dist/muse-ui.css';
+
 import teal from 'muse-ui/dist/theme-teal.css'
+import './assets/hljs.css';
+import './assets/common.css';
 import './assets/reset.css';
 
+window.hljs = hljs;
 Vue.use(MuseUI)
 const storage = new Cellar();
 window.addEventListener('load', () => {

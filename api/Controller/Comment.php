@@ -12,6 +12,7 @@ namespace Knight\Controller;
 use Knight\Component\Controller;
 use Knight\Model\Comment as Discuss;
 use Knight\Model\Post;
+use Hayrick\Http\Request;
 
 class Comment extends Controller
 {
@@ -19,10 +20,10 @@ class Comment extends Controller
     /**
      * @throws \Exception
      */
-    public function comments()
+    public function comments(Request $request)
     {
-        $artId = $this->request->getParam('artId');
-        $page = $this->request->getQuery('page');
+        $artId = $request->getParam('artId');
+        $page = $request->getQuery('page');
         $page = abs(intval($page)) ?: 1;
         $pageSize = 20;
         $comment = new Discuss();
@@ -45,7 +46,7 @@ class Comment extends Controller
         ];
         $list = $comment->find($where, $options);
         $list = $comment->toArray($list);
-        $this->response->json([
+        return $this->response->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -60,13 +61,13 @@ class Comment extends Controller
     /**
      * @throws \Exception
      */
-    public function add()
+    public function add(Request $request)
     {
-        $artId = $this->request->getParam('id');
-        $content = $this->body('content');
-        $email = $this->body('email');
-        $site = $this->body('site');
-        $username = $this->body('username');
+        $artId = $request->getParam('id');
+        $content = $request->getPayload('content');
+        $email = $request->getPayload('email');
+        $site = $request->getPayload('site');
+        $username = $request->getPayload('username');
         $username = preg_replace('/\s/', '', $username);
         $content = preg_replace('/\s/', '', $content);
         if (!$username || !$content) {
@@ -78,7 +79,6 @@ class Comment extends Controller
                 ]);
         }
         $check = (new Post())->findById($artId);
-        var_dump($check);
         if (!$check) {
             return $this->response
                 ->withStatus(400)
@@ -97,8 +97,7 @@ class Comment extends Controller
         ];
         $comment = new Discuss();
         $comment->insert($data);
-        var_dump($this->response);
-        $this->response->json([
+        return $this->response->json([
             'message' => 'ok',
             'code' => 0,
         ]);

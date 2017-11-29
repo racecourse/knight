@@ -9,6 +9,7 @@
 
 namespace Knight\Controller;
 
+use Hayrick\Http\Request;
 use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
@@ -18,10 +19,10 @@ class Auth extends Controller
 {
 
 
-    public function login()
+    public function login(Request $request)
     {
-        $username = $this->body('username');
-        $password = $this->body('password');
+        $username = $request->getPayload('username');
+        $password = $request->getPayload('password');
         if (!$username || !$password) {
             return $this->response
                 ->withStatus(400)
@@ -69,12 +70,12 @@ class Auth extends Controller
      * route: /register
      * register
      * */
-    public function register()
+    public function register(Request $request)
     {
-        $username = $this->body('username');
-        $password = $this->body('password');
-        $email = $this->body('email');
-        $confirm = $this->body('confirm');
+        $username = $request->getPayload('username');
+        $password = $request->getPayload('password');
+        $email = $request->getPayload('email');
+        $confirm = $request->getPayload('confirm');
         if (!$username) {
             return $this->response
                 ->withStatus(404)
