@@ -15,7 +15,11 @@ use Hayrick\Http\Response;
 
 class Controller
 {
+    protected $response;
 
-
+    public function __construct()
+    {
+        $this->response = new Response();
+    }
 
 }

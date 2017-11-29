@@ -10,12 +10,13 @@
 
  use Knight\Component\Controller;
  use Knight\Model\Category as Cate;
+ use Hayrick\Http\Request;
 
  class Category extends Controller {
 
-    public function create()
+    public function create(Request $request)
     {
-        $name = $this->body('name');
+        $name = $request->getPayload('name');
         if (!$name) {
             return $this->response
                 ->withStatus(400)
@@ -28,7 +29,7 @@
         $category->name = $name;
         $category->created = time();
         $cate = $category->save();
-        $this->response
+        return $this->response
             ->json([
                 'message' => 'ok',
                 'code' => 0,
@@ -36,9 +37,9 @@
             ]);
     }
 
-    public function drop()
+    public function drop(Request $request)
     {
-        $id = $this->request->getParam('id');
+        $id = $request->getParam('id');
         if (!$id) {
             return $this->response
                 ->withStatus(400)
@@ -58,7 +59,7 @@
                 ]);
         }
         $cate->delete();
-        $this->response
+        return $this->response
             ->json([
                 'message' => 'ok',
                 'code' => 0,
