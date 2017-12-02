@@ -46,7 +46,7 @@ class Article extends Controller
 //        }
         $list = yield $article->find($condition, $options);
         $list = $article->toArray($list);
-        $total = $article->count($condition);
+        $total = yield $article->count($condition);
         $response = new Response();
         $response =  $response->json([
             'message' => 'ok',
