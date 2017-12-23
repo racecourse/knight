@@ -45,8 +45,10 @@ p {
 .post-footer span {
   margin: 0 5px;
 }
-.post-footer .mu-icon {
+
+.mu-icon {
   position: relative;
+  margin-right: 2px; 
   top: 5px;
   font-size: 1rem;
   font-weight: 400 !important;

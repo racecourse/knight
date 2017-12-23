@@ -5,9 +5,9 @@
         <div class="nav-item">
           <SideBar></SideBar>
         </div>
-        <div class="nav-item">首页</div>
-        <div class="nav-item">归档</div>
-        <div class="nav-item">关于</div>
+        <div class="nav-item">Home</div>
+        <div class="nav-item">Archive</div>
+        <div class="nav-item">About</div>
         <div class="filter">
           <!-- <input type="text" name="keyword"/> -->
         </div>
@@ -68,7 +68,7 @@
 
   .nav {
     position: relative;
-    max-width: 720px;
+    max-width: 860px;
     margin: 0 auto;
     padding: .3em 0;
     display: block;

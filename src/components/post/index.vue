@@ -6,6 +6,7 @@
         <h4>{{post.title}}</h4>
       </div>
       <mu-sub-header>
+        <mu-icon value="date_range" />
         <span>{{new Date(post.created * 1000).toLocaleDateString()}}</span>
       </mu-sub-header>
       <mu-content-block>
@@ -17,10 +18,12 @@
           <span>桑下语</span>
           <mu-icon value="visibility" />
           <span>1000</span>
-        </div>
-        <div class="tags">
           <mu-icon value="label_outline" v-if="article.tags" />
           <span v-for="(tag, index) in article.tags.split(',')" :key="index">{{tag}}</span>
+        </div>
+        <div class="tags">
+          <mu-icon value="floder" />
+          <span>read more ...</span>
         </div>
       </div>
       <div class="split"></div>

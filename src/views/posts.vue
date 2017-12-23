@@ -5,7 +5,7 @@
             :article="post"
             :key="post.id">
       </Post>
-      <Pagination :page="page" :total="total" :pageSize="pageSize"></Pagination>
+      <Pagination :page="page" :total="total" :pageSize="pageSize" v-if="posts.length"></Pagination>
     </div>
   </div>
 </template>
