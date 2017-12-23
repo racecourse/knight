@@ -67,6 +67,7 @@ class Admin extends Controller
             'list' => $posts,
         ];
         $response = new Response();
+        
         return $response->json([
             'message' => 'ok',
             'code' => 0,
@@ -94,6 +95,7 @@ class Admin extends Controller
                     'code' => 1,
                 ]);
         }
+
         if (!$title) {
             return $response->withStatus(400)
                 ->json([
@@ -101,12 +103,14 @@ class Admin extends Controller
                     'code' => 1,
                 ]);
         }
+
         if (!$content) {
             return $response->withStatus(400)
                 ->json([
                     'message' => 'content can not empty'
                 ]);
         }
+
         $created = $request->getPayload('created');
         $created = $created ? strtotime($created) : time();
         $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
@@ -159,6 +163,7 @@ class Admin extends Controller
                     'code' => 1,
                 ]);
         }
+
         $post = new Post();
         $art = $post->findById($id);
         if (!$art) {
@@ -169,9 +174,11 @@ class Admin extends Controller
                 'code' => 2,
             ]);
         }
+
         if (is_array($tags)) {
             $tags = implode(',', $tags);
         }
+
         $art->title = $title;
         $art->content = $content;
         $art->cateId = $cateId;

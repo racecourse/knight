@@ -13,8 +13,6 @@ use Ben\Config;
 
 class Dao extends Model
 {
-    use Common;
-    
     protected $table = '';
 
     public function __construct($config = [])

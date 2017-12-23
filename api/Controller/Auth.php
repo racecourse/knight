@@ -24,6 +24,7 @@ class Auth extends Controller
     {
         $username = $request->getPayload('username');
         $password = $request->getPayload('password');
+        var_dump($username, $password);
         $response = new Response;
         if (!$username || !$password) {
             return $response
@@ -32,6 +33,7 @@ class Auth extends Controller
         }
         $user = new User();
         $userInfo = yield $user->findOne(['username' => $username]);
+        var_dump($userInfo);
         if (!$userInfo) {
             return $response
                 ->withStatus(404)
@@ -40,8 +42,8 @@ class Auth extends Controller
                     'code' => 2,
                 ]);
         }
-        $userInfo = $userInfo->toArray();
-        $verify = password_verify($password, $userInfo['password']);
+
+        $verify = password_verify($password, $userInfo->password);
         if (!$verify) {
             return $response
                 ->withStatus(401)
@@ -50,6 +52,7 @@ class Auth extends Controller
                     'code' => 3,
                 ]);
         }
+
         $info = [
             'id' => $userInfo->id,
             'username' => $userInfo->username,
@@ -58,8 +61,10 @@ class Auth extends Controller
         ];
         $jwt = new JWTAuth(Config::get('jwt'));
         $token = $jwt->encode($info);
+        $userInfo = $userInfo->toArray();
         unset($userInfo['password']);
-        $response->json([
+        
+        return $response->json([
             'message' => 'ok',
             'data' => [
                 'user' => $userInfo,

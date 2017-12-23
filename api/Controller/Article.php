@@ -96,8 +96,8 @@ class Article extends Controller
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
-        $session = $request->session;
-        $userId = $session->userId;
+        $session = $request->getAttribute('session');
+        $userId = $session->id;
         $article = new Post();
         $where = [
             'userId' => $userId,

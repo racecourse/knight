@@ -54,7 +54,7 @@ class Auth
         return $config;
     }
 
-    public function __invoke(Request $req, Closure $next)
+    public function __invoke(Request $req, \Closure $next)
     {
         $res = new Response();
         $authorization = $req->getHeader('authorization');
@@ -87,7 +87,9 @@ class Auth
                 'code' => 10401,
             ]);
         }
-        $req->auth = $user;
+
+        var_dump($user);
+        $req = $req->withAttribute('session', $user);
 
         return $next($req);
     }

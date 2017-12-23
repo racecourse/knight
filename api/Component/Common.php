@@ -9,7 +9,7 @@
 namespace Knight\Component;
 
 use Ben\Config;
-use Symfony\Component\Translation\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 
 trait Common
 {
@@ -29,7 +29,7 @@ trait Common
             $this->component[$name] = new $class($config);
             return $this->component[$name];
         }else{
-            throw new InvalidArgumentException('This class of component is not exist!');
+            throw new InvalidArgumentException('This class of' . $name . ' is not exist!');
         }
     }
 
