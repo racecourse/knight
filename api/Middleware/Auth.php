@@ -54,7 +54,7 @@ class Auth
         return $config;
     }
 
-    public function __invoke(Request $req, $next)
+    public function __invoke(Request $req, Closure $next)
     {
         $res = new Response();
         $authorization = $req->getHeader('authorization');
@@ -71,6 +71,7 @@ class Auth
                 'code' => 10401,
             ]);
         }
+        
         list($bearer, $token) = $authorization;
         if ($bearer !== 'Bearer') {
             return $res->withStatus(401)->json([
@@ -78,6 +79,7 @@ class Auth
                 'code' => 10401,
             ]);
         }
+
         $user = $this->decode($token);
         if (!$user) {
             return $res->withStatus(401)->json([

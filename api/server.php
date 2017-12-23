@@ -22,15 +22,12 @@ $app = new App();
 $cors = new Cors();
 
 $app->used($cors);
-$app->used(function (Request $request, Closure $next) {
-    return $next($request);
-});
 
 $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);
 $app->get('/posts/:id/comments', [Knight\Controller\Article::class, 'comments']);
 $app->post('/posts/:id/comments', [Knight\Controller\Comment::class , 'add']);
-$app->get('category', [Knight\Controller\Admin::class , 'register']);
+$app->get('category', [Knight\Controller\Category::class , 'list']);
 $app->post('/login', [Knight\Controller\Auth::class, 'login']);
 $app->group('/admin', function () {
     $auth = new Auth(Config::get('jwt'), 'knight');

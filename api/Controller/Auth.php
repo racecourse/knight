@@ -10,6 +10,7 @@
 namespace Knight\Controller;
 
 use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
@@ -23,15 +24,16 @@ class Auth extends Controller
     {
         $username = $request->getPayload('username');
         $password = $request->getPayload('password');
+        $response = new Response;
         if (!$username || !$password) {
-            return $this->response
+            return $response
                 ->withStatus(400)
                 ->json(['message' => 'param error', 'code' => 1]);
         }
         $user = new User();
-        $userInfo = $user->findOne(['username' => $username]);
+        $userInfo = yield $user->findOne(['username' => $username]);
         if (!$userInfo) {
-            return $this->response
+            return $response
                 ->withStatus(404)
                 ->json([
                     'message' => 'user not found',
@@ -41,7 +43,7 @@ class Auth extends Controller
         $userInfo = $userInfo->toArray();
         $verify = password_verify($password, $userInfo['password']);
         if (!$verify) {
-            return $this->response
+            return $response
                 ->withStatus(401)
                 ->json([
                     'message' => 'password incorrect',
@@ -57,7 +59,7 @@ class Auth extends Controller
         $jwt = new JWTAuth(Config::get('jwt'));
         $token = $jwt->encode($info);
         unset($userInfo['password']);
-        $this->response->json([
+        $response->json([
             'message' => 'ok',
             'data' => [
                 'user' => $userInfo,
@@ -76,8 +78,9 @@ class Auth extends Controller
         $password = $request->getPayload('password');
         $email = $request->getPayload('email');
         $confirm = $request->getPayload('confirm');
+        $response = new Response;
         if (!$username) {
-            return $this->response
+            return $response
                 ->withStatus(404)
                 ->json([
                     'message' => 'Illegal Username',
@@ -85,8 +88,7 @@ class Auth extends Controller
                 ]);
         }
         if (!$password || strlen($password) < 5 || $password !== $confirm) {
-            return $this->response
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'Password Incorrect',
                     'code' => 2,
@@ -100,7 +102,7 @@ class Auth extends Controller
         $user->created = time();
         $user->save();
         $userInfo = $user->toArray();
-        $this->response->json([
+        return $response->json([
             'message' => 'ok',
             'data' => $userInfo,
         ]);
