@@ -4,7 +4,7 @@
       <span>Copyright (c) 2017-{{now}}</span>
       <span>powered by <a href="//github.com/racecourse">racecourse</a></span>
       <span></span>
-      <a href="//github.com/racecourse/knight">
+      <a href="//github.com/eclogue/knight">
         <img class="repo" src="./github.png">
       </a>
     </div>
@@ -13,6 +13,7 @@
 <style>
   .common-bottom {
     position: absolute;
+    bottom:0;
     width: 100%;
     padding: 2em;
     text-align: center;

@@ -1,6 +1,6 @@
 .post {
   margin: 0 auto;
-  max-width: 720px;
+  max-width: 860px;
   padding: 0 15px;
   min-height: 100%;
   position: relative;
@@ -22,21 +22,33 @@ p {
   -webkit-margin-end: 0px;
 }
 .split {
-  margin: 1.5em 0;
+  margin: 1em 0;
   padding: 1em;
   border-bottom: 1px dashed #b2b2b2;
 }
 .post-footer {
-  height: 1em;
   padding: 1em;
-  color: #777768;
-  display: block;
+  color: #b4b4b4;
+  line-height: 1.5em;
+  vertical-align: bottom;
 }
 .post-footer .cate {
   float: left;
-  display: inline;
+  font-size: 0.8rem;
 }
 .post-footer .tags {
   float: right;
-  display: inline;
+  font-size: 0.8rem;
+  text-align: right;
+  
+}
+.post-footer span {
+  margin: 0 5px;
+}
+.post-footer .mu-icon {
+  position: relative;
+  top: 5px;
+  font-size: 1rem;
+  font-weight: 400 !important;
+
 }

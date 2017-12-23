@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="content">
-      <mu-avatar slot="avatar"color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
+      <mu-avatar slot="avatar" color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
       <div class="title" @click="detail(post.id)">
         <h4>{{post.title}}</h4>
       </div>
@@ -12,8 +12,16 @@
         <section v-html="post.content"></section>
       </mu-content-block>
       <div class="post-footer">
-        <div class="cate">桑下语</div>
-        <div class="tags">php</div>
+        <div class="cate">
+          <mu-icon value="assignment" />
+          <span>桑下语</span>
+          <mu-icon value="visibility" />
+          <span>1000</span>
+        </div>
+        <div class="tags">
+          <mu-icon value="label_outline" v-if="article.tags" />
+          <span v-for="(tag, index) in article.tags.split(',')" :key="index">{{tag}}</span>
+        </div>
       </div>
       <div class="split"></div>
     </div>
@@ -36,7 +44,7 @@
 
     },
     mounted () {
-      console.log(this.article);
+      console.log(this.article.tags.split(','))
     },
     methods: {
       detail(id) {

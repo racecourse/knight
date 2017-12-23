@@ -24,18 +24,6 @@
         </mu-col>
       </mu-row>
     </div>
-    <div class="footer">
-      <div class="footer-content">
-        <div class="footer-left">
-          © 1970-2017 knight, all rights reserved. 公网安备 ********** 号
-        </div>
-        <div class="footer-rigth">
-          <a href="https://github.com/eclogue/knight">
-            <img class="repo" src="./github.png">
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
   <!-- <div class="container">
     <SideBar></SideBar>
