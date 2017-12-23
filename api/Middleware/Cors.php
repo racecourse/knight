@@ -2,15 +2,19 @@
 namespace Knight\Middleware;
 
 use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 
 class Cors {
 
     public function __invoke(Request $req, \Closure $next) {
         $method = strtoupper($req->getMethod());
+        var_dump($method);
         if ($method !== "OPTIONS") {
-            return $next($req);
+            $response = $next($req);
+        } else {
+            $response = new Response();
         }
-        $response = $next($req);
+        
         $response = $response->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With')
             ->withHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')

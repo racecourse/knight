@@ -1,8 +1,8 @@
 {
-  "watch": ["api"],
+  "watch": ["."],
   "language": "php",
   "script": "api/server.php",
-  "ignore": ["node_modules", "vendor", ".idea"],
+  "ignore": ["node_modules", ".idea", ".git"],
   "safe": false,
   "args": {
     "--env": "develop"

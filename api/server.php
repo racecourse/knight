@@ -10,7 +10,7 @@
 define('APP_ROOT', dirname(dirname(__FILE__)));
 require APP_ROOT . '/vendor/autoload.php';
 use Courser\App;
-use Courser\Server\HttpServer;
+use Courser\Server\SwooleServer;
 use Knight\Middleware\Cors;
 use Knight\Middleware\Auth;
 use Hayrick\Http\Request;
@@ -25,13 +25,13 @@ $app->used($cors);
 $app->used(function (Request $request, Closure $next) {
     return $next($request);
 });
+
 $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);
 $app->get('/posts/:id/comments', [Knight\Controller\Article::class, 'comments']);
 $app->post('/posts/:id/comments', [Knight\Controller\Comment::class , 'add']);
 $app->get('category', [Knight\Controller\Admin::class , 'register']);
 $app->post('/login', [Knight\Controller\Auth::class, 'login']);
-$app->get('/admin/article', [Knight\Controller\Admin::class, 'article']);
 $app->group('/admin', function () {
     $auth = new Auth(Config::get('jwt'), 'knight');
     $this->used($auth);
@@ -45,22 +45,26 @@ $app->group('/admin', function () {
     $this->post('/category', [Knight\Controller\Category::class, 'create']);
     $this->delete('/category/:id', [Knight\Controller\Category::class, 'drop']);
 });
-$app->notFound(function (Request $req, Closure $next) {
+
+$app->used(function (Request $req, Closure $next) {
     $response = $next($req);
     if (!$response instanceof Response) {
         $response = new Response();
     }
+
     return $response->withStatus(404)->json(['message' => 'Not Found']);
 });
-$app->error(function (Request $req, Response $res, Exception $err) {
+
+$app->setReporter(function ($err) {
+    var_dump($err);
     $res->withStatus(500)->json([
         'message' => 'server error',
         'code' => $err->getMessage(),
     ]);
 });
 
-$server = new HttpServer($app);
+$server = new SwooleServer($app);
 $setting = Config::get('server');
 $server->bind($setting['host'], $setting['port']);
-$server->set($setting);
+$server->setting($setting);
 $server->start();
