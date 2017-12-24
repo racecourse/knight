@@ -5,9 +5,9 @@
         <div class="nav-item">
           <SideBar></SideBar>
         </div>
-        <div class="nav-item">Home</div>
-        <div class="nav-item">Archive</div>
-        <div class="nav-item">About</div>
+        <div class="nav-item"><router-link to="/">Home</router-link></div>
+        <div class="nav-item"><router-link to="/archive">Archive</router-link></div>
+        <div class="nav-item"><router-link to="/acount">About</router-link></div>
         <div class="filter">
           <!-- <input type="text" name="keyword"/> -->
         </div>
