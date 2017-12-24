@@ -2,7 +2,7 @@
   <div class="common-bottom">
     <div class="copyright">
       <span>Copyright (c) 2017-{{now}}</span>
-      <span>powered by <a href="//github.com/racecourse">racecourse</a></span>
+      <span>powered by <a href="//github.com/eclogue">eclogue</a></span>
       <span></span>
       <a href="//github.com/eclogue/knight">
         <img class="repo" src="./github.png">
