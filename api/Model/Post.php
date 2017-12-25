@@ -13,6 +13,7 @@ class Post extends Dao
         'cateId' => ['column' => 'cate_id', 'type' => 'int'],
         'title' => ['column' => 'title', 'type' => 'string'],
         'tags' => ['column' => 'tags', 'type' => 'string'],
+        'views' => ['column' => 'views', 'type' => 'int'],
         'content' => ['column' => 'content', 'type' => 'string'],
         'permission' => ['column' => 'permission', 'type' => 'int', 'default' => 0],
         'created' => ['column' => 'created', 'type' => 'int'],

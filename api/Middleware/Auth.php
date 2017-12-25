@@ -88,7 +88,6 @@ class Auth
             ]);
         }
 
-        var_dump($user);
         $req = $req->withAttribute('session', $user);
 
         return $next($req);

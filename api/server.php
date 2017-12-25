@@ -53,7 +53,6 @@ $app->used(function (Request $req, Closure $next) {
 });
 
 $app->setReporter(function ($err) {
-    var_dump($err);
     $res->withStatus(500)->json([
         'message' => 'server error',
         'code' => $err->getMessage(),

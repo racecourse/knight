@@ -24,7 +24,6 @@ class Auth extends Controller
     {
         $username = $request->getPayload('username');
         $password = $request->getPayload('password');
-        var_dump($username, $password);
         $response = new Response;
         if (!$username || !$password) {
             return $response
@@ -33,7 +32,6 @@ class Auth extends Controller
         }
         $user = new User();
         $userInfo = yield $user->findOne(['username' => $username]);
-        var_dump($userInfo);
         if (!$userInfo) {
             return $response
                 ->withStatus(404)

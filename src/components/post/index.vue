@@ -17,7 +17,7 @@
           <mu-icon value="assignment" />
           <span>桑下语</span>
           <mu-icon value="visibility" />
-          <span>1000</span>
+          <span>{{article.views || 0}}</span>
           <mu-icon value="label_outline" v-if="article.tags" />
           <span v-for="(tag, index) in article.tags.split(',')" :key="index">{{tag}}</span>
         </div>
