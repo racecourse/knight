@@ -26,9 +26,49 @@ class Admin extends Controller
 //        $commentNumber = (new Comment())->count();
         $photoNumber = 0;
         $albumNumber = 0;
+        $settings['byte_notation'] = 1024; // Either 1024 or 1000; defaults to 1024
+        $settings['dates'] = 'm/d/y h:i A (T)'; // Format for dates shown. See php.net/date for syntax
+        $settings['language'] = 'en'; // Refer to the lang/ folder for supported lanugages
+        $settings['icons'] = true; // simple icons
+        $settings['theme'] = 'default'; // Theme file (layout/theme_$n.css). Look at the contents of the layout/ folder for other themes.
+        $settings['allow_changing_themes'] = false; // Allow changing the theme per user in the UI?
+        /*
+         * Possibly don't show stuff
+         */
+// For certain reasons, some might choose to not display all we can
+// Set these to true to enable; false to disable. They default to false.
+        $settings['show']['kernel'] = true;
+        $settings['show']['ip'] = true;
+        $settings['show']['os'] = true;
+        $settings['show']['load'] = true;
+        $settings['show']['ram'] = true;
+        $settings['show']['hd'] = true;
+        $settings['show']['webservice'] = false; // Might be dangerous/confidential information; disabled by default.
+        $settings['show']['phpversion'] = false; // Might be dangerous/confidential information; disabled by default.
+        $settings['show']['network'] = true;
+        $settings['show']['uptime'] = true;
+        $settings['show']['cpu'] = true;
+        $settings['show']['process_stats'] = true;
+        $settings['show']['hostname'] = true;
+        $settings['show']['distro'] = true; # Attempt finding name and version of distribution on Linux systems
+        $settings['show']['devices'] = true; # Slow on old systems
+        $settings['show']['model'] = true; # Model of system. Supported on certain OS's. ex: Macbook Pro
+        $settings['show']['numLoggedIn'] = true; # Number of unqiue users with shells running (on Linux)
+        $settings['show']['virtualization'] = true; # whether this is a VPS/VM and what kind
+// CPU Usage on Linux (per core and overall). This requires running sleep(1) once so it slows
+// the entire page load down. Enable at your own inconvenience, especially since the load averages
+// are more useful.
+        $settings['cpu_usage'] = true;
         $response = new Response();
-        $linfo = new Linfo();
-        $parser = $linfo->getParser();
+        $linfo = new Linfo($settings);
+        $output = new \Linfo\Output\Serialized($linfo);
+        var_dump($output->output());
+//        foreach($output as $key => $value) {
+//            echo $key . PHP_EOL;
+//            var_dump($value);
+//        }
+//        var_dump($output);
+        $linfo->scan();
         $response->json([
             'message' => 'ok',
             'code' => 0,
