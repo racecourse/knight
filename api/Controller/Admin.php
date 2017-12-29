@@ -14,6 +14,7 @@ use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Model\Category;
 use Hayrick\Http\Request;
+use Linfo\Linfo;
 
 class Admin extends Controller
 {
@@ -26,6 +27,8 @@ class Admin extends Controller
         $photoNumber = 0;
         $albumNumber = 0;
         $response = new Response();
+        $linfo = new Linfo();
+        $parser = $linfo->getParser();
         $response->json([
             'message' => 'ok',
             'code' => 0,
