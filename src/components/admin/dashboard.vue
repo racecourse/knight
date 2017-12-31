@@ -2,10 +2,63 @@
   <div class="sur-wrap">
     <section>
       <div class="sur-desc">
-        <div class="sur-title">系统概况</div>
-        <div class="sur-li"> cpu {{survey.pv}} %</div>
-        <div class="sur-li"> memery: {{survey.ip}} KB</div>
-        <div class="sur-li"> disk: {{survey.ip}} GB</div>
+        <div class="sur-title">system</div>
+        <div class="sur-li">
+           <span class="pk">hostname</span>
+           {{survey.system.hostname}}
+        </div>
+        <br/>
+        <div class="sur-li">
+          <span class="pk">OS</span>
+          {{survey.system.os}}
+        </div>
+        <br/>
+        <div class="sur-li">
+          <span class="pk">kernel</span>
+          {{survey.system.kernel}}
+        </div>
+        <br>
+        <div class="sur-li"> 
+          <span class="pk">uptime</span>
+          <span>info:</span>{{survey.system.uptime.text}}
+          <span>booted:</span>{{new Date(survey.system.uptime.bootedTimestamp * 1000)}}
+        </div>
+        <br>
+        <div class="sur-li">
+          <span class="pk">load</span>
+          <span>now:</span>{{survey.system.load.now}}
+          <span>5min:</span> {{survey.system.load['5min']}}
+          <span>15min:</span> {{survey.system.load['15min']}}
+        </div>
+        <br>
+        <div class="sur-li">
+          <span class="pk">memory</span>
+          <span>type:</span>{{survey.system.memory.type}}
+          <span>total:</span>{{(survey.system.memory.total / GB).toFixed(2)}} GB
+          <span>free:</span>{{(survey.system.memory.free / GB).toFixed(2)}} GB
+        </div>
+        <br>
+        <div class="sur-li">
+          <span class="pk">swap</span>
+          <span>total:</span>{{(survey.system.memory.swapTotal / GB).toFixed(2)}} GB
+          <span>free:</span>{{(survey.system.memory.swapFree / GB).toFixed(2)}} GB
+        </div>
+        <br>
+        <div class="sur-li" v-if="survey.system.process">
+          <span class="pk">process</span>
+          <span>running:</span>{{survey.system.process.running}}
+          <span>sleeping:</span>{{survey.system.process.sleeping}}
+          <span>idle:</span>{{survey.system.process.idle}}
+          <span>stopped:</span>{{survey.system.process.stopped}}
+        </div>
+        <br>
+        <div class="sur-li" v-if="survey.system.cpuInfo">
+          <span class="pk">cpu</span>
+          <span>cores:</span>{{survey.system.cupInfo.length}}
+          <span>sleeping:</span>{{survey.system.process.sleeping}}
+          <span>idle:</span>{{survey.system.process.idle}}
+          <span>stopped:</span>{{survey.system.process.stopped}}
+        </div>
       </div>
       <hr class="sur-divider">
       <div class="sur-desc">
@@ -88,6 +141,16 @@
     margin-left: 1em;
     font-weight: 200;
   }
+  .sur-li .pk {
+    width: 100px;
+    font-size: 1.2em;
+    color:rgb(11, 65, 32);
+    display: inline-block;
+  }
+  .sur-li span {
+    padding: 0 8px;
+    color: #a4aa6f;
+  }
   hr {
     display: block;
     -webkit-margin-before: 0.5em;
@@ -104,12 +167,14 @@
     data: function(){
       return {
         survey: {},
+        GB: Math.pow(1024, 3),
       }
     },
     async beforeMount() {
       await this.$store.dispatch('survey');
       const admin = this.$store.state.admin;
       this.survey = admin.survey || {};
+      console.log(this.survery);
     }
   }
 </script>
