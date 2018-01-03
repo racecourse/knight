@@ -74,7 +74,6 @@
       }
     },
     beforeMount() {
-      console.log('mount before');
       const token = storage.getItem('token');
       if (token) {
 //        console.log(token);

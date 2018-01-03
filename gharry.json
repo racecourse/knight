@@ -2,7 +2,7 @@
   "watch": ["."],
   "language": "php",
   "script": "api/server.php",
-  "ignore": ["node_modules", ".idea", ".git"],
+  "ignore": ["node_modules", "src", ".idea", ".git"],
   "safe": false,
   "args": {
     "--env": "develop"

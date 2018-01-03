@@ -1,7 +1,7 @@
 <template>
   <div class="sur-wrap">
     <section>
-      <div class="sur-desc">
+      <div class="sur-desc" v-if="system">
         <div class="sur-title">system</div>
         <div class="sur-li">
            <span class="pk">hostname</span>
@@ -54,7 +54,7 @@
         <br>
         <div class="sur-li" v-if="survey.system.cpuInfo">
           <span class="pk">cpu</span>
-          <span>cores:</span>{{survey.system.cupInfo.length}}
+          <span>cores:</span>{{survey.system.cupInfo}}
           <span>sleeping:</span>{{survey.system.process.sleeping}}
           <span>idle:</span>{{survey.system.process.idle}}
           <span>stopped:</span>{{survey.system.process.stopped}}
@@ -99,6 +99,7 @@
     position: relative;
     min-height: 100%;
     text-align: left; 
+    margin-bottom: 5rem;
   }
 
   .sur-desc {
@@ -108,8 +109,8 @@
     -ms-flex-pack: justify;
     justify-content: space-between;
     margin: 2em;
-    margin-bottom: 5em;
-    margin-top: 5em;
+    margin-bottom: 3em;
+    margin-top: 3em;
   }
   .sur-divider {
     margin: 0;
@@ -174,7 +175,16 @@
       await this.$store.dispatch('survey');
       const admin = this.$store.state.admin;
       this.survey = admin.survey || {};
-      console.log(this.survery);
+      console.log('>>>>>>|',this.survey.system.hostname);
+      // this.system = this.survey.system;
+    },
+
+    computed: {
+      system: function () {
+        if (this.survey.system) {
+          return this.survey.system;
+        }
+      }
     }
   }
 </script>

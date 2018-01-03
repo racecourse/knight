@@ -4,7 +4,6 @@
      "stage-3"
    ],
    "plugins": [
-     [ "syntax-async-functions"],
      [ "transform-decorators-legacy"],
      ["transform-runtime", {
        "polyfill": false,
