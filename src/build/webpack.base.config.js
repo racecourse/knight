@@ -7,7 +7,7 @@ function resolve (relPath) {
 }
 
 module.exports = {
-  entry: { app: resolve('../src/main.js') },
+  entry: { app: resolve('../main.js') },
   output: {
     filename: 'js/[name].js'
   },
@@ -16,7 +16,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('../src')],
+        include: [resolve('../')],
       },
       {
         test: /\.vue$/,

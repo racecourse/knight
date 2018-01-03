@@ -7,8 +7,8 @@
     "start": "pm2 start api/production.php",
     "server": "gharry -c gharry.json",
     "deploy": "sh bin/deploy.sh",
-    "dev": "NODE_ENV=develop webpack-dashboard -- node build/dev.js",
-    "build": "webpack --config build/webpack.prod.config.js --env=production"
+    "dev": "NODE_ENV=develop webpack-dashboard -- node src/build/dev.js",
+    "build": "webpack --config src/build/webpack.prod.config.js --env=production"
   },
   "dependencies": {
     "animate.css": "^3.5.2",
