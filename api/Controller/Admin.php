@@ -142,7 +142,7 @@ class Admin extends Controller
                 ]);
         }
 
-        $user = $this->getAttribute('session');
+        $user = $request->getAttribute('session');
         $created = $request->getPayload('created');
         $created = $created ? strtotime($created) : time();
         $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
