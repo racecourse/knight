@@ -81,6 +81,7 @@ class Auth
         }
 
         $user = $this->decode($token);
+        var_dump($user);
         if (!$user) {
             return $res->withStatus(401)->json([
                 'message' => 'unauthorization',

@@ -78,36 +78,31 @@ class Admin extends Controller
 
     public function article(Request $request)
     {
-        $pageSize = 10;
-        $page = $request->getQuery('page');
-        $page = abs($page) ?: 1;
+        $page = abs($request->getQuery('page'));
+        $page = $page ?: 1;
+        $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
+        $session = $request->getAttribute('session');
+        $userId = $session->id;
         $article = new Post();
-        $condition = [
-            'id' => ['$gt' => 0]
+        $where = [
+            'userId' => $userId,
         ];
-        $options = [
-            'limit' => $pageSize,
+        $option = [
             'offset' => $offset,
-            'order' => [
-                'created' => 'desc',
-            ]
+            'limit' => $pageSize,
+            'order' => ['id' => 'DESC'],
         ];
-        $posts = $article->find($condition, $options);
-        $posts = $article->toArray($posts);
-        $total = $article->count($condition);
-        $ret = [
-            'total' => $total, // @fixme
-            'page' => $page,
-            'pageSize' => $pageSize,
-            'list' => $posts,
-        ];
-        $response = new Response();
-        
-        return $response->json([
+        $articles = yield $article->find($where, $option);
+        $list = $article->toArray($articles);
+
+        return (new Response())->json([
             'message' => 'ok',
-            'code' => 0,
-            'data' => $ret,
+            'data' => [
+                'page' => $page,
+                'pageSize' => $pageSize,
+                'list' => $list,
+            ],
         ]);
     }
 
@@ -147,11 +142,12 @@ class Admin extends Controller
                 ]);
         }
 
+        $user = $this->getAttribute('session');
         $created = $request->getPayload('created');
         $created = $created ? strtotime($created) : time();
         $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
         $post = [
-            'userId' => 1,
+            'userId' => $user->id,
             'title' => $title,
             'content' => $content,
             'tags' => $tags,

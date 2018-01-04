@@ -29,12 +29,12 @@ $app->get('/posts/:id/comments', [Knight\Controller\Article::class, 'comments'])
 $app->post('/posts/:id/comments', [Knight\Controller\Comment::class , 'add']);
 $app->get('category', [Knight\Controller\Category::class , 'list']);
 $app->post('/login', [Knight\Controller\Auth::class, 'login']);
-$app->get('/survey', [Knight\Controller\Admin::class, 'survey']);
+$app->get('/article', [Knight\Controller\Admin::class, 'article']);
 $app->group('/admin', function () {
     $auth = new Auth(Config::get('jwt'), 'knight');
     $this->used($auth);
-   $this->get('/survey', [Knight\Controller\Admin::class, 'survey']);
-    $this->get('/article', [Knight\Controller\Article::class, 'article']);
+    $this->get('/survey', [Knight\Controller\Admin::class, 'survey']);
+    $this->get('/article', [Knight\Controller\Admin::class, 'article']);
     $this->get('/article/:id', [Knight\Controller\Admin::class, 'detail']);
     $this->delete('/article/:id', [Knight\Controller\Admin::class, 'drop']);
     $this->put('/article/:id', [Knight\Controller\Admin::class, 'edit']);
