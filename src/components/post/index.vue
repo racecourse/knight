@@ -23,7 +23,7 @@
         </div>
         <div class="tags">
           <mu-icon value="floder" />
-          <span>read more ...</span>
+          <span @click="detail(post.id)">read more ...</span>
         </div>
       </div>
       <div class="split"></div>
