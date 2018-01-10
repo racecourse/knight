@@ -1,6 +1,7 @@
 import Storage from '../util/storage';
 import util from '../util';
 import config from '../config';
+import {router} from '../main';
 
 const storage = new Storage();
 const getHeaders = () => {
@@ -42,6 +43,8 @@ export default async function api (uri, method, data) {
   } else if (Number(body.code) === 10401) {
     body.certification = false;
     body.ok = false;
+    storage.clear();
+    router.push('/login');
   } else {
     body.ok = false;
   }

@@ -9,7 +9,6 @@ import App from './App.vue';
 import MuseUI from 'muse-ui';
 import hljs from 'highlight.js';
 import 'muse-ui/dist/muse-ui.css';
-
 import teal from 'muse-ui/dist/theme-teal.css'
 import './assets/hljs.css';
 import './assets/common.css';
@@ -22,10 +21,12 @@ window.addEventListener('load', () => {
   FastClick.attach(document.body)
 });
 Vue.use(VueRouter);
-const router = new VueRouter({
+
+export const router = new VueRouter({
   mode: 'hash',
   routes,
 });
+
 router.beforeEach((to, from, next, ...rest) => {
   const meta = to.meta || {};
   const user = storage.getUser();
@@ -45,7 +46,6 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app');
-
 
 
 
