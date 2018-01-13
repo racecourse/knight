@@ -30,6 +30,7 @@ $app->post('/posts/:id/comments', [Knight\Controller\Comment::class , 'add']);
 $app->get('category', [Knight\Controller\Category::class , 'list']);
 $app->post('/login', [Knight\Controller\Auth::class, 'login']);
 $app->get('/article', [Knight\Controller\Admin::class, 'article']);
+$app->post('/photos', [Knight\Controller\Photo::class, 'create']);
 $app->group('/admin', function () {
     $auth = new Auth(Config::get('jwt'), 'knight');
     $this->used($auth);
@@ -60,6 +61,7 @@ $app->setReporter(function ($err) {
         'code' => $err->getMessage(),
     ]);
 });
+
 
 $server = new SwooleServer($app);
 $setting = Config::get('server');

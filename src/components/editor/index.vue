@@ -39,6 +39,7 @@
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>这是一个简单的弹出框</span>
+        <Uploader />
         <mu-flat-button slot="actions" @click="closeUploadBox" primary label="取消"/>
         <mu-flat-button slot="actions" primary @click="closeUploadBox" label="确定"/>
       </mu-dialog>
@@ -68,6 +69,7 @@
 import { markdownEditor } from 'vue-simplemde';
 import SimpleMDE from 'simplemde';
 import fecha from 'fecha';
+import Uploader from './upload.vue';
 
 export default {
   props: {
@@ -209,7 +211,8 @@ export default {
   },
   components: {
     // quillEditor
-    markdownEditor
+    markdownEditor,
+    Uploader
   },
 }
 </script>

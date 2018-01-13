@@ -25,6 +25,7 @@ class Photo extends Controller {
         $cfg = new UConfig($config['bucket'], $config['username'], $config['password']);
         $client = new Upyun($cfg);
         $files = $request->getUploadedFiles();
+        $success = [];
         foreach ($files as $key => $uploaded) {
             try {
                 $image = new Image();
@@ -47,7 +48,8 @@ class Photo extends Controller {
                 $image->created = time();
                 $image->attr = json_encode($extInfo);
                 var_dump($image);
-               yield $image->save();
+                $image = yield $image->save();
+                $success[] = $image->toArray();
             } catch (Exception $err) {
                 var_dump($err);
             }
@@ -55,7 +57,10 @@ class Photo extends Controller {
 
         $response = new Response;
         
-        return $response->json(['message' => 'ok']);
+        return $response->json([
+            'message' => 'ok',
+            'data' => $success
+        ]);
     }
 
     public function drop(Request $request)
