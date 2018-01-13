@@ -28,7 +28,8 @@
     "illuminate/support": "^5.4",
     "pimple/pimple": "^3.1",
     "psr/http-message": "^1.0",
-    "linfo/linfo": "dev-master"
+    "linfo/linfo": "dev-master",
+    "upyun/sdk": "dev-master"
   },
   "require-dev": {
     "eclogue/courser": "dev-develop",

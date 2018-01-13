@@ -5,15 +5,15 @@
       <div class="editor-option">
         <mu-text-field hintText="created at" v-model="art.created"/>
         <mu-text-field hintText="title" v-model="art.title"/>
-        <mu-select-field v-model="art.cateId" :labelFocusClass="['label-foucs']" label="category">
+        <mu-select-field v-model="art.cateId" label="category">
           <mu-menu-item v-for="(cate,index) in category" :key="index" :value="cate.id" :title="cate.name" />
           <div class="newcate" v-on:keydown.enter="addCate">
-            <mu-text-field hintText="new category enter完成输入" v-model="newCate"/>
+            <mu-text-field hintText="new category" v-model="newCate"/>
           </div>
         </mu-select-field>
         <br/>
         <div v-on:keydown.enter="tag">
-          <mu-text-field v-model="tagValue" hintText="标签，enter 完成输入"/>
+          <mu-text-field v-model="tagValue" hintText="tag，press enter split"/>
         </div>
         <br/>
         <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
@@ -21,26 +21,47 @@
         </mu-chip>
         <br/>
         <div class="permission">
-          <mu-radio label="public" name="permission" :nativeValue="permission" v-model="art.permission" />
-          <mu-radio label="hidden" name="permission" :nativeValue="permission" v-model="art.permission" />
-          <mu-radio label="private" name="permission" :nativeValue="permission" v-model="art.permission" />
+          <mu-radio label="public" name="permission" nativeValue="1" v-model="art.permission" />
+          <mu-radio label="hidden" name="permission" nativeValue="2" v-model="art.permission" />
+          <mu-radio label="private" name="permission" nativeValue="3" v-model="art.permission" />
         </div>
         <br/>
+        <div class="upload-wrap" @click="showUploadBox">
+          <mu-icon value="cloud_upload" :size="32"/>
+        </div>
+        <br />
         <mu-raised-button label="submit" @click="commit"/>
       </div>
     </div>
     <mu-snackbar v-if="snackbar.show" :message="snackbar.message" 
       action="close" @actionClick="hideSnackbar" @close="hideSnackbar">
     </mu-snackbar>  
+    <div>
+      <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
+        <span>这是一个简单的弹出框</span>
+        <mu-flat-button slot="actions" @click="closeUploadBox" primary label="取消"/>
+        <mu-flat-button slot="actions" primary @click="closeUploadBox" label="确定"/>
+      </mu-dialog>
+    </div>
   </div>
 </template>
 <style lang='sass'>
   @import './editor.scss';
   @import '../admin/main.css';
+  @import '~simplemde-theme-base/dist/simplemde-theme-base.min.css';
 </style>
 <style>
   .newcate {
-    padding: 5px 25px;
+    margin: 0 auto;
+    width: 80%;
+    overflow: hidden;
+  }
+  .upload-wrap {
+    text-align: center;
+    padding: 5px;
+    border: 1px dashed #b2b2b2;
+    border-radius: 5px;
+    cursor: pointer;
   }
 </style>
 <script>
@@ -85,12 +106,19 @@ export default {
       configs: {
         autosave: true,
         status: true,
-        initialValue: '###',
+        initialValue: '',
+        autosave: {
+          delay: 5000,
+          uniqueId: 'knight_noun'
+        },
+        spellChecker: false,
+        autoDownloadFontAwesome: true,
         renderingConfig: {
-          codeSyntaxHighlighting: true,
+          codeSyntaxHighlighting: false,
           highlightingTheme: 'github'
         }
-      }
+      },
+      dialog: false,
     }
   },
   async mounted() {
@@ -109,6 +137,7 @@ export default {
       if (!this.newCate) {
         return this.tip('category name reuqired');
       }
+
       this.$store.dispatch('addCategory', this.newCate);
       await this.$store.dispatch('category');
       this.category = this.$store.getters.getCategory;
@@ -122,6 +151,7 @@ export default {
         const message = 'title required~!';
         return this.tip(message);
       }
+
       if (!article.content) {
         return this.tip('content can not be empty~!');
       }
@@ -140,6 +170,7 @@ export default {
         data.id = id;
         await this.$store.dispatch('editArticle', data);
       }
+
       this.tip('success~!');
     },
     tip(message) {
@@ -155,6 +186,12 @@ export default {
       this.snackbar.message = '';
       if (this.snackbar.snackTimer) clearTimeout(this.snackbar.snackTimer)
     },
+    showUploadBox() {
+      this.dialog = true;
+    },
+    closeUploadBox() {
+      this.dialog = false;
+    }
   },
   computed: {
     art: function() {

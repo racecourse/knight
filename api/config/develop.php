@@ -46,4 +46,10 @@ return [
         ]
     ],
     'env' => 'develop',
+    'upyun' => [
+        'bucket' => 'knight-test',
+        'username' => 'devil',
+        'password' => 'knight123',
+        'domain' => 'knight-test.test.upcdn.net',
+    ]
 ];

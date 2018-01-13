@@ -85,7 +85,8 @@
             ]
             ];
         $list = yield $category->find($where, $options);
-
+        $list = $category->toArray($list);
+        
         return (new Response)
         ->json([
             'message' => 'ok',

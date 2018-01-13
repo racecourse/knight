@@ -33,6 +33,7 @@ $app->get('/article', [Knight\Controller\Admin::class, 'article']);
 $app->group('/admin', function () {
     $auth = new Auth(Config::get('jwt'), 'knight');
     $this->used($auth);
+    $this->post('/photos', [Knight\Controller\Photo::class, 'create']);
     $this->get('/survey', [Knight\Controller\Admin::class, 'survey']);
     $this->get('/article', [Knight\Controller\Admin::class, 'article']);
     $this->get('/article/:id', [Knight\Controller\Admin::class, 'detail']);
