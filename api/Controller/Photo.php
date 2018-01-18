@@ -39,18 +39,17 @@ class Photo extends Controller {
                 $attr = yield $client->write($savePath, $uploaded->getStream());
                 var_dump($attr);
                 $extInfo = [];
-                foreach($attr as $key => $value) {
-                    $key = str_replace('x-upyun-', '', $key);
-                    $extInfo[$key] = $value;
+                foreach($attr as $field => $value) {
+                    $field = str_replace('x-upyun-', '', $field);
+                    $extInfo[$field] = $value;
                 }
                 $url = $config['domain']  . '/' . $savePath;
                 $image->url = $url;
                 $image->created = time();
                 $image->attr = json_encode($extInfo);
-                var_dump($image);
                 $image = yield $image->save();
                 $success[] = $image->toArray();
-            } catch (Exception $err) {
+            } catch (\Exception $err) {
                 var_dump($err);
             }
         }
