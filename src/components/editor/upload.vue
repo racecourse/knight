@@ -20,18 +20,11 @@
 
   export default {
     props: {
-      success: {
+      notify: {
         type: Function,
         required: false,
         default: function () {
           return console.log;
-        }
-      },
-      fail: {
-        type: Function,
-        required: false,
-        default: function () {
-          return console.error;
         }
       },
     },
@@ -87,17 +80,10 @@
           }
         })
         .run();
-      uppy.on("complete", result => {
+      uppy.on("complete", function (result) {
         console.log("successful files:", result.successful);
         console.log("failed files:", result.failed);
-        const success = (self.success)();
-        const fail = (self.fail)();
-        console.log(success, fail);
-        console.log('>>>>>>>>self.images:::', self.images);
-        success(result.successful, self.images);
-        if (result.failed.length) {
-          fail(result.failed);
-        }
+        self.$emit('uploaded', result, self.images);
       });
     }
   };

@@ -39,7 +39,7 @@
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>这是一个简单的弹出框</span>
-        <Uploader />
+        <Uploader v-on:uploaded="uploadNotify" />
         <mu-flat-button slot="actions" @click="closeUploadBox" primary label="取消"/>
         <mu-flat-button slot="actions" primary @click="closeUploadBox" label="确定"/>
       </mu-dialog>
@@ -193,6 +193,14 @@ export default {
     },
     closeUploadBox() {
       this.dialog = false;
+    },
+    uploadNotify(result, images) {
+      if (Array.isArray(images)) {
+        images.map(image => {
+          console.log(this);
+          this.art.content += `<br>![](http://${image.url})`;
+        });
+      }
     }
   },
   computed: {

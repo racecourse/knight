@@ -45,7 +45,6 @@ class Article extends Controller
 //            ]];
 //        }
         
-        // throw new \Exception('fuck');
         $list = yield $article->find($condition, $options);
         $list = $article->toArray($list);
         $total = yield $article->count($condition);

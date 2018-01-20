@@ -60,5 +60,10 @@ p {
   top: 5px;
   font-size: 1rem;
   font-weight: 400 !important;
-
+}
+blockquote {
+  margin: 2em 0;
+  padding-left: 20px;
+  border-left: 3px solid #9fdb93;
+  background: #f9f7f7;
 }
