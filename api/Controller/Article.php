@@ -44,6 +44,8 @@ class Article extends Controller
 //                'tags' => $keyword,
 //            ]];
 //        }
+        
+        // throw new \Exception('fuck');
         $list = yield $article->find($condition, $options);
         $list = $article->toArray($list);
         $total = yield $article->count($condition);
@@ -109,7 +111,6 @@ class Article extends Controller
         ];
         $articles = yield $article->find($where, $option);
         $list = $article->toArray($articles);
-
         return (new Response())->json([
             'message' => 'ok',
             'data' => [

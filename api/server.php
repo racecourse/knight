@@ -55,10 +55,11 @@ $app->used(function (Request $req, Closure $next) {
     return $response->withStatus(404)->json(['message' => 'Not Found']);
 });
 
-$app->setReporter(function ($err) {
-    $res->withStatus(500)->json([
-        'message' => 'server error',
-        'code' => $err->getMessage(),
+$app->setReporter(function (Request $req, Throwable $err) {
+    $res = new Response();
+    return $res->withStatus(500)->json([
+        'message' => $err->getMessage(),
+        'code' => 500
     ]);
 });
 
