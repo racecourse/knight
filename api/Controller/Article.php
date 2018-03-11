@@ -6,6 +6,7 @@
  * @date      : 2017/3/16
  * @time      : 下午5:39
  */
+
 namespace Knight\Controller;
 
 use Hayrick\Http\Response;
@@ -13,12 +14,16 @@ use Knight\Model\Category;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Component\Controller;
-use Knight\Model\User;
 use Hayrick\Http\Request;
 
 class Article extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Exception
+     */
     public function posts(Request $request)
     {
         $page = abs($request->getQuery('page', 1));
@@ -44,12 +49,12 @@ class Article extends Controller
 //                'tags' => $keyword,
 //            ]];
 //        }
-        
+
         $list = yield $article->find($condition, $options);
         $list = $article->toArray($list);
         $total = yield $article->count($condition);
         $response = new Response();
-        $response =  $response->json([
+        $response = $response->json([
             'message' => 'ok',
             'code' => '0',
             'data' => [
@@ -89,7 +94,9 @@ class Article extends Controller
     }
 
     /**
-     * get article list
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
      */
     public function article(Request $request)
     {
@@ -127,6 +134,7 @@ class Article extends Controller
      * @query int $page required
      * @query int $pageSize required
      * @return $ref comment
+     * @throws \Exception
      */
     public function comments(Request $request)
     {
@@ -145,8 +153,8 @@ class Article extends Controller
         $offset = ($page - 1) * $pageSize;
         $comment = new Comment();
         $comments = $comment->find([
-            'artId' => $id,
-        ],
+                'artId' => $id,
+            ],
             [
                 'limit' => $pageSize,
                 'offset' => $offset,

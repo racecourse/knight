@@ -14,8 +14,12 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
 use Hayrick\Http\Request;
 use Hayrick\Http\Response;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
-class Auth
+class Auth implements MiddlewareInterface
 {
     /*
      * @var $config
@@ -25,14 +29,22 @@ class Auth
     private $id = '';
 
     /**
-     * @param array $config jwt config
-     * */
+     * Auth constructor.
+     *
+     * @param $config
+     * @throws \Exception
+     */
     public function __construct($config)
     {
         $this->config = $this->format($config);
         $this->id = isset($config['id']) ? $config['id'] : '';
     }
 
+    /**
+     * @param $config
+     * @return mixed
+     * @throws \Exception
+     */
     public function format($config)
     {
         if (!isset($config['issuer'])) {
@@ -54,10 +66,10 @@ class Auth
         return $config;
     }
 
-    public function __invoke(Request $req, \Closure $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $res = new Response();
-        $authorization = $req->getHeader('authorization');
+        $authorization = $request->getHeader('authorization');
         if (!$authorization) {
             return $res->withStatus(401)->json([
                 'message' => 'unauthorization',
@@ -81,7 +93,6 @@ class Auth
         }
 
         $user = $this->decode($token);
-        var_dump($user);
         if (!$user) {
             return $res->withStatus(401)->json([
                 'message' => 'unauthorization',
@@ -89,9 +100,9 @@ class Auth
             ]);
         }
 
-        $req = $req->withAttribute('session', $user);
+        $request = $request->withAttribute('session', $user);
 
-        return $next($req);
+        return $handler->handle($request);
     }
 
     public function decode($token)
