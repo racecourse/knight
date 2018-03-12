@@ -16,6 +16,10 @@ export default [
         path: '/archive',
         component: require('./views/archive.vue')
       },
+      {
+        path: '/photos',
+        component: require('./views/photos.vue')
+      },
     ]
   },
   {
