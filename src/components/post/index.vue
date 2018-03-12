@@ -1,14 +1,17 @@
 <template>
   <div>
     <div class="content">
-      <mu-avatar slot="avatar" color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
-      <div class="title" @click="detail(post.id)">
-        <h4>{{post.title}}</h4>
+      <div>
+        <mu-avatar slot="avatar" color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
+        <div class="title" @click="detail(post.id)">
+          <h4>{{post.title}}</h4>
+        </div>
+        <mu-sub-header>
+          <mu-icon value="date_range" />
+          <span>{{new Date(post.created * 1000).toLocaleDateString()}}</span>
+        </mu-sub-header>
       </div>
-      <mu-sub-header>
-        <mu-icon value="date_range" />
-        <span>{{new Date(post.created * 1000).toLocaleDateString()}}</span>
-      </mu-sub-header>
+      
       <mu-content-block>
         <section v-html="post.content"></section>
       </mu-content-block>
@@ -51,7 +54,6 @@
     },
     methods: {
       detail(id) {
-        console.log(this.$router);
         this.$router.push('/posts/' + id);
       }
     },

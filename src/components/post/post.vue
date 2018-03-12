@@ -1,11 +1,14 @@
 <template>
   <div>
     <div class="content">
-      <mu-avatar slot="avatar" color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
-      <div class="title"><h4>{{result.title}}</h4></div>
-      <mu-sub-header>
-        <span>{{new Date(result.created * 1000).toLocaleDateString()}}</span>
-      </mu-sub-header>
+      <div style="text-aligin:center">
+        <mu-avatar slot="avatar" color="Teal" backgroundColor="lightGreen500">桑</mu-avatar>
+        <div class="title"><h4>{{result.title}}</h4></div>
+        <mu-sub-header>
+          <span>{{new Date(result.created * 1000).toLocaleDateString()}}</span>
+        </mu-sub-header>
+      </div>
+      
       <mu-content-block>
         <section v-html="result.content"></section>
       </mu-content-block>

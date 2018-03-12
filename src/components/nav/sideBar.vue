@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="menu">
-      <mu-icon-button icon="menu" @click="toggle()"/>
+      <mu-flat-button label="关于"
+        icon="account_box"
+        primary @click="toggle()"/>
     </div>
     <mu-drawer left :open="open" @close="toggle()">
       <div class="resume" @click="toggle()">

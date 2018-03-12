@@ -1,15 +1,29 @@
 <template>
   <div class="layout">
     <div class="header">
+      <div class="about">
+        <div class="icon">
+          <img src="../../assets/avatar.png"/>
+        </div>
+        <div class="descripton">
+          <p>落花人独立，微雨燕双飞</p>
+        </div>
+      </div>
       <div class="nav">
         <div class="nav-item">
-          <SideBar></SideBar>
+          <mu-flat-button label="文章" icon="gesture" primary/>
         </div>
-        <div class="nav-item"><router-link to="/">Home</router-link></div>
-        <div class="nav-item"><router-link to="/archive">Archive</router-link></div>
-        <div class="nav-item"><router-link to="/acount">About</router-link></div>
-        <div class="filter">
-          <!-- <input type="text" name="keyword"/> -->
+        <div class="nav-item">
+          <mu-flat-button label="图片" icon="image" primary/>
+        </div>
+        <div class="nav-item">
+          <mu-flat-button label="时间轴" icon="linear_scale" primary/>
+        </div>
+        <div class="nav-item">
+          <mu-flat-button label="标签" icon="flag" primary/>
+        </div>
+        <div class="nav-item">
+          <SideBar></SideBar>
         </div>
       </div>
     </div>
@@ -25,19 +39,6 @@
       </mu-row>
     </div>
   </div>
-  <!-- <div class="container">
-    <SideBar></SideBar>
-    <mu-row>
-      <mu-col width="100" tablet="95" desktop="70" class="content-warp">
-        <div>
-          <transition>
-            <router-view></router-view>
-          </transition>
-        </div>  
-      </mu-col>
-    </mu-row>
-    <Bottom></Bottom>
-  </div> -->
 </template>
 <style>
   .layout {
@@ -47,17 +48,30 @@
   }
   .container {
     height: 100%;
-    /* min-height: 760px; */
     padding-bottom: 0;
     margin: 0 auto;
   }
 
   .header {
     width: 100%;
+    min-height: 280px;
     justify-content: center;
     align-items: center;
-    background: #5e90b8;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    background-color: #f2f2f2;
+    /* border-bottom: 1px solid #999; */
     overflow: hidden;
+  }
+
+  .about {
+    margin: 2rem;
+  }
+
+  .description {
+    display: block;
   }
 
   .logo{
@@ -72,36 +86,17 @@
     margin: 0 auto;
     padding: .3em 0;
     display: block;
+    border-left: #105028;
   }
 
   .nav-item {
-    padding:0 1.5em;
-    color: #ffffff;
+    padding:0 2em;
     display: inline-block;
+    color:rgb(139, 195, 74);
   }
 
-  .header .filter {
-    display: inline-block;
-    margin-left: 5em;
-    border: 0;
-    padding-left: 5px;
-    height: 32px;
-    width: 10em;
-    -ms-flex: 1;
-    -webkit-box-flex: 1;
-    flex: 1;
-    border: none;
-    line-height: 24px;
-  }
-  .filter input {
-    padding: 0 1em;
-    line-height: 2em;
-    height: 2em !important;
-    -webkit-border-radius: 21px;
-    border-radius: 21px;
-  }
-  .search-btn {
-    cursor: pointer;
+  .icon img {
+    width: 80px;
   }
 
   .footer {
@@ -122,6 +117,11 @@
 
   .footer-rigth {
     float: right;
+  }
+
+  .line {
+    border-bottom: 1px solid #585a58; 
+    margin: 2rem 0;
   }
 </style>
 <script>

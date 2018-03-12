@@ -16,15 +16,16 @@ class Cors implements MiddlewareInterface {
         $method = strtoupper($request->getMethod());
         if ($method !== "OPTIONS") {
             $response = $handler->handle($request);
-            $response = $response->withHeader('Access-Control-Allow-Origin', '*')
-                ->withHeader('Access-Control-Allow-Headers',
-                    'Content-Type, Content-Length, Authorization, Accept, X-Requested-With')
-                ->withHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
-                ->withHeader('Content-Type', 'application/json;charset=utf-8');
-
-            return $response;
         } else {
-            return $handler->handle($request);
+            $response = new Response();
         }
+
+        $response = $response->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers',
+                'Content-Type, Content-Length, Authorization, Accept, X-Requested-With')
+            ->withHeader('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+            ->withHeader('Content-Type', 'application/json;charset=utf-8');
+
+        return $response;
     }
 }
