@@ -61,13 +61,11 @@
     -ms-flex-align: center;
     align-items: center;
     text-align: center;
-    background-color: #f2f2f2;
-    /* border-bottom: 1px solid #999; */
     overflow: hidden;
   }
 
   .about {
-    margin: 2rem;
+    margin: 2.6rem;
   }
 
   .description {
@@ -86,11 +84,11 @@
     margin: 0 auto;
     padding: .3em 0;
     display: block;
-    border-left: #105028;
+    background-color: #c5c2581f ;
   }
 
   .nav-item {
-    padding:0 2em;
+    padding:0 0.5em;
     display: inline-block;
     color:rgb(139, 195, 74);
   }

@@ -16,7 +16,7 @@
             <mu-icon>sort</mu-icon>
             <span>文章管理</span>
           </mu-list-item>
-            <mu-list-item to="/admin/comment">
+          <mu-list-item to="/admin/comment">
             <mu-icon>sort</mu-icon>
             <span>评论管理</span>
           </mu-list-item>
@@ -24,8 +24,7 @@
             <mu-icon>perm_media</mu-icon>
             <span>图片管理</span>
           </mu-list-item>
-          </mu-list-item>
-            <mu-list-item to="/admin/upload">
+          <mu-list-item to="/admin/upload">
             <mu-icon>photo</mu-icon>
             <span>上传图片</span>
           </mu-list-item>

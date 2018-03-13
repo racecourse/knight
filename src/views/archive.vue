@@ -4,16 +4,20 @@
       <div v-for="(posts, month) in archive" :key="month">
         <div class="month">{{month}}</div>
         <div v-if="Array.isArray(posts)">
-          <div v-for="post in posts"  class="arch-box" :key="post.id">
-            <mu-card>
-              <mu-card-header>
-                <div>{{new Date(post.created * 1000).toLocaleString()}}</div>
-                <div>#标签</div>
-              </mu-card-header>
-              <mu-card-title :title="post.title" />
-            </mu-card>
-          </div>
-        </div>  
+          <mu-timeline
+            lineColor="black"
+            lineType="dashed"
+          >
+            <div v-for="post in posts" :key="post.id">
+              <mu-timeline-item iconColor="red" iconType="dotted">
+                <span slot="time">
+                  {{new Date(post.created * 1000).toLocaleString()}}
+                </span>
+                <span slot="des">{{post.title}}</span>
+              </mu-timeline-item>
+            </div>
+          </mu-timeline>
+        </div>
       </div>
     </div>
     <Pagination :page="page" :total="total" :pageSize="pageSize"></Pagination>
@@ -53,7 +57,6 @@
           } else {
             data[archive].push(post);
           }
-          console.log(data);
         });
         return data;
       }
@@ -79,11 +82,11 @@
 <style>
   .month {
     width: 100%;
-    text-align: center;
     padding: 1em;
-    line-height: 2em;
-    font-size: 24px;
+    line-height: 1.2em;
+    font-size: 16px;
     display: block;
+    text-align: center;
   }
 
   .arch-box {
@@ -94,6 +97,7 @@
   }
 
   .arch-wrap {
-    text-align: center;
+    margin: 0 auto;
+    width: 50%;
   }
 </style>
