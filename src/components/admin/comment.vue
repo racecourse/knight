@@ -1,40 +1,40 @@
 <template>
-  <div>
-      <mu-icon-button  icon="filter_list" />
-      <mu-icon-button icon="search"/>
-      <mu-table fixedHeader enableSelectAll multiSelectable selectable showCheckbox>
-        <mu-thead slot="header">
-          <mu-tr>
-            <mu-th>ID</mu-th>
-            <mu-th><span>username</span></mu-th>
-            <mu-th><span>email</span></mu-th>
-            <mu-th><span>site</span></mu-th>
-            <mu-th>
-              <span>content</span>
-            </mu-th>
-            <mu-th><span>created</span></mu-th>
-            <mu-th><span>action</span></mu-th>
-          </mu-tr>
-        </mu-thead>
-        <mu-tbody>
-          <mu-tr v-for="row in list" :key="row.id" :mu-item="{id:row.id}">
-            <mu-td> {{row.id}} </mu-td>
-            <mu-td> {{row.username}}</mu-td>
-            <mu-td> {{row.email}}</mu-td>
-            <mu-td> {{row.site}} </mu-td>
-            <mu-td> {{row.content}} </mu-td>
-            <mu-td> {{row.created}} </mu-td>
-            <mu-td>
-             <div class="action"><router-link to="/admin/edit/1">edit &nbsp;</router-link>|
-               <span @click="del(row.id)">&nbsp; delete</span></div>
-            </mu-td>
-          </mu-tr>
-        </mu-tbody>
-      </mu-table>
+  <div class="comment">
+    <mu-icon-button  icon="filter_list" />
+    <mu-icon-button icon="search"/>
+    <mu-table fixedHeader enableSelectAll multiSelectable selectable showCheckbox>
+      <mu-thead slot="header">
+        <mu-tr>
+          <mu-th>ID</mu-th>
+          <mu-th><span>username</span></mu-th>
+          <mu-th><span>email</span></mu-th>
+          <mu-th><span>site</span></mu-th>
+          <mu-th>
+            <span>content</span>
+          </mu-th>
+          <mu-th><span>created</span></mu-th>
+          <mu-th><span>action</span></mu-th>
+        </mu-tr>
+      </mu-thead>
+      <mu-tbody>
+        <mu-tr v-for="row in list" :key="row.id" :mu-item="{id:row.id}">
+          <mu-td> {{row.id}} </mu-td>
+          <mu-td> {{row.username}}</mu-td>
+          <mu-td> {{row.email}}</mu-td>
+          <mu-td> {{row.site}} </mu-td>
+          <mu-td> {{row.content}} </mu-td>
+          <mu-td> {{row.created}} </mu-td>
+          <mu-td>
+            <div class="action"><router-link to="/admin/edit/1">edit &nbsp;</router-link>|
+              <span @click="del(row.id)">&nbsp; delete</span></div>
+          </mu-td>
+        </mu-tr>
+      </mu-tbody>
+    </mu-table>
   </div>
 </template>
 <style>
-  .mu-table .mu-th {
+  .comment .mu-table .mu-th {
     text-align: center;
   }
   .action {

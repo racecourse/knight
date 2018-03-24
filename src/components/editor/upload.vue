@@ -38,7 +38,7 @@
         debug: true,
         autoProceed: false,
         restrictions: {
-          maxFileSize: 10000000,
+          maxFileSize: 100000000,
           maxNumberOfFiles: 50,
           minNumberOfFiles: 1,
           allowedFileTypes: ["image/*", "video/*"]

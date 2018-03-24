@@ -41,12 +41,6 @@
   </div>
 </template>
 <style>
-  /* .md-table .mu-th {
-    text-align: center;
-  } */
-  .action {
-    text-align: center;
-  }
   .action .action-btn {
     background-color: #b2b2bb;
     margin-left: 0.1em;

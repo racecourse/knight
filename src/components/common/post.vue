@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="header">
+    <div class="layout-header">
       <div class="about">
         <div class="icon">
           <img src="../../assets/avatar.png"/>
@@ -52,7 +52,7 @@
     margin: 0 auto;
   }
 
-  .header {
+  .layout-header {
     width: 100%;
     min-height: 280px;
     justify-content: center;

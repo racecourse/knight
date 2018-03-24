@@ -54,9 +54,13 @@ export default [
       {
         path: 'upload',
         // meta: { auth: true },
-        component: require('./components/editor/upload.vue'),
+        component: require('./components/admin/upload.vue'),
       },
-
+      {
+        path: 'image',
+        // meta: { auth: true },
+        component: require('./components/admin/image.vue'),
+      },
     ]
   },
   {

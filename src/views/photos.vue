@@ -26,14 +26,13 @@ import "../util/pannellum";
 export default {
   data() {
     return {
-      image: ""
+      image: "https://photo.yupoo.com/courser/a7314bce/69b05f70.jpg"
     };
   },
   mounted() {
     pannellum.viewer("panorama", {
       type: "equirectangular",
-      panorama:
-        "https://img30.360buyimg.com/n1/s760x500_jfs/t18799/57/699938415/172048/8d916a0a/5a9fa7c0Naf130614.jpg",
+      panorama: "https://photo.yupoo.com/courser/a7314bce/69b05f70.jpg",
       autoLoad: true,
       title: "Cool dog",
       autoRotate: 1.5
