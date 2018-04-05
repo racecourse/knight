@@ -128,5 +128,14 @@ export default {
     } else {
       commit('FETCH_FAILURE');
     }
+  },
+  async albums({commit}, page, pageSize) {
+    console.log(page, pageSize);
+    const res = await fetch('/albums', 'get', {page, pageSize});
+    if (res.ok) {
+      commit('ALBUM_FETCH_SUCCESS', res);
+    } else {
+      commit('FETCH_FAILURE');
+    }
   }
 }

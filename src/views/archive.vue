@@ -98,6 +98,6 @@
 
   .arch-wrap {
     margin: 0 auto;
-    width: 50%;
+    max-width: 800px;
   }
 </style>

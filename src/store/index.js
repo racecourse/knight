@@ -9,6 +9,7 @@ import getters from './getters';
 import comment from './modules/comment';
 import category from './modules/category';
 import Cellar from '../util/storage';
+import album from './modules/album';
 
 Vue.use(Vuex);
 const $storage = new Cellar();
@@ -32,7 +33,8 @@ export default new Vuex.Store({
     article,
     admin,
     comment,
-    category
+    category,
+    album,
   },
   strict: true,
   actions,

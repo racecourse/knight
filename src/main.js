@@ -7,6 +7,7 @@ import { sync } from 'vuex-router-sync';
 import Cellar from './util/storage';
 import App from './App.vue';
 import MuseUI from 'muse-ui';
+import VuePreview from 'vue-preview'
 import hljs from 'highlight.js';
 import 'muse-ui/dist/muse-ui.css';
 import teal from 'muse-ui/dist/theme-teal.css'
@@ -14,8 +15,10 @@ import './assets/hljs.css';
 import './assets/common.css';
 import './assets/reset.css';
 
+
 window.hljs = hljs;
-Vue.use(MuseUI)
+Vue.use(MuseUI);
+Vue.use(VuePreview);
 const storage = new Cellar();
 window.addEventListener('load', () => {
   FastClick.attach(document.body)
