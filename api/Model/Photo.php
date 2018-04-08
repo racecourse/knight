@@ -16,6 +16,7 @@ class Photo extends Dao
         'name' => ['column' => 'name', 'type' => 'string'],
         'attr' => ['column' => 'attr', 'type' => 'json'],
         'size' => ['column' => 'size', 'type' => 'int'],
+        'panorama' => ['column' => 'panorama', 'type' => 'int', 'default' => 0],
         'isShow' => ['column' => 'is_show', 'type' => 'int', 'default' => 1],
         'created' => ['column' => 'created', 'type' => 'int'],
         'updated' => ['column' => 'updated', 'type' => 'timestamp'],

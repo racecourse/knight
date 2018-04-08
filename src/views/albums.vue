@@ -2,26 +2,41 @@
   <div class="album-wrap">
     <div v-for="album in preview" :key="album.id">
       <div class="album-name">{{album.name}}</div>
-      <mu-row gutter>
+      <mu-row>
         <mu-col width="100" tablet="50" desktop="33"
           v-for="photo in album.photos"  :key="photo.id">
           <div class="image-box">
             <div class="image-cover">
-              <vue-preview :slides="photo.preview" @close="handleClose"></vue-preview>
+              <div v-if="photo.panorama">
+                <img class="panorama-thumb" :src="photo.url" />
+                <div class="panorama-zoom"  v-on:click="showPanorama(photo)">
+                  全景图片点击观看
+                </div>
+              </div>
+              <div v-else>
+                <vue-preview :slides="photo.preview" @close="handleClose"></vue-preview>
+              </div>
             </div>
             <div class="image-title">{{photo.name}}</div>
           </div>
         </mu-col>
       </mu-row>
+      <mu-dialog :open="dialog" :title="panorama.name" @close="closePanorama">
+        <Panorama :panorama="panorama.url" :title="panorama.name"></Panorama>
+        <mu-flat-button label="close" slot="actions" primary @click="closePanorama"/>
+      </mu-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import Panorama from '../components/panorama/index.vue';
 export default {
   data() {
     return {
       albums: [],
+      panorama: '',
+      dialog: false,
       page: 1,
       pageSize: 20
     }
@@ -30,6 +45,13 @@ export default {
     handleClose () {
       console.log('close event')
     },
+    showPanorama(photo) {
+      this.panorama = photo;
+      this.dialog = true;
+    },
+    closePanorama() {
+      this.dialog = false;
+    }
   },
   async beforeMount() {
     const page = this.$route.query.page || 1;
@@ -39,11 +61,13 @@ export default {
     const { list } = data;
     this.albums = list;
   },
+  components: {
+    Panorama,
+  },
   computed: {
     preview: function() {
       const data = [];
       for (const album of this.albums) {
-        console.log(album);
         if (Array.isArray(album.photos)) {
           const item = Object.assign({}, album);
           item.photos = item.photos.map(photo => {
@@ -118,6 +142,19 @@ export default {
     font-size: 12px;
     text-align: center;
   }
-  
+  .panorama-zoom {
+    /* height: 200px; */
+    position: absolute;
+    margin-top: -100px;
+    z-index: 10;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .panorama-thumb {
+    height: 200px;
+    z-index: -1;
+    -webkit-filter: blur(2px); filter: blur(2px);
+  }
 </style>
 
