@@ -10,7 +10,7 @@
       </div>
       
       <mu-content-block>
-        <section v-html="result.content"></section>
+        <section v-html="result.content" @click="preview"></section>
       </mu-content-block>
       <div class="post-footer">
         <div class="cate">桑下语</div>
@@ -42,11 +42,14 @@
       </div>
       <mu-snackbar v-if="snackbar.show" :message="snackbar.message" action="close" @actionClick="hideSnackbar" @close="hideSnackbar"/>
     </div>
+    <vue-preview></vue-preview>
   </div>
 </template>
 <script>
   import marked from 'marked';
   import fecha from 'fecha';
+  import PhotoSwipe from '../../components/preview';
+  import Preview from '../../components/preview/index.vue'
 
   export default {
     props: {
@@ -112,6 +115,16 @@
       },
       snackbar() {
         this.$refs.snackbar.open();
+      },
+      preview(event) {
+        event = event || window.event;
+        event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        const nodeName = event.target.nodeName;
+        if (nodeName && nodeName === 'IMG') {
+          const src = event.target.getAttribute('src');
+          console.log('----', src);
+          PhotoSwipe(src);
+        }
       }
     },
     computed: {
@@ -128,6 +141,9 @@
         data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
         return data;
       }
+    },
+    components: {
+      Preview
     }
   }
 </script>

@@ -1,28 +1,25 @@
 <template>
   <div class="layout">
     <div class="layout-header">
-      <div class="about">
-        <div class="icon">
-          <img src="../../assets/avatar.png"/>
-        </div>
-        <div class="descripton">
-          <p>落花人独立，微雨燕双飞</p>
-        </div>
-      </div>
       <div class="nav">
-        <div class="nav-item">
-          <mu-flat-button label="文章" icon="gesture" primary/>
+        <div class="site-title">
+          <span>桑下语</span>
         </div>
-        <div class="nav-item">
-          <mu-flat-button label="图片" icon="image" primary/>
+        <div class="item-box">
+          <div class="nav-item">
+            <mu-flat-button label="文章" icon="gesture" primary/>
+          </div>
+          <div class="nav-item">
+            <mu-flat-button label="图片" icon="image" primary/>
+          </div>
+          <div class="nav-item">
+            <mu-flat-button label="时间轴" icon="linear_scale" primary/>
+          </div>
+          <div class="nav-item">
+            <mu-flat-button label="标签" icon="flag" primary/>
+          </div>
         </div>
-        <div class="nav-item">
-          <mu-flat-button label="时间轴" icon="linear_scale" primary/>
-        </div>
-        <div class="nav-item">
-          <mu-flat-button label="标签" icon="flag" primary/>
-        </div>
-        <div class="nav-item">
+        <div class="nav-toggle">
           <SideBar></SideBar>
         </div>
       </div>
@@ -50,11 +47,11 @@
     height: 100%;
     padding-bottom: 0;
     margin: 0 auto;
+    padding-top: 10px;
   }
 
   .layout-header {
     width: 100%;
-    min-height: 280px;
     justify-content: center;
     align-items: center;
     -webkit-box-align: center;
@@ -79,16 +76,41 @@
   }
 
   .nav {
-    position: relative;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: .3em 0;
+    margin: 0px auto;
     display: block;
-    background-color: #c5c2581f ;
+    min-height: 3rem;
+    background-color:rgba(0, 0, 0, .9);
+  }
+ 
+  .item-box {
+    float: right;
+    margin-right: 10rem;
+  }
+  @media screen and (max-width: 768px) {
+    .item-box {
+      display: none;
+    }
+  }
+  .nav-toggle {
+    display: none;
+  }
+  @media screen and (max-width: 768px) {
+    .nav-toggle {
+      float: right;
+      display: inline;
+    }
+  }
+  .nav .site-title {
+    float: left;
+    text-align: left;
+    margin-left: 5rem;
+    padding-top: 0.5rem;
+    font-size: 18px;
+    color:#fff;
   }
 
   .nav-item {
-    padding:0 0.5em;
+    padding:0 0.1em;
     display: inline-block;
     color:rgb(139, 195, 74);
   }
@@ -121,11 +143,23 @@
     border-bottom: 1px solid #585a58; 
     margin: 2rem 0;
   }
+  
 </style>
 <script>
   import SideBar from '../nav/sideBar.vue';
   import Bottom from './bottom.vue';
-  export default{
+  export default {
+    data() {
+      return {
+        isShow: this.$route.path === '/'
+      }
+    },
+    mounted() {
+      console.log(this.$route.path);
+      if (this.$route.path !== '/') {
+        this.isShow = false;
+      }
+    },
     components: {
       SideBar,
       Bottom,

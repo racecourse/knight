@@ -130,12 +130,27 @@ export default {
     }
   },
   async albums({commit}, page, pageSize) {
-    console.log(page, pageSize);
     const res = await fetch('/albums', 'get', {page, pageSize});
     if (res.ok) {
       commit('ALBUM_FETCH_SUCCESS', res);
     } else {
       commit('FETCH_FAILURE');
     }
-  }
+  },
+  async albumNames({ commit }) {
+    const res = await fetch('/admin/all/albums', 'get', { all: true });
+    if (res.ok) {
+      commit('ALBUM_FETCH_SUCCESS', res);
+    } else {
+      commit('FETCH_FAILURE');
+    }
+  },
+  async createAlbum ({commit}, data) {
+    const res = await fetch('/admin/albums', 'post', data);
+    if (res.ok) {
+      commit('ALBUM_FETCH_SUCCESS', res);
+    } else {
+      commit('ALBUM_FETCH_FAILURE', res);
+    }
+  },
 }

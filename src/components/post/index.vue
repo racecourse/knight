@@ -49,9 +49,6 @@
       }
 
     },
-    mounted () {
-      console.log(this.article.tags.split(','))
-    },
     methods: {
       detail(id) {
         this.$router.push('/posts/' + id);
@@ -70,7 +67,6 @@
         if (post.content.search(/```[^`]+$/) !== -1) {
           post.content += '```';
         }
-        console.log(post.content);
         post.content =  marked(post.content);
         return post;
       }

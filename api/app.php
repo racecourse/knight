@@ -48,6 +48,9 @@ try {
         $app->get('/comments', [Knight\Controller\Admin::class, 'comments']);
         $app->post('/category', [Knight\Controller\Category::class, 'create']);
         $app->delete('/category/:id', [Knight\Controller\Category::class, 'drop']);
+        $app->get('/all/albums', [Knight\Controller\Album::class, 'all']);
+        $app->post('/albums', [Knight\Controller\Album::class, 'create']);
+
     });
 
     $app->add(new NotFound());

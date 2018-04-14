@@ -37,7 +37,6 @@ class Photo extends Controller {
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
                 $attr = yield $client->write($savePath, $uploaded->getStream());
-                var_dump($attr);
                 $extInfo = [];
                 foreach($attr as $field => $value) {
                     $field = str_replace('x-upyun-', '', $field);

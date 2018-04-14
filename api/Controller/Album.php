@@ -34,7 +34,6 @@ class Album
         ];
 
         $list = $album->find($where, $options);
-        var_dump($list);
         $list = $album->toArray($list);
         $photo = new Photo();
         foreach ($list as $key => &$value) {
@@ -58,6 +57,61 @@ class Album
                 'page' => $page,
                 'pageSize' => $pageSize,
             ]
+        ]);
+    }
+
+    public function all(): Response
+    {
+        $album = new Gallery();
+        $albums = $album->findAll();
+        $list = [];
+        foreach ($albums as $key => $album) {
+            var_dump($album);
+            $list[] = [
+                'id' => $album->id,
+                'name' => $album->name,
+            ];
+        }
+
+        $response = new Response();
+        return $response->json([
+            'message' => 'ok',
+            'data' => [
+                'list' => $list
+            ]
+        ]);
+    }
+
+    public function create(Request $request): Response
+    {
+        $name = $request->getPayload('name');
+        $detail = $request->getPayload('detail');
+        $isShow = $request->getPayload('isShow');
+        $response = new Response();
+        if (!$name) {
+            return $response->withStatus(400)
+                ->json([
+                    'message' => 'Illegal Param',
+                    'code' => 123
+                ]);
+        }
+
+        $user = $request->getAttribute('session');
+
+        $data = [
+            'userId' => $user->id,
+            'name' => $name,
+            'detail' => $detail,
+            'isShow' => $isShow,
+            'created' => time(),
+        ];
+        var_dump($data);
+        $album = new Gallery();
+        $album->insert($data);
+
+        return $response->json([
+            'message' => 'ok',
+            'code' => 0,
         ]);
     }
 }
