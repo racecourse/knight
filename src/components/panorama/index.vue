@@ -8,13 +8,17 @@
 @import "../../util/pannellum.css"; 
 #panorama {
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
   margin: 0 auto;
-  width: 600px;
+  width: 100%;
   height: 400px;
   overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  #panorama {
+    height: 320px;
+  }
 }
 .pnlm-about-msg {
   display: none !important;
@@ -50,13 +54,7 @@ export default {
       default: 400,
     }
   },
-  data() {
-    return {
-      image: "https://photo.yupoo.com/courser/a7314bce/69b05f70.jpg"
-    };
-  },
   mounted() {
-    console.log(this.panorama);
     pannellum.viewer("panorama", {
       type: "equirectangular",
       // panorama: "https://photo.yupoo.com/courser/a7314bce/69b05f70.jpg",

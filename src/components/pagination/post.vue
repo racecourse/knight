@@ -1,7 +1,7 @@
 <template>
   <div class="pagination">
-    <div class="prev" @click="prev"><b>&larr;&nbsp;</b></div>
-    <div class="next" @click="next"><b>&nbsp; &rarr; </b></div>
+    <div class="prev" @click="prev"><mu-icon-button icon="arrow_back"/> </div>
+    <div class="next" @click="next"><mu-icon-button icon="arrow_forward"/></div>
   </div>
 </template>
 <style>
@@ -22,6 +22,7 @@
     float: left;
     vertical-align: baseline;
     padding: 1em;
+    font-size: 1.2rem;
     cursor: pointer;
   }
 </style>

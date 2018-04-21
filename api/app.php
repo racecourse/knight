@@ -18,6 +18,8 @@ use Hayrick\Http\Response;
 use Ben\Config;
 use Knight\Server;
 use Knight\Middleware\NotFound;
+use Lily\Parser;
+use Knight\Component\Manure;
 
 Config::load(APP_ROOT . '/api/config');
 $app = new App();
@@ -66,11 +68,13 @@ try {
 
     $server = new Server($app);
     $setting = Config::get('server');
+//    $man = new Manure($app);
+//    $man->run();
     $server->bind($setting['host'], $setting['port']);
     $server->start();
 } catch (Throwable $err) {
-//    echo $err->getMessage();
-    throw $err;
+    echo $err->getMessage();
+//    throw $err;
 }
 
 

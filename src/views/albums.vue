@@ -1,56 +1,76 @@
 <template>
   <div class="album-wrap">
     <div v-for="album in preview" :key="album.id">
-      <div class="album-name">{{album.name}}</div>
+      <div class="album-name">
+        {{album.name}}
+      </div>
       <mu-row>
-        <mu-col width="100" tablet="50" desktop="33"
-          v-for="photo in album.photos"  :key="photo.id">
+        <mu-col width="100"
+          tablet="50"
+          desktop="33"
+          v-for="(photo, index) in album.photos"
+          :key="index"
+        >
           <div class="image-box">
             <div class="image-cover">
               <div v-if="photo.panorama">
                 <img class="panorama-thumb" :src="photo.url" />
-                <div class="panorama-zoom"  v-on:click="showPanorama(photo)">
+                <div class="panorama-zoom"  @click="showPanorama(photo)">
                   全景图片点击观看
                 </div>
               </div>
               <div v-else>
-                <vue-preview :slides="photo.preview" @close="handleClose"></vue-preview>
+                <vue-preview :slides="photo.preview" ></vue-preview>
               </div>
             </div>
             <div class="image-title">{{photo.name}}</div>
           </div>
         </mu-col>
+
+        <mu-col width="100"
+          tablet="50"
+          desktop="33"
+        >
+          <div v-if="album.photoNumber > 5">
+            <div class="photo-more">
+              <div class="photo-more-text">查看更多</div>
+            </div>
+          </div>
+        </mu-col>
       </mu-row>
-      <mu-dialog :open="dialog" :title="panorama.name" @close="closePanorama">
-        <Panorama :panorama="panorama.url" :title="panorama.name"></Panorama>
-        <mu-flat-button label="close" slot="actions" primary @click="closePanorama"/>
-      </mu-dialog>
     </div>
+    <mu-dialog class="panoram-dialog"
+      :open="show"
+      :title="panorama.title"
+      @close="closePanorama"
+      bodyClass="dialog-body"
+    >
+      <mu-flat-button label="close" slot="actions"  @click="closePanorama"/>
+      <Panorama :panorama="panorama.url"></Panorama>
+    </mu-dialog>
   </div>
 </template>
 
 <script>
 import Panorama from '../components/panorama/index.vue';
+  import fecha from 'fecha';
 export default {
   data() {
     return {
       albums: [],
-      panorama: '',
-      dialog: false,
+      panorama: {},
+      show: false,
       page: 1,
       pageSize: 20
     }
   },
   methods: {
-    handleClose () {
-      console.log('close event')
-    },
     showPanorama(photo) {
       this.panorama = photo;
-      this.dialog = true;
+      this.show = true;
     },
     closePanorama() {
-      this.dialog = false;
+      this.show = false;
     }
   },
   async beforeMount() {
@@ -58,7 +78,7 @@ export default {
     const pageSize = this.$route.query.pageSize || 1
     await this.$store.dispatch('albums', { page, pageSize });
     const data = this.$store.state.album.albums;
-    const { list } = data;
+    const { list, total } = data;
     this.albums = list;
   },
   components: {
@@ -88,15 +108,12 @@ export default {
                 h: Number(attr.height) || 600,
               };
               photo.preview = [preview];
-              console.log(photo);
               return photo;
             }
           });
           data.push(item);
         }
       }
-
-      console.log('xxx', data);
       return data;
     }
   }
@@ -155,6 +172,37 @@ export default {
     height: 200px;
     z-index: -1;
     -webkit-filter: blur(2px); filter: blur(2px);
+  }
+  .panoram-dialog {
+    width: calc(100% - 100px)
+  }
+  @media screen and (max-width: 768px) {
+    .mu-dialog {
+      position: absolute;
+      top: 20px;
+      width: calc(100% - 50px);
+    }
+  }
+  
+  .photo-more {
+    position: relative;
+    background: #8aaf8a0c;
+    text-align: center;
+    color: #999999;
+    height: 200px;
+    font-size: 1.2rem;
+  }
+  .photo-more-text {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    width: 50%;
+    padding: 10px;
+    border: 1px solid#b2b2b2;
+    border-radius: 2px;
+    text-align: center;
+    
+    transform: translateY(-50%);
   }
 </style>
 

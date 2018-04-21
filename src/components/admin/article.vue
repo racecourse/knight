@@ -90,7 +90,6 @@
         this.list = list || [];
         this.page = page || 1;
         this.pageSize = pageSize || 20;
-        console.log('xxxxxxx----xxxxxx', article)
         this.total = total || 0;
       }
     },

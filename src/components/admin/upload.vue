@@ -84,7 +84,6 @@
     },
     async mounted() {
       await this.$store.dispatch('albumNames');
-      console.log(this.$store.state)
       const albums = this.$store.state.album.albums;
       this.loadAlbum(albums.list);
     },

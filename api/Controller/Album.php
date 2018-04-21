@@ -19,13 +19,14 @@ class Album
 
     public function list(Request $request)
     {
+        $user = $request->getAttribute('session');
         $page = $request->getParam('page', 1);
         $page = abs($page);
         $pageSize = $request->getParam('pageSize', 10);
         $pageSize = abs($pageSize);
         $album = new Gallery();
         $where = [
-            'isShow' => 1,
+            'isShow' => ['$gte' => $user ? 0 : 1],
         ];
         $options = [
             'order' =>[ 'created' => 'desc'],
@@ -33,6 +34,7 @@ class Album
             'offset' => ($page - 1) * $pageSize
         ];
 
+        $total = $album->count($where);
         $list = $album->find($where, $options);
         $list = $album->toArray($list);
         $photo = new Photo();
@@ -41,10 +43,12 @@ class Album
                 'albumId' => $value['id']
             ];
             $options = [
-                'limit' => 10,
+                'limit' => 5,
             ];
             $photos = $photo->find($filter, $options);
+            $photoNumber = $photo->count($filter);
             $value['photos'] = $photo->toArray($photos);
+            $value['photoNumber'] = $photoNumber;
         }
 
         unset($value);
@@ -54,6 +58,7 @@ class Album
             'code' => 0,
             'data' => [
                 'list' => $list,
+                'total' => $total,
                 'page' => $page,
                 'pageSize' => $pageSize,
             ]
@@ -66,7 +71,6 @@ class Album
         $albums = $album->findAll();
         $list = [];
         foreach ($albums as $key => $album) {
-            var_dump($album);
             $list[] = [
                 'id' => $album->id,
                 'name' => $album->name,
@@ -105,13 +109,13 @@ class Album
             'isShow' => $isShow,
             'created' => time(),
         ];
-        var_dump($data);
         $album = new Gallery();
-        $album->insert($data);
+        $data = $album->insert($data);
 
         return $response->json([
             'message' => 'ok',
             'code' => 0,
+            'data' => $data,
         ]);
     }
 }

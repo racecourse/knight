@@ -19,7 +19,7 @@ const openPhotoSwipe = function (items, options = {}) {
   if (typeof items === 'string') {
     const image = new Image();
     image.src = items;
-    console.log(image.width, image.height);
+    console.log('pppppp', image.width, image.height);
     items = [
       {
         src: items,

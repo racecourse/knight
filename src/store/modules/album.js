@@ -13,7 +13,6 @@ const state = {
 const mutations = {
   [ALBUM_FETCH_SUCCESS](state, payload){
     const { data, message, ok }  = payload;
-    console.log('++++_', payload);
     state.albums = data;
     state.message = message;
     state.ok = ok;
