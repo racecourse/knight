@@ -10,7 +10,7 @@
       </div>
       
       <mu-content-block>
-        <section v-html="result.content" ></section>
+        <section v-html="result.content" @click="preview"></section>
       </mu-content-block>
       <div class="post-footer">
         <div class="cate">桑下语</div>

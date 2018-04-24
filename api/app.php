@@ -71,6 +71,7 @@ try {
 //    $man = new Manure($app);
 //    $man->run();
     $server->bind($setting['host'], $setting['port']);
+    $server->setting(Config::get('server'));
     $server->start();
 } catch (Throwable $err) {
     echo $err->getMessage();
