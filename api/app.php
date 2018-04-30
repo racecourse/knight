@@ -27,6 +27,7 @@ try {
     $cors = new Cors();
 
     $app->add($cors);
+    $app->add(new \Knight\Middleware\Multipart());
 
     $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
     $app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);
@@ -35,7 +36,7 @@ try {
     $app->get('category', [Knight\Controller\Category::class , 'list']);
     $app->post('/login', [Knight\Controller\Auth::class, 'login']);
     $app->get('/article', [Knight\Controller\Admin::class, 'article']);
-    $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
+    // $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
     $app->get('/albums', [Knight\Controller\Album::class, 'list']);
     $app->group('/admin', function (App $app) {
         $auth = new Auth(Config::get('jwt'), 'knight');
@@ -57,6 +58,7 @@ try {
 
     $app->add(new NotFound());
     $app->setReporter(function(RequestInterface $request, Throwable $err) {
+        var_dump($err->getMessage());
         $response = new Response();
         $response = $response->json([
             'error' => $err->getMessage(),
@@ -71,7 +73,7 @@ try {
 //    $man = new Manure($app);
 //    $man->run();
     $server->bind($setting['host'], $setting['port']);
-    $server->setting(Config::get('server'));
+    $server->setting(Config::get('server.setting'));
     $server->start();
 } catch (Throwable $err) {
     echo $err->getMessage();

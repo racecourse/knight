@@ -13,7 +13,6 @@ class NotFound implements MiddlewareInterface {
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        echo 'this is not found ' . PHP_EOL;
         $response = $handler->handle($request);
         if (!$response instanceof Response) {
             $response = new Response();

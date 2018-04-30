@@ -1,7 +1,10 @@
 <template>
   <div>
-    <button class="UppyModalOpenerBtn" style="display: none;">Open Uppy Dashboard Modal</button>
+    <button class="UppyModalOpenerBtn" style="display: none;">
+      upload
+    </button>
     <div class="DashboardContainer"></div>
+    <div class="upload-form"></div>
   </div> 
 </template>
 <style>
@@ -27,6 +30,11 @@
           return console.log;
         }
       },
+      album: {
+        type: String,
+        required: false,
+        default: 1,
+      }
     },
     data() {
       return {
@@ -34,9 +42,18 @@
       };
     },
     mounted() {
+      console.log('uploaddddddder----+', this.album)
       const uppy = Uppy({
         debug: true,
         autoProceed: false,
+        onBeforeUpload: (files) => {
+          if (Number(this.album) < 1) {
+            return Promise.reject('none of album be choosed')
+          }
+
+          uppy.setMeta({ album: this.album })
+
+        },
         restrictions: {
           maxFileSize: 100000000,
           maxNumberOfFiles: 50,
@@ -60,19 +77,15 @@
           //   }
           // ]
         })
-        .use(Webcam, { target: Dashboard });
-
+        .use(Webcam, { target: Dashboard })
       const self = this;
-
       uppy.use(XHRUpload, {
-          endpoint: "http://" + config.api + "/photos",
+          endpoint: 'http://' + config.api + '/photos',
           getResponseData(xhr) {
-            console.log(xhr);
             let image = [];
             if (xhr.status === 200) {
               const response = JSON.parse(xhr.response);
               image = response.data;
-              console.log(image, '+++', self.images);
               self.images = image;
             }
 
@@ -83,7 +96,6 @@
       uppy.on("complete", function (result) {
         console.log("successful files:", result.successful);
         console.log("failed files:", result.failed);
-        self.$emit('uploaded', result, self.images);
       });
     }
   };

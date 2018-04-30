@@ -58,7 +58,6 @@ class Admin extends Controller
         }
 //        foreach($output as $key => $value) {
 //            echo $key . PHP_EOL;
-//            var_dump($value);
 //        }
 //        var_dump($output);
         return $response->json([

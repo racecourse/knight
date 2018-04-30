@@ -35,13 +35,13 @@
     "linfo/linfo": "dev-master",
     "upyun/sdk": "dev-master",
     "symfony/yaml": "^4.1@dev",
-    "nikic/php-parser": "v4.0.1"
+    "riverline/multipart-parser": "dev-master"
   },
   "require-dev": {
     "eclogue/courser": "dev-develop",
     "eclogue/mews": "dev-master",
     "eclogue/ben": "dev-master",
     "eclogue/lily": "dev-master"
-  },
-  "minimum-stability": "dev"
+},
+"minimum-stability": "dev"
 }

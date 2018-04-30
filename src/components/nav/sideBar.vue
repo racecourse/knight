@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="menu">
-      <mu-flat-button label="关于"
-        icon="account_box"
-        primary @click="toggle()"/>
+    <div class="menu" @click="toggle()">
+      <mu-flat-button
+        icon="list"
+        primary />
     </div>
     <mu-drawer left :open="open" @close="toggle()">
       <div class="resume" @click="toggle()">
@@ -13,12 +13,16 @@
       </div>
       <div>
         <mu-list>
-          <mu-list-item title="桑下语">
-            <mu-icon value="gesture" slot="left"/>
-          </mu-list-item>
-          <mu-list-item title="如是我闻">
+          <mu-list-item title="博客" @click="navigate('/posts')">
             <mu-icon value="toys" slot="left"/>
           </mu-list-item>
+          <mu-list-item title="相册" @click="navigate('/albums')">
+            <mu-icon value="toys" slot="left"/>
+          </mu-list-item>
+          <mu-list-item title="时间线" @click="navigate('/timeline')">
+            <mu-icon value="toys" slot="left"/>
+          </mu-list-item>
+          
         </mu-list>
       </div>
     </mu-drawer>
@@ -55,9 +59,6 @@
         open: false,
       };
     },
-    async beforeMount() {
-
-    },
     methods: {
       async toggle() {
         if(!this.category.length) {
@@ -67,10 +68,15 @@
         this.open = !this.open;
       },
       close(ref) {
+
         console.log('Closed: ' + ref);
       },
       whisper() {
         this.$router.push('/posts?cate=whisper'); // @todo microblog
+      },
+      navigate(path) {
+        this.open = !this.open;
+        this.$router.push(path);
       }
     },
   }

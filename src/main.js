@@ -20,13 +20,13 @@ window.hljs = hljs;
 Vue.use(MuseUI);
 Vue.use(VuePreview);
 const storage = new Cellar();
+const env = process.env.NODE_ENV;
 window.addEventListener('load', () => {
   FastClick.attach(document.body)
 });
 Vue.use(VueRouter);
-
 export const router = new VueRouter({
-  mode: 'hash',
+  mode: env !== 'develop' ? 'hash' : 'hash',
   routes,
 });
 

@@ -21,8 +21,10 @@ class Photo extends Controller {
     public function create(Request $request)
     {
         $user = $request->getAttribute('session');
+        $album = $request->getPayload('album', 1);
         $config = Config::get('upyun');
         $cfg = new UConfig($config['bucket'], $config['username'], $config['password']);
+//        $cfg->debug = true;
         $client = new Upyun($cfg);
         $files = $request->getUploadedFiles();
         $success = [];
@@ -36,7 +38,7 @@ class Photo extends Controller {
                 $extname = end(explode('/', $type));
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
-                $attr = yield $client->write($savePath, $uploaded->getStream());
+                $attr = $client->write($savePath, $uploaded->getStream());
                 $extInfo = [];
                 foreach($attr as $field => $value) {
                     $field = str_replace('x-upyun-', '', $field);
@@ -44,12 +46,14 @@ class Photo extends Controller {
                 }
                 $url = $config['domain']  . '/' . $savePath;
                 $image->url = $url;
+                $image->albumId = $album;
                 $image->created = time();
                 $image->attr = json_encode($extInfo);
-                $image = yield $image->save();
+                $image = $image->save();
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
-                var_dump($err);
+                var_dump($err->getMessage());
+                continue;
             }
         }
 

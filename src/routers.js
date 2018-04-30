@@ -9,11 +9,15 @@ export default [
         component: require('./views/posts.vue')
       },
       {
+        path: '/posts',
+        component: require('./views/posts.vue')
+      },
+      {
         path: '/posts/:id',
         component: require('./views/detail.vue')
       },
       {
-        path: '/archive',
+        path: '/timeline',
         component: require('./views/archive.vue')
       },
       {

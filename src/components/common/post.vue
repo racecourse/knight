@@ -3,17 +3,25 @@
     <div class="layout-header">
       <div class="nav">
         <div class="site-title">
-          <span>桑下语</span>
+          <span class="logo">
+            <router-link :to="{ path: '/'}">桑下语</router-link>
+          </span>
         </div>
         <div class="item-box">
           <div class="nav-item">
-            <mu-flat-button label="文章" icon="gesture" primary/>
+            <router-link :to="{ path: '/posts' }">
+              <mu-flat-button label="文章" icon="gesture" primary/>
+            </router-link>
           </div>
           <div class="nav-item">
-            <mu-flat-button label="图片" icon="image" primary/>
+            <router-link :to="{ path: '/albums' }">
+            <mu-flat-button label="相册" icon="image" primary/>
+            </router-link>
           </div>
           <div class="nav-item">
-            <mu-flat-button label="时间轴" icon="linear_scale" primary/>
+            <router-link :to="{ path: '/timeline' }">
+              <mu-flat-button label="时间轴" icon="linear_scale" primary/>
+            </router-link>
           </div>
           <div class="nav-item">
             <mu-flat-button label="标签" icon="flag" primary/>
@@ -94,9 +102,12 @@
   .nav-toggle {
     display: none;
   }
+  .logo a {
+    color: #fff;
+  }
   @media screen and (max-width: 768px) {
     .nav-toggle {
-      float: right;
+      /* float: right; */
       display: inline;
     }
   }

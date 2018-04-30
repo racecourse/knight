@@ -81,9 +81,25 @@ class Article extends Controller
         $article = new Post();
         $condition = [
             'id' => $id,
-            'permission' => ['$lte' => 1]
         ];
         $art = yield $article->findOne($condition);
+        if (!$art) {
+            return (new Response)
+                ->withStatus(400)
+                ->json([
+                    'message' => 'article not found',
+                    'code' => 1,
+                ]);
+        }
+
+//        if ($art->isShow < 1) {
+//            return (new Response)
+//                ->withStatus(400)
+//                ->json([
+//                    'message' => 'Access denied',
+//                    'code' => 2,
+//                ]);
+//        }
         $art = $art->toArray();
 
         return (new Response())->json([

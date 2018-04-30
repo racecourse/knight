@@ -8,12 +8,9 @@
         <option v-for="album in albums" :key="album.id" :value="album.id">{{album.name}}</option>
       </select>
     </div>
-    <Uploader v-on:uploaded="showSuccess"/>
-    <mu-dialog :open="dialog" title="Dialog" @close="close">
+    <Uploader v-on:uploaded="showSuccess" :album="currentAlbum"/>
+    <mu-dialog :open="dialog" title="创建相册" @close="close">
       <div class="create-box">
-        <div class="create-item">
-          <mu-switch label="是否可见" v-model="albumShow" />
-        </div>
         <div class="create-item">
           <mu-text-field hintText="相册名" v-model="albumName"/>
         </div>
@@ -24,10 +21,14 @@
           :rows="3"
           :rowsMax="6"/>
         </div>
+        <div class="create-item">
+          <mu-switch label="是否可见" v-model="albumShow" />
+        </div>
       </div>
       <mu-flat-button slot="actions" @click="showCreate" primary label="取消"/>
       <mu-flat-button slot="actions" primary @click="createAlbum" label="确定"/>
     </mu-dialog>
+    <div>{{currentAlbum}}</div>
   </div>
 </template>
 <style>
@@ -76,7 +77,7 @@
         albumName: '',
         albumDetail: '',
         albumShow: true,
-        currentAlbum: 0,
+        currentAlbum: '0',
       }
     },
     components: {
@@ -92,7 +93,7 @@
         console.log('A file was successfully uploaded')
       },
       loadAlbum (albums) {
-        this.albums = [{ id: "0", name: '请选出相册'}].concat(albums);
+        this.albums = [{ id: "0", name: '--请选出相册--'}].concat(albums);
         console.log(this.albums);
       },
       close() {
@@ -100,6 +101,9 @@
       },
       showCreate() {
         this.dialog = !this.dialog;
+      },
+      chooseAlbum() {
+        console.log(this.currentAlbum);
       },
       async createAlbum() {
         const name = this.albumName;
@@ -112,6 +116,7 @@
         }
         await this.$store.dispatch('createAlbum', data);
         await this.$store.dispatch('albumNames');
+        
         const albums = this.$store.state.album.albums;
         this.currentAlbum = albums.list[0].id; // @todo
         this.loadAlbum(albums.list);
