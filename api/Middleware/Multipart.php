@@ -1,8 +1,6 @@
 <?php
 namespace Knight\Middleware;
 
-use Hayrick\Http\Response;
-use function PHPSTORM_META\type;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;

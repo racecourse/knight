@@ -42,7 +42,6 @@
       };
     },
     mounted() {
-      console.log('uploaddddddder----+', this.album)
       const uppy = Uppy({
         debug: true,
         autoProceed: false,
@@ -70,11 +69,6 @@
           maxHeight: 450,
           // metaFields: [
           //   { id: "license", name: "License", placeholder: "specify license" },
-          //   {
-          //     id: "caption",
-          //     name: "Caption",
-          //     placeholder: "describe what the image is about"
-          //   }
           // ]
         })
         .use(Webcam, { target: Dashboard })

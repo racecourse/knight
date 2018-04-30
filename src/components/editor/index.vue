@@ -38,8 +38,8 @@
     </mu-snackbar>  
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
-        <span>这是一个简单的弹出框</span>
-        <Uploader v-on:uploaded="uploadNotify" />
+        <span>upload</span>
+        <Uploader v-on:uploaded="uploadNotify" :album="1" />
         <mu-flat-button slot="actions" @click="closeUploadBox" primary label="取消"/>
         <mu-flat-button slot="actions" primary @click="closeUploadBox" label="确定"/>
       </mu-dialog>
