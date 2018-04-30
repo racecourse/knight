@@ -44,6 +44,7 @@ class Album
             ];
             $options = [
                 'limit' => 5,
+                'order' => ['created' => 'desc']
             ];
             $photos = $photo->find($filter, $options);
             $photoNumber = $photo->count($filter);
