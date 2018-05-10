@@ -59,6 +59,8 @@ try {
     $app->add(new NotFound());
     $app->setReporter(function(RequestInterface $request, Throwable $err) {
         var_dump($err->getMessage());
+        var_dump($err->getFile());
+        var_dump($err->getLine());
         $response = new Response();
         $response = $response->json([
             'error' => $err->getMessage(),

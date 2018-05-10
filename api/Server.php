@@ -103,8 +103,12 @@ class Server
         $query = $request->get ?? [];
         $headers = $request->header ?? [];
         $stream = fopen('php://temp', 'w+');
-        $source = $request->rawContent();
-        if ($source) {
+        $source = $request->post ?: $request->rawContent();
+        if (!empty($source)) {
+            if (is_array($source)) {
+                $source = http_build_query($source);
+            }
+
             fwrite($stream, $source);
         }
 

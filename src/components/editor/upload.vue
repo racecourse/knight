@@ -20,6 +20,7 @@
   const XHRUpload = require("uppy/lib/plugins/XHRUpload");
 
   import config from "../../config";
+  import Storage from '../../util/storage';
 
   export default {
     props: {
@@ -42,6 +43,12 @@
       };
     },
     mounted() {
+      const storage = new Storage();
+      const token = storage.getItem('token');
+      if (!token) {
+        return this.$router.push('/login');
+      }
+
       const uppy = Uppy({
         debug: true,
         autoProceed: false,
@@ -74,7 +81,10 @@
         .use(Webcam, { target: Dashboard })
       const self = this;
       uppy.use(XHRUpload, {
-          endpoint: 'http://' + config.api + '/photos',
+          endpoint: 'http://' + config.api + '/admin/photos',
+          headers: {
+            Authorization: 'Bearer ' + token
+          },
           getResponseData(xhr) {
             let image = [];
             if (xhr.status === 200) {

@@ -14,7 +14,7 @@ return [
         'setting' => [
             'daemonize' => false,
             'worker_num' => 1,
-            // 'package_max_length' => 10 * pow(1024, 2)
+            'package_max_length' => 10 * pow(1024, 2)
         ]
 
     ],

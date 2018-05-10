@@ -43,7 +43,7 @@ class Album
                 'albumId' => $value['id']
             ];
             $options = [
-                'limit' => 5,
+                'limit' => 10,
                 'order' => ['created' => 'desc']
             ];
             $photos = $photo->find($filter, $options);
