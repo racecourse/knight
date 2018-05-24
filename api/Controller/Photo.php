@@ -35,6 +35,10 @@ class Photo extends Controller {
                 $image->name = $uploaded->getClientFilename();
                 $image->size = $uploaded->getSize();
                 $type = $uploaded->getClientMediaType();
+                if (!$type) {
+                    continue;
+                }
+
                 $extname = end(explode('/', $type));
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
@@ -52,7 +56,6 @@ class Photo extends Controller {
                 $image = $image->save();
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
-                var_dump($err->getMessage());
                 continue;
             }
         }

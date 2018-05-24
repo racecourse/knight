@@ -153,4 +153,18 @@ export default {
       commit('ALBUM_FETCH_FAILURE', res);
     }
   },
+  async albumPhotos({ commit }, params) {
+    const { page, pageSize , albumId } = params;
+    const res = await fetch('/albums/' + albumId + '/photos',
+      'get',
+      { page, pageSize }
+    );
+
+    console.log('--------->', res);
+    if (res.ok) {
+      commit('ALBUM_PHOTOS_FETCH_SUCCESS', res);
+    } else {
+      commit('ALBUM_FETCH_FAILURE', res);
+    }
+  },
 }

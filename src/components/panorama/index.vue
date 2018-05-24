@@ -58,7 +58,7 @@ export default {
     pannellum.viewer("panorama", {
       type: "equirectangular",
       // panorama: "https://photo.yupoo.com/courser/a7314bce/69b05f70.jpg",
-      panorama: this.panorama,
+      panorama: 'http://' + this.panorama,
       autoLoad: true,
       title: this.title,
       autoRotate: this.autoRotate

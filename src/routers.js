@@ -28,6 +28,10 @@ export default [
         path: '/albums',
         component: require('./views/albums.vue')
       },
+      {
+        path: '/albums/:albumId/photos',
+        component: require('./views/album.vue')
+      },
     ]
   },
   {

@@ -29,7 +29,7 @@ class Album
             'isShow' => ['$gte' => $user ? 0 : 1],
         ];
         $options = [
-            'order' =>[ 'created' => 'desc'],
+            'order' => ['created' => 'desc'],
             'limit' => $pageSize,
             'offset' => ($page - 1) * $pageSize
         ];
@@ -117,6 +117,68 @@ class Album
             'message' => 'ok',
             'code' => 0,
             'data' => $data,
+        ]);
+    }
+
+    public function photos(Request $request)
+    {
+        $albumId = $request->getParam('albumId');
+        $response = new Response();
+        $page = $request->getQuery('page', 1);
+        $pageSize = $request->getQuery('pageSize', 20);
+        $page = abs($page);
+        $pageSize = abs($pageSize);
+        $lastId = $request->getQuery('last');
+        if (!is_numeric($albumId)) {
+            return $response->withStatus(400)
+                ->json([
+                   'message' => 'illegal param albumId',
+                   'code' => 1,
+                ]);
+        }
+
+        $gallery = new Gallery();
+        $album = $gallery->findById($albumId);
+        if (!$album) {
+            return $response->withStatus(400)
+                ->json([
+                   'message' => 'album not found',
+                   'code' => 2,
+                ]);
+        }
+
+        $photo = new Photo();
+        $where = [
+            'albumId' => $albumId,
+        ];
+        $options = [
+            'limit' => $pageSize,
+            'order' => ['id' => 'desc']
+        ];
+        if ($lastId) {
+            $where['id'] = [
+                '$lt' => $lastId,
+            ];
+        } else {
+            $options['offset'] = intval($page - 1) * $pageSize;
+        }
+
+        $total = yield $photo->count($where);
+        $photos = [];
+        if ($total > 0) {
+            $photos = yield $photo->find($where, $options);
+            $photos = $photo->toArray($photos);
+        }
+
+        return $response->json([
+            'message' => 'ok',
+            'data' => [
+                'page' => $page,
+                'pageSize' => $pageSize,
+                'list' => $photos,
+                'total' => $total,
+                'albumInfo' => $album,
+            ],
         ]);
     }
 }

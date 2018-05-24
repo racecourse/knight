@@ -14,7 +14,7 @@
           <div class="image-box">
             <div class="image-cover">
               <div v-if="photo.panorama">
-                <img class="panorama-thumb" :src="photo.url" />
+                <img class="panorama-thumb" :src="'http://' + photo.url + '!thumb'" />
                 <div class="panorama-zoom"  @click="showPanorama(photo)">
                   全景图片点击观看
                 </div>
@@ -31,9 +31,9 @@
           tablet="50"
           desktop="33"
         >
-          <div v-if="album.photoNumber > 5">
+          <div v-if="album.photoNumber > 10">
             <div class="photo-more">
-              <div class="photo-more-text">查看更多</div>
+              <div class="photo-more-text" @click="more(album.id)">查看更多</div>
             </div>
           </div>
         </mu-col>
@@ -53,7 +53,8 @@
 
 <script>
 import Panorama from '../components/panorama/index.vue';
-  import fecha from 'fecha';
+import fecha from 'fecha';
+import path from 'path';
 export default {
   data() {
     return {
@@ -71,6 +72,9 @@ export default {
     },
     closePanorama() {
       this.show = false;
+    },
+    more(id){
+      this.$router.push('/albums/' + id + '/photos');
     }
   },
   async beforeMount() {
@@ -101,7 +105,7 @@ export default {
 
               const preview = {
                 src: '//' + photo.url,
-                msrc: '//' + photo.url,
+                msrc: '//' + photo.url + '!thumb',
                 alt: photo.name,
                 title: photo.name,
                 w: Number(attr.width) || 400,
@@ -120,89 +124,6 @@ export default {
 }
 </script>
 <style>
-  .album-wrap {
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #58c5580c;
-    max-width: 860px;
-    padding: 0 15px;
-    min-height: 100%;
-  }
-  .album-name {
-    margin: 2em 0;
-    padding-left: 20px;
-    border-left: 3px solid #9fdb93;
-    background: #f9f7f7;
-  }
-  .image-box {
-    /* background: #ffffff; */
-    padding: 5px;
-    height: 240px;
-    /* border: 1px solid #f2f2f2; */
-  }
-  .image-cover {
-    height: 200px;
-    width: 100%;
-    overflow: hidden;
-  }
-  .image-cover img {
-    width: 100%;
-  }
-
-  .image-cover figure {
-    -webkit-margin-before: 0.1em;
-    -webkit-margin-after: 0.1em;
-    -webkit-margin-start: 10px;
-    -webkit-margin-end: 10px;
-  }
-  .image-title {
-    font-size: 12px;
-    text-align: center;
-  }
-  .panorama-zoom {
-    /* height: 200px; */
-    position: absolute;
-    margin-top: -100px;
-    z-index: 10;
-    width: 250px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .panorama-thumb {
-    height: 200px;
-    z-index: -1;
-    -webkit-filter: blur(2px); filter: blur(2px);
-  }
-  .panoram-dialog {
-    width: calc(100% - 100px)
-  }
-  @media screen and (max-width: 768px) {
-    .mu-dialog {
-      position: absolute;
-      top: 20px;
-      width: calc(100% - 50px);
-    }
-  }
-  
-  .photo-more {
-    position: relative;
-    background: #8aaf8a0c;
-    text-align: center;
-    color: #999999;
-    height: 200px;
-    font-size: 1.2rem;
-  }
-  .photo-more-text {
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    width: 50%;
-    padding: 10px;
-    border: 1px solid#b2b2b2;
-    border-radius: 2px;
-    text-align: center;
-    
-    transform: translateY(-50%);
-  }
+ @import '../assets/album.css';
 </style>
 

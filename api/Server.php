@@ -16,7 +16,6 @@ use Courser\Relay;
 use Psr\Http\Message\ResponseInterface;
 use Swoole\Http\Server as SwooleServer;
 use Swoole\Http\Request;
-use Hayrick\Http\Response;
 use Hayrick\Http\Stream;
 use DI\Container;
 

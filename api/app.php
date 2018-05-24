@@ -38,6 +38,7 @@ try {
     $app->get('/article', [Knight\Controller\Admin::class, 'article']);
     // $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
     $app->get('/albums', [Knight\Controller\Album::class, 'list']);
+    $app->get('/albums/:albumId/photos', [Knight\Controller\Album::class, 'photos']);
     $app->group('/admin', function (App $app) {
         $auth = new Auth(Config::get('jwt'), 'knight');
         $app->add($auth);
