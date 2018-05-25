@@ -14,6 +14,7 @@ import teal from 'muse-ui/dist/theme-teal.css'
 import './assets/hljs.css';
 import './assets/common.css';
 import './assets/reset.css';
+import './assets/md-icon.css';
 
 
 window.hljs = hljs;
