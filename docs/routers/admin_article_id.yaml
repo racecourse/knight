@@ -1,0 +1,84 @@
+get:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object
+delete:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object
+put:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+    -
+      in: body
+      description: 'payload params'
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          tags:
+            type: string
+          content:
+            type: string
+          cateId:
+            type: string
+          created:
+            type: string
+          permission:
+            type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

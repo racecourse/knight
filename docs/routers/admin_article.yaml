@@ -1,0 +1,57 @@
+get:
+  parameters:
+    -
+      -
+        in: query
+        type: string
+        description: 'query param:page'
+        required: false
+        name: page
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object
+post:
+  parameters:
+    -
+      in: body
+      description: 'payload params'
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+          content:
+            type: string
+          tags:
+            type: string
+          cateId:
+            type: string
+          permission:
+            type: string
+          created:
+            type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

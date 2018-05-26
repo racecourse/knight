@@ -1,0 +1,12 @@
+description: 'Model of Category'
+type: object
+properties:
+  id:
+    type: integer
+    description: ''
+  name:
+    type: string
+    description: ''
+  created:
+    type: integer
+    description: ''

@@ -1,0 +1,12 @@
+Album:
+  $ref: Album.yaml
+Category:
+  $ref: Category.yaml
+Comment:
+  $ref: Comment.yaml
+Photo:
+  $ref: Photo.yaml
+Post:
+  $ref: Post.yaml
+User:
+  $ref: User.yaml

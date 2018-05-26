@@ -20,3 +20,5 @@ class Post extends Dao
         'updated' => ['column' => 'updated', 'type' => 'timestamp'],
     ];
 }
+
+return __NAMESPACE__;

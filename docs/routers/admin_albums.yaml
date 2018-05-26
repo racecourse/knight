@@ -1,0 +1,28 @@
+post:
+  parameters:
+    -
+      in: body
+      description: 'payload params'
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+          detail:
+            type: string
+          isShow:
+            type: string
+  tags: []
+  description: 'create album'
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

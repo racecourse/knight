@@ -1,0 +1,65 @@
+get:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+    -
+      -
+        in: query
+        type: string
+        description: 'query param:page'
+        required: false
+        name: page
+  tags: []
+  description: 'get article comment by article id'
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object
+post:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+    -
+      in: body
+      description: 'payload params'
+      schema:
+        type: object
+        properties:
+          content:
+            type: string
+          email:
+            type: string
+          site:
+            type: string
+          username:
+            type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

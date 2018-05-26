@@ -1,0 +1,42 @@
+description: 'Model of Photo'
+type: object
+properties:
+  id:
+    type: integer
+    description: ''
+  userId:
+    type: integer
+    description: ''
+  albumId:
+    type: integer
+    description: ''
+    default:
+      - 0
+  url:
+    type: string
+    description: ''
+  name:
+    type: string
+    description: ''
+  attr:
+    type: string
+    description: ''
+  size:
+    type: integer
+    description: ''
+  panorama:
+    type: integer
+    description: ''
+    default:
+      - 0
+  isShow:
+    type: integer
+    description: ''
+    default:
+      - 1
+  created:
+    type: integer
+    description: ''
+  updated:
+    type: string
+    description: ''

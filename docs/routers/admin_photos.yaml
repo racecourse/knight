@@ -1,0 +1,25 @@
+post:
+  parameters:
+    -
+      in: body
+      description: 'payload params'
+      schema:
+        type: object
+        properties:
+          album:
+            type: string
+            default: 1
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

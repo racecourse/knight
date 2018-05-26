@@ -1,0 +1,26 @@
+description: 'Model of User'
+type: object
+properties:
+  id:
+    type: integer
+    description: ''
+  username:
+    type: string
+    description: ''
+  nickname:
+    type: string
+    description: ''
+  password:
+    type: string
+    description: ''
+  email:
+    type: string
+    description: ''
+    default:
+      - ''
+  created:
+    type: integer
+    description: ''
+  updated:
+    type: string
+    description: ''

@@ -1,0 +1,26 @@
+description: 'Model of Album'
+type: object
+properties:
+  id:
+    type: integer
+    description: ''
+  userId:
+    type: integer
+    description: ''
+  name:
+    type: string
+    description: ''
+  detail:
+    type: string
+    description: ''
+  isShow:
+    type: integer
+    description: ''
+    default:
+      - 1
+  created:
+    type: integer
+    description: ''
+  updated:
+    type: string
+    description: ''

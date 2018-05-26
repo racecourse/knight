@@ -1,0 +1,37 @@
+---
+swagger: '2.0'
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: v0.1.1
+  title: knight API
+  description: |
+    这是新版又拍图片管家 API，仅限内部使用。api 采用 rest 风格，正常情况下response statusCode
+    20x 为成功的返回，
+    40x 为客户端错误，
+    50x 为服务端错误，
+    20x 返回 格式为 { message: 'OK', data: ... }
+    非20x 返回 { message: '错误描述', code: '详细请看 api 错误码'}
+################################################################################
+#                  Host, Base Path, Schemes and Content Types                  #
+################################################################################
+host: localhost
+basePath: /
+schemes:
+  - http
+produces:
+  - application/json
+consumes:
+  - application/json
+  - multipart/form-data
+tags:
+  - name: Auth
+    description: 认证
+  - name: Users
+    description: 用户
+paths:
+  $ref: ./routers/index.yaml
+definitions:
+  $ref: ./definitions/index.yaml

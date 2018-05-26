@@ -1,0 +1,39 @@
+description: 'Model of Comment'
+type: object
+properties:
+  id:
+    type: integer
+    description: ''
+  artId:
+    type: integer
+    description: ''
+  username:
+    type: integer
+    description: ''
+  email:
+    type: integer
+    description: ''
+  site:
+    type: string
+    description: ''
+    default:
+      - ''
+  content:
+    type: string
+    description: ''
+  like:
+    type: integer
+    description: ''
+    default:
+      - 0
+  unlike:
+    type: integer
+    description: ''
+    default:
+      - 0
+  created:
+    type: integer
+    description: ''
+  updated:
+    type: string
+    description: ''

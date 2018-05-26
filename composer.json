@@ -22,7 +22,6 @@
       "type": "vcs",
       "url": "http://github.com/eclogue/courser"
     },
-
     "4": {
       "type": "vcs",
       "url": "http://github.com/eclogue/lily"
@@ -41,7 +40,11 @@
     "eclogue/courser": "dev-develop",
     "eclogue/mews": "dev-master",
     "eclogue/ben": "dev-master",
-    "eclogue/lily": "dev-master"
-},
-"minimum-stability": "dev"
+    "eclogue/lily": "dev-master",
+    "eclogue/manjusaka": "dev-master"
+  },
+  "scripts": {
+    "doc": "php bin/document.php"
+  },
+  "minimum-stability": "dev"
 }

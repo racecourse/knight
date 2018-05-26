@@ -1,0 +1,22 @@
+get:
+  parameters:
+    -
+      in: path
+      name: id
+      required: true
+      description: id
+      type: string
+  tags: []
+  description: ''
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

@@ -1,0 +1,34 @@
+/posts:
+  $ref: posts.yaml
+'/posts/{id}':
+  $ref: posts_id.yaml
+'/posts/{id}/comments':
+  $ref: posts_id_comments.yaml
+/category:
+  $ref: category.yaml
+/article:
+  $ref: article.yaml
+/albums:
+  $ref: albums.yaml
+'/albums/{albumId}/photos':
+  $ref: albums_albumId_photos.yaml
+/admin/survey:
+  $ref: admin_survey.yaml
+/admin/article:
+  $ref: admin_article.yaml
+'/admin/article/{id}':
+  $ref: admin_article_id.yaml
+/admin/comments:
+  $ref: admin_comments.yaml
+/admin/all/albums:
+  $ref: admin_all_albums.yaml
+/login:
+  $ref: login.yaml
+/admin/photos:
+  $ref: admin_photos.yaml
+/admin/category:
+  $ref: admin_category.yaml
+/admin/albums:
+  $ref: admin_albums.yaml
+'/admin/category/{id}':
+  $ref: admin_category_id.yaml

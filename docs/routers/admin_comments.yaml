@@ -1,0 +1,23 @@
+get:
+  parameters:
+    -
+      -
+        in: query
+        type: string
+        description: 'query param:page'
+        required: false
+        name: page
+  tags: []
+  description: 'get article comment by article id'
+  security: []
+  responses:
+    200:
+      description: ''
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            default: ok
+          data:
+            type: object

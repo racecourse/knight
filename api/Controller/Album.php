@@ -87,6 +87,12 @@ class Album
         ]);
     }
 
+    /**
+     * create album
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function create(Request $request): Response
     {
         $name = $request->getPayload('name');

@@ -13,3 +13,5 @@ class Category extends Dao
         'created' => ['column' => 'created', 'type' => 'int'],
     ];
 }
+
+return __NAMESPACE__;
