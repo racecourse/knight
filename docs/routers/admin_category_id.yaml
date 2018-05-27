@@ -7,7 +7,7 @@ delete:
       description: id
       type: string
   tags: []
-  description: ''
+  description: 'drop category by id'
   security: []
   responses:
     200:

@@ -3,13 +3,14 @@ post:
     -
       in: body
       description: 'payload params'
+      name: body
       schema:
         type: object
         properties:
           name:
             type: string
   tags: []
-  description: ''
+  description: 'create category'
   security: []
   responses:
     200:

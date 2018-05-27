@@ -7,7 +7,7 @@ get:
       description: id
       type: string
   tags: []
-  description: ''
+  description: 'get article detail'
   security: []
   responses:
     200:

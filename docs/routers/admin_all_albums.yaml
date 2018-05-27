@@ -1,6 +1,6 @@
 get:
   tags: []
-  description: ''
+  description: 'get all album name'
   security: []
   responses:
     200:

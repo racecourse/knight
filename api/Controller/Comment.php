@@ -18,6 +18,10 @@ class Comment extends Controller
 {
 
     /**
+     * get article comments
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
      * @throws \Exception
      */
     public function comments(Request $request)
@@ -59,7 +63,10 @@ class Comment extends Controller
     }
 
     /**
-     * @throws \Exception
+     * add a comment with article id
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
      */
     public function add(Request $request)
     {

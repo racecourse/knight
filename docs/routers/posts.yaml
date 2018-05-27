@@ -1,26 +1,13 @@
 get:
   parameters:
     -
-      -
-        in: query
-        type: string
-        description: 'query param:page'
-        required: false
-        name: page
-      -
-        in: query
-        type: string
-        description: 'query param:order'
-        required: false
-        name: order
-      -
-        in: query
-        type: string
-        description: 'query param:q'
-        required: false
-        name: q
+      in: query
+      type: string
+      description: 'query param:q'
+      required: false
+      name: q
   tags: []
-  description: ''
+  description: 'get article list'
   security: []
   responses:
     200:

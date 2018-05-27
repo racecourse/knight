@@ -7,7 +7,7 @@ class Post extends Dao
 {
     protected $table = 'articles';
 
-    protected $fields = [
+    public $fields = [
         'id' => ['column' => 'id', 'pk' => true, 'type' => 'int'],
         'userId' => ['column' => 'user_id', 'type' => 'int'],
         'cateId' => ['column' => 'cate_id', 'type' => 'int'],

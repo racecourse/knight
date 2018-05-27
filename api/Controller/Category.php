@@ -15,6 +15,12 @@
 
  class Category extends Controller {
 
+     /**
+      * create category
+      *
+      * @param Request $request
+      * @return \Psr\Http\Message\ResponseInterface|static
+      */
     public function create(Request $request)
     {
         $name = $request->getPayload('name');
@@ -40,6 +46,12 @@
             ]);
     }
 
+     /**
+      * drop category by id
+      *
+      * @param Request $request
+      * @return \Psr\Http\Message\ResponseInterface|static
+      */
     public function drop(Request $request)
     {
         $id = $request->getParam('id');
@@ -72,6 +84,12 @@
             ]);
     }
 
+     /**
+      * get category list
+      *
+      * @return \Psr\Http\Message\ResponseInterface|static
+      * @throws \Exception
+      */
     public function list()
     {
         $category = new Cate();

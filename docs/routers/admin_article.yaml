@@ -1,14 +1,13 @@
 get:
   parameters:
     -
-      -
-        in: query
-        type: string
-        description: 'query param:page'
-        required: false
-        name: page
+      in: query
+      type: string
+      description: 'query param:page'
+      required: false
+      name: page
   tags: []
-  description: ''
+  description: 'article list'
   security: []
   responses:
     200:
@@ -26,6 +25,7 @@ post:
     -
       in: body
       description: 'payload params'
+      name: body
       schema:
         type: object
         properties:
@@ -42,7 +42,7 @@ post:
           created:
             type: string
   tags: []
-  description: ''
+  description: 'create article'
   security: []
   responses:
     200:

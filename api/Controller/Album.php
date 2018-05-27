@@ -17,6 +17,13 @@ use Knight\Model\Photo;
 class Album
 {
 
+    /**
+     * get album list
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
+     */
     public function list(Request $request)
     {
         $user = $request->getAttribute('session');
@@ -66,6 +73,12 @@ class Album
         ]);
     }
 
+    /**
+     * get all album name
+     *
+     * @return Response
+     * @throws \Exception
+     */
     public function all(): Response
     {
         $album = new Gallery();
@@ -126,6 +139,13 @@ class Album
         ]);
     }
 
+    /**
+     * get photos of album by album id
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
+     */
     public function photos(Request $request)
     {
         $albumId = $request->getParam('albumId');

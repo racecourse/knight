@@ -1,6 +1,6 @@
 get:
   tags: []
-  description: ''
+  description: 'get category list'
   security: []
   responses:
     200:

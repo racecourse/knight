@@ -18,6 +18,12 @@ use Upyun\Config as UConfig;
 
 class Photo extends Controller {
 
+    /**
+     * upload a new photo
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function create(Request $request)
     {
         $user = $request->getAttribute('session');

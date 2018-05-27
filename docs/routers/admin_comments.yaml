@@ -1,12 +1,11 @@
 get:
   parameters:
     -
-      -
-        in: query
-        type: string
-        description: 'query param:page'
-        required: false
-        name: page
+      in: query
+      type: string
+      description: 'query param:page'
+      required: false
+      name: page
   tags: []
   description: 'get article comment by article id'
   security: []

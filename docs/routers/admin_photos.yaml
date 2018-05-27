@@ -3,6 +3,7 @@ post:
     -
       in: body
       description: 'payload params'
+      name: body
       schema:
         type: object
         properties:
@@ -10,7 +11,7 @@ post:
             type: string
             default: 1
   tags: []
-  description: ''
+  description: 'upload a new photo'
   security: []
   responses:
     200:

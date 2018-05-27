@@ -1,6 +1,6 @@
 get:
   tags: []
-  description: ''
+  description: 网站概况
   security: []
   responses:
     200:

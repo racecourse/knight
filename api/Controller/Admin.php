@@ -19,6 +19,14 @@ use Linfo\Linfo;
 class Admin extends Controller
 {
 
+    /**
+     * 网站概况
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Linfo\Exceptions\FatalException
+     * @throws \ReflectionException
+     */
     public function survey(Request $request)
     {
         $article = new Post();
@@ -75,6 +83,13 @@ class Admin extends Controller
         ]);
     }
 
+    /**
+     * article list
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
+     */
     public function article(Request $request)
     {
         $page = abs($request->getQuery('page'));
@@ -106,9 +121,10 @@ class Admin extends Controller
     }
 
     /**
-     * @body string title
-     * @body string content
-     * @body integer cateId
+     * create article
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
      */
     public function create(Request $request)
     {
@@ -163,7 +179,14 @@ class Admin extends Controller
         ]);
     }
 
-    
+
+    /**
+     * get all category
+     *
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
     public function category(Request $request)
     {
         $category = new Category();
@@ -226,6 +249,12 @@ class Admin extends Controller
         ]);
     }
 
+    /**
+     * drop a article by id
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function drop(Request $request)
     {
         $id = $request->getParam('id');
@@ -290,6 +319,7 @@ class Admin extends Controller
      * @query int $page required
      * @query int $pageSize required
      * @return $ref comment
+     * @throws \Exception
      */
     public function comments(Request $request)
     {
@@ -321,6 +351,12 @@ class Admin extends Controller
         ]);
     }
 
+    /**
+     * drop article comments by ids
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function dropComment(Request $request)
     {
         $ids = $request->getPayload('ids');

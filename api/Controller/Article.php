@@ -20,6 +20,8 @@ class Article extends Controller
 {
 
     /**
+     * get article list
+     *
      * @param Request $request
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception
@@ -69,11 +71,10 @@ class Article extends Controller
     }
 
     /**
-     * @security [Bearer]
-     * @desc This method loads the homepage
-     * @tags User
-     * @param int $id path required
-     * @return $ref Detail
+     * get article detail
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
      */
     public function detail(Request $request)
     {
@@ -110,6 +111,8 @@ class Article extends Controller
     }
 
     /**
+     * get article by admin
+     *
      * @param Request $request
      * @return \Psr\Http\Message\ResponseInterface|static
      * @throws \Exception

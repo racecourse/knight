@@ -1,3 +1,35 @@
 description: 'Model of Post'
 type: object
-properties: []
+properties:
+  id:
+    type: integer
+    description: ''
+  userId:
+    type: integer
+    description: ''
+  cateId:
+    type: integer
+    description: ''
+  title:
+    type: string
+    description: ''
+  tags:
+    type: string
+    description: ''
+  views:
+    type: integer
+    description: ''
+  content:
+    type: string
+    description: ''
+  permission:
+    type: integer
+    description: ''
+    default:
+      - 0
+  created:
+    type: integer
+    description: ''
+  updated:
+    type: string
+    description: ''

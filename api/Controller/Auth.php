@@ -19,7 +19,13 @@ use Ben\Config;
 class Auth extends Controller
 {
 
-
+    /**
+     * login api
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
+     */
     public function login(Request $request)
     {
         $username = $request->getPayload('username');
@@ -71,10 +77,13 @@ class Auth extends Controller
         ]);
     }
 
-    /*
-     * route: /register
-     * register
-     * */
+
+    /**
+     * register api just for test
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function register(Request $request)
     {
         $username = $request->getPayload('username');

@@ -3,6 +3,7 @@ post:
     -
       in: body
       description: 'payload params'
+      name: body
       schema:
         type: object
         properties:
@@ -11,7 +12,7 @@ post:
           password:
             type: string
   tags: []
-  description: ''
+  description: 'login api'
   security: []
   responses:
     200:

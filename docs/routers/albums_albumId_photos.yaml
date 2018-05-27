@@ -7,26 +7,13 @@ get:
       description: albumId
       type: string
     -
-      -
-        in: query
-        type: string
-        description: 'query param:page'
-        required: false
-        name: page
-      -
-        in: query
-        type: string
-        description: 'query param:pageSize'
-        required: false
-        name: pageSize
-      -
-        in: query
-        type: string
-        description: 'query param:last'
-        required: false
-        name: last
+      in: query
+      type: string
+      description: 'query param:last'
+      required: false
+      name: last
   tags: []
-  description: ''
+  description: 'get photos of album by album id'
   security: []
   responses:
     200:

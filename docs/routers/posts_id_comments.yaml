@@ -7,12 +7,11 @@ get:
       description: id
       type: string
     -
-      -
-        in: query
-        type: string
-        description: 'query param:page'
-        required: false
-        name: page
+      in: query
+      type: string
+      description: 'query param:page'
+      required: false
+      name: page
   tags: []
   description: 'get article comment by article id'
   security: []
@@ -38,6 +37,7 @@ post:
     -
       in: body
       description: 'payload params'
+      name: body
       schema:
         type: object
         properties:
@@ -50,7 +50,7 @@ post:
           username:
             type: string
   tags: []
-  description: ''
+  description: 'add a comment with article id'
   security: []
   responses:
     200:
