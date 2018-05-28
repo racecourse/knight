@@ -1,0 +1,13 @@
+description: 'Model of Error'
+type: object
+properties:
+  code:
+    type: integer
+    description: 'server error code'
+    default:
+      - 500
+  message:
+    type: string
+    description: ''
+    default:
+      - 'service error'

@@ -10,13 +10,46 @@ delete:
   description: 'drop category by id'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
-          data:
-            type: object
+            enum:
+              - 'cate id miss'
+          code:
+            type: integer
+            enum:
+              - 1
+    404:
+      description: 'response of 404'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - 'category not found'
+          code:
+            type: integer
+            enum:
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0

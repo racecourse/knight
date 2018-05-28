@@ -4,6 +4,8 @@ Category:
   $ref: Category.yaml
 Comment:
   $ref: Comment.yaml
+Error:
+  $ref: Error.yaml
 Photo:
   $ref: Photo.yaml
 Post:

@@ -3,13 +3,24 @@ get:
   description: 'get category list'
   security: []
   responses:
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
     200:
-      description: ''
+      description: 'response of 200'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0
           data:
-            type: object
+            type: string
+            enum:
+              - list

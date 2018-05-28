@@ -16,16 +16,55 @@ get:
   description: 'get article comment by article id'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - 'param id required'
+          code:
+            type: integer
+            enum:
+              - 1
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0
           data:
             type: object
+            properties:
+              list:
+                type: string
+                enum:
+                  - comments
+              page:
+                type: string
+                enum:
+                  - page
+              pageSize:
+                type: string
+                enum:
+                  - pageSize
+              total:
+                type: string
+                enum:
+                  - total
 post:
   parameters:
     -
@@ -53,13 +92,35 @@ post:
   description: 'add a comment with article id'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
-          data:
-            type: object
+            enum:
+              - 参数错误了
+              - 文章不存在
+          code:
+            type: integer
+            enum:
+              - 1
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0

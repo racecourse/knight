@@ -3,13 +3,51 @@ get:
   description: 网站概况
   security: []
   responses:
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
     200:
-      description: ''
+      description: 'response of 200'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0
           data:
             type: object
+            properties:
+              articleNumber:
+                type: integer
+                enum:
+                  - 4
+              commentNumber:
+                type: integer
+                enum:
+                  - 3
+              albumNumber:
+                type: integer
+                enum:
+                  - 2
+              photoNumber:
+                type: integer
+                enum:
+                  - 1
+              pv:
+                type: integer
+                enum:
+                  - 1
+              ip:
+                type: integer
+                enum:
+                  - 1
+              system:
+                type: string
+                enum:
+                  - system

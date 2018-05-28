@@ -10,16 +10,42 @@ get:
   description: ''
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - 'Illegal ID'
+              - 'article not found'
+          code:
+            type: integer
+            enum:
+              - 1
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0
           data:
-            type: object
+            type: string
+            enum:
+              - art
 delete:
   parameters:
     -
@@ -32,16 +58,38 @@ delete:
   description: 'drop a article by id'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
-          data:
-            type: object
+            enum:
+              - 'Illegal ID'
+              - 'article not found'
+          code:
+            type: integer
+            enum:
+              - 1
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0
 put:
   parameters:
     -
@@ -73,13 +121,35 @@ put:
   description: ''
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
-          data:
-            type: object
+            enum:
+              - 'content && title are required'
+              - 'article not found'
+          code:
+            type: integer
+            enum:
+              - 1
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
+          code:
+            type: integer
+            enum:
+              - 0

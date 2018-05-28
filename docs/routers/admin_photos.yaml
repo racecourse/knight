@@ -14,13 +14,20 @@ post:
   description: 'upload a new photo'
   security: []
   responses:
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
     200:
-      description: ''
+      description: 'response of 200'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - ok
           data:
-            type: object
+            type: string
+            enum:
+              - success

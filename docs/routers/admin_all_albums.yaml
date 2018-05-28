@@ -3,13 +3,23 @@ get:
   description: 'get all album name'
   security: []
   responses:
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
     200:
-      description: ''
+      description: 'response of 200'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - ok
           data:
             type: object
+            properties:
+              list:
+                type: string
+                enum:
+                  - list

@@ -16,13 +16,54 @@ get:
   description: 'get photos of album by album id'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - 'illegal param albumId'
+              - 'album not found'
+          code:
+            type: integer
+            enum:
+              - 1
+              - 2
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
           data:
             type: object
+            properties:
+              page:
+                type: string
+                enum:
+                  - page
+              pageSize:
+                type: string
+                enum:
+                  - pageSize
+              list:
+                type: string
+                enum:
+                  - photos
+              total:
+                type: string
+                enum:
+                  - total
+              albumInfo:
+                type: string
+                enum:
+                  - album

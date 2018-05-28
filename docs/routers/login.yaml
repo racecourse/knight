@@ -15,13 +15,66 @@ post:
   description: 'login api'
   security: []
   responses:
-    200:
-      description: ''
+    default:
+      description: 'service error'
+      schema:
+        $ref: '#/definitions/Error'
+    400:
+      description: 'response of 400'
       schema:
         type: object
         properties:
           message:
             type: string
-            default: ok
+            enum:
+              - 'param error'
+          code:
+            type: integer
+            enum:
+              - 1
+    404:
+      description: 'response of 404'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - 'user not found'
+          code:
+            type: integer
+            enum:
+              - 2
+    401:
+      description: 'response of 401'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - 'password incorrect'
+          code:
+            type: integer
+            enum:
+              - 3
+    200:
+      description: 'response of 200'
+      schema:
+        type: object
+        properties:
+          message:
+            type: string
+            enum:
+              - ok
           data:
             type: object
+            properties:
+              user:
+                type: string
+                enum:
+                  - userInfo
+              token:
+                type: string
+                enum:
+                  - token
