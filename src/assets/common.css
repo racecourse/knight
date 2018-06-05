@@ -33,3 +33,13 @@ pre code {
   background: #fefefe;
   -webkit-text-size-adjust: none;
 }
+
+.a-page {
+  padding: 1rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}

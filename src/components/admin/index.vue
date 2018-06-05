@@ -16,11 +16,11 @@
 </style>
 <script>
 import SideNav from '../nav/index.vue';
-import Bottom from '../common/bottom.vue';
+// import Bottom from '../common/bottom.vue';
 export default {
   components: {
     SideNav,
-    Bottom,
+    // Bottom,
   },
 }
 </script>

@@ -5,14 +5,28 @@
             :article="post"
             :key="post.id">
       </Post>
-      <Pagination :page="page" :total="total" :pageSize="pageSize" v-if="posts.length"></Pagination>
+      <div class="a-page">
+        <Pagination :current="page"
+          :total="total"
+          :pageSize="pageSize"
+          v-if="posts.length"
+          @query="change"
+        >
+        </Pagination>
+      </div>
+      
     </div>
   </div>
 </template>
+<style>
+.p-page {
+  
+}
+</style>
 
 <script>
   import Post from '../components/post/index.vue';
-  import Pagination from '../components/pagination/post.vue';
+  import Pagination from '../components/pagination/general.vue';
 
   export default {
     data() {
@@ -41,12 +55,6 @@
     },
     async beforeMount() {
       this.change();
-    },
-    beforeUpdate() {
-      const page = Number(this.$route.query.page);
-      if (page && page !== Number(this.page)) {
-        this.change();
-      }
     },
     components: {
       Post,

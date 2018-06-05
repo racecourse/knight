@@ -2,7 +2,9 @@ import fetch from '../fetch';
 import querystring from 'querystring';
 
 export default {
-  async login({ commit }, data) {
+  async login({
+    commit
+  }, data) {
     const res = await fetch('/login', 'POST', data);
     if (res.ok) {
       commit('USER_LOGIN_SUCCESS', res)
@@ -13,7 +15,9 @@ export default {
   register() {
 
   },
-  async posts({ commit }, data) {
+  async posts({
+    commit
+  }, data) {
     let uri = '/posts';
     if (data) {
       data = typeof data === 'object' ? querystring.stringify(data) : data;
@@ -26,7 +30,9 @@ export default {
       commit('POST_FETCH_FAILURE', res)
     }
   },
-  async post({ commit }, id) {
+  async post({
+    commit
+  }, id) {
     const res = await fetch('/posts/' + id, 'get');
     if (res.ok) {
       commit('POST_DETAIL_SUCCESS', res)
@@ -34,7 +40,9 @@ export default {
       commit('POST_FETCH_FAILURE', res)
     }
   },
-  async article({ commit }, data) {
+  async article({
+    commit
+  }, data) {
     const res = await fetch('/admin/article', 'get', data);
     if (res.ok) {
       commit('ARTICLE_FETCH_SUCCESS', res)
@@ -42,7 +50,11 @@ export default {
       commit('ARTICLE_FETCH_FAILURE', res)
     }
   },
-  async delArt({ commit }, { id }) {
+  async delArt({
+    commit
+  }, {
+    id
+  }) {
     const res = await fetch('/admin/article/' + id, 'delete');
     if (res.ok) {
       commit('ARTICLE_FETCH_SUCCESS', res)
@@ -50,7 +62,9 @@ export default {
       commit('ARTICLE_FETCH_FAILURE', res)
     }
   },
-  async getArt({ commit }, id) {
+  async getArt({
+    commit
+  }, id) {
     const res = await fetch('/admin/article/' + id, 'get');
     if (res.ok) {
       commit('ARTICLE_DETAIL_SUCCESS', res)
@@ -58,7 +72,9 @@ export default {
       commit('ARTICLE_DETAIL_FAILURE', res)
     }
   },
-  async getCommentsByPostId({ commit }, id) {
+  async getCommentsByPostId({
+    commit
+  }, id) {
     const res = await fetch('/posts/' + id + '/comments', 'get');
     if (res.ok) {
       commit('COMMENT_FETCH_SUCCESS', res);
@@ -66,7 +82,10 @@ export default {
       commit('COMMENT_FETCH_FAILURE', res);
     }
   },
-  async addComment({commit, dispatch}, data) {
+  async addComment({
+    commit,
+    dispatch
+  }, data) {
     const res = await fetch('/posts/' + data.id + '/comments', 'post', data);
     if (res.ok) {
       commit('COMMENT_FETCH_SUCCESS', res);
@@ -75,7 +94,10 @@ export default {
       commit('COMMENT_FETCH_FAILURE', res);
     }
   },
-  async survey({ commit, dispatch }) {
+  async survey({
+    commit,
+    dispatch
+  }) {
     const res = await fetch('/admin/survey', 'get');
     if (res.ok) {
       commit('SURVEY_FETCH_SUCCESS', res);
@@ -83,7 +105,9 @@ export default {
       commit('FETCH_FAILURE', res);
     }
   },
-  async addArticle ({ commit }, data) {
+  async addArticle({
+    commit
+  }, data) {
     const res = await fetch('/admin/article', 'post', data);
     if (res.ok) {
       commit('ARTICLE_ADD_SUCCESS', res);
@@ -91,7 +115,9 @@ export default {
       commit('ARTICLE_ADD_FAILURE', res);
     }
   },
-  async editArticle ({commit}, data) {
+  async editArticle({
+    commit
+  }, data) {
     const res = await fetch('/admin/article/' + data.id, 'put', data);
     if (res.ok) {
       commit('ARTICLE_ADD_SUCCESS', res);
@@ -99,7 +125,9 @@ export default {
       commit('ARTICLE_ADD_FAILURE', res);
     }
   },
-  async category({ commit }){
+  async category({
+    commit
+  }) {
     const res = await fetch('/category', 'get');
     if (res.ok) {
       commit('CATEGORY_FETCH_SUCCESS', res);
@@ -107,10 +135,14 @@ export default {
       commit('CATEGORY_FETCH_FAILURE', res);
     }
   },
-  nextPost({commit}, page) {
+  nextPost({
+    commit
+  }, page) {
     commit('POST_PAGE_CHANGED', page);
   },
-  async comments({commit}, query) {
+  async comments({
+    commit
+  }, query) {
     const res = await fetch('/admin/comments', 'get', query);
     if (res.ok) {
       commit('COMMENT_FETCH_SUCCESS', res);
@@ -118,34 +150,55 @@ export default {
       commit('COMMENT_FETCH_FAILURE', res);
     }
   },
-  logout({commit}) {
+  logout({
+    commit
+  }) {
     commit('LOGOUT_REQUEST');
   },
-  async addCategory({commit}, name) {
-    const res = await fetch('/admin/category', 'post', {name});
+  async addCategory({
+    commit
+  }, name) {
+    const res = await fetch('/admin/category', 'post', {
+      name
+    });
     if (res.ok) {
       commit('CATEGORY_FETCH_SUCCESS', res);
     } else {
       commit('FETCH_FAILURE');
     }
   },
-  async albums({commit}, page, pageSize) {
-    const res = await fetch('/albums', 'get', {page, pageSize});
+  async albums({
+    commit
+  }, params) {
+    const {
+      page,
+      pageSize
+    } = params;
+    const res = await fetch('/albums', 'get', {
+      page,
+      pageSize
+    });
     if (res.ok) {
       commit('ALBUM_FETCH_SUCCESS', res);
     } else {
       commit('FETCH_FAILURE');
     }
   },
-  async albumNames({ commit }) {
-    const res = await fetch('/admin/all/albums', 'get', { all: true });
+  async albumNames({
+    commit
+  }) {
+    const res = await fetch('/admin/all/albums', 'get', {
+      all: true
+    });
     if (res.ok) {
       commit('ALBUM_FETCH_SUCCESS', res);
     } else {
       commit('FETCH_FAILURE');
     }
   },
-  async createAlbum ({commit}, data) {
+  async createAlbum({
+    commit
+  }, data) {
     const res = await fetch('/admin/albums', 'post', data);
     if (res.ok) {
       commit('ALBUM_FETCH_SUCCESS', res);
@@ -153,11 +206,19 @@ export default {
       commit('ALBUM_FETCH_FAILURE', res);
     }
   },
-  async albumPhotos({ commit }, params) {
-    const { page, pageSize , albumId } = params;
+  async albumPhotos({
+    commit
+  }, params) {
+    const {
+      page,
+      pageSize,
+      albumId
+    } = params;
     const res = await fetch('/albums/' + albumId + '/photos',
-      'get',
-      { page, pageSize }
+      'get', {
+        page,
+        pageSize
+      }
     );
 
     console.log('--------->', res);

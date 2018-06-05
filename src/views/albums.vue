@@ -48,11 +48,20 @@
       <mu-flat-button label="close" slot="actions"  @click="closePanorama"/>
       <Panorama :panorama="panorama.url"></Panorama>
     </mu-dialog>
+    <div class="a-page" v-if="total > pageSize">
+      <Pagination :total="total"
+       :current="page"
+       :pageSize="pageSize"
+       @query="loadAlbums"
+      />
+    </div>
+    
   </div>
 </template>
 
 <script>
 import Panorama from '../components/panorama/index.vue';
+import Pagination from '../components/pagination/general.vue';
 import fecha from 'fecha';
 import path from 'path';
 export default {
@@ -62,7 +71,8 @@ export default {
       panorama: {},
       show: false,
       page: 1,
-      pageSize: 20
+      pageSize: 20,
+      total: 0,
     }
   },
   methods: {
@@ -75,18 +85,24 @@ export default {
     },
     more(id){
       this.$router.push('/albums/' + id + '/photos');
+    },
+    async loadAlbums() {
+      const page = this.$route.query.page || 1;
+      const pageSize = this.$route.query.pageSize || 20;
+      await this.$store.dispatch('albums', { page, pageSize });
+      const data = this.$store.state.album.albums;
+      const { list, total} = data;
+      this.albums = list;
+      this.total = total;
+      this.page = data.page;
     }
   },
   async beforeMount() {
-    const page = this.$route.query.page || 1;
-    const pageSize = this.$route.query.pageSize || 1
-    await this.$store.dispatch('albums', { page, pageSize });
-    const data = this.$store.state.album.albums;
-    const { list, total } = data;
-    this.albums = list;
+    await this.loadAlbums();
   },
   components: {
     Panorama,
+    Pagination,
   },
   computed: {
     preview: function() {
