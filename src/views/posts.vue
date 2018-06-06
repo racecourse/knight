@@ -18,11 +18,6 @@
     </div>
   </div>
 </template>
-<style>
-.p-page {
-  
-}
-</style>
 
 <script>
   import Post from '../components/post/index.vue';

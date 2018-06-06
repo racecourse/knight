@@ -20,7 +20,11 @@
         </div>
       </div>
     </div>
-    <Pagination :page="page" :total="total" :pageSize="pageSize"></Pagination>
+    <!-- <Pagination :page="page" :total="total" :pageSize="pageSize"></Pagination> -->
+    <div class="a-page" @click="more">
+      <div class="p-more">more</div>
+      <mu-icon value="more_horiz"></mu-icon>
+    </div>
   </div>
 </template>
 <script>
@@ -30,7 +34,7 @@
     data() {
       return {
         page: 1,
-        pageSize: 0,
+        pageSize: 20,
         total: 0,
         list: [],
       }
@@ -38,12 +42,14 @@
     beforeMount() {
       this.load();
     },
-    beforeUpdate() {
-      const page = Number(this.$route.query.page);
-      if(page && page !== Number(this.page)) {
-        this.load();
-      }
-    },
+    // beforeUpdate() {
+    //   const page = Number(this.$route.query.page);
+    //   console.log(page * this.pageSize , this.total)
+      
+    //   if(page && page * this.pageSize <= this.total ) {
+    //     this.load();
+    //   }
+    // },
     computed: {
       archive: function () {
         const data = {};
@@ -63,15 +69,24 @@
     },
     methods: {
       async load() {
+        // @todo 加载逻辑有问题
         const query = Object.assign({}, this.$route.query);
         await this.$store.dispatch('posts', query);
         const res = this.$store.state.post;
         const data = res.post;
         const { list, page, pageSize, total } = data;
-        this.list = list;
+        this.list = this.list.concat(list);
         this.page = page;
         this.pageSize = pageSize;
         this.total = total;
+      },
+      async more() {
+        let page = this.$route.query.page || 1;
+        if (page * this.pageSize < this.total) {
+          page++;
+          this.$router.push({ query: { page } });
+          await this.load();
+        }
       }
     },
     components: {
@@ -99,5 +114,14 @@
   .arch-wrap {
     margin: 0 auto;
     max-width: 800px;
+  }
+  .p-more {
+    padding: 10px;
+    cursor: pointer;
+    color: rgba(118, 201, 136, 0.842);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-top: -15px;
   }
 </style>

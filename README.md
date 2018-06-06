@@ -7,7 +7,7 @@ courser framework [blog demo](http://193.112.127.136:5000/)
 
 `composer require eclogue/knight`
 
-
+`npm i`
 
 ### usage
 
