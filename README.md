@@ -7,6 +7,8 @@ courser framework [blog demo](http://193.112.127.136:5000/)
 
 `composer require eclogue/knight`
 
+
+
 ### usage
 
 - `npm install` 安装前端依赖
@@ -40,7 +42,7 @@ knight api 是基于 `courser`，遵循 psr 标准。底层使用 swoole 提供 
 
 ### ORM
 
-[Mews](https://github.com/eclogue/mews) ORM 提供连接池和连接池事物，
+[Mews](https://github.com/eclogue/mews) ORM 类 mongodb 语法 query，提供连接池和连接池事务，
 配合[manjuska](https://github.com/eclogue/manjusaka),自动生成模型文档
 
 ### document
