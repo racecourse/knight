@@ -22,10 +22,15 @@ export default class storage {
   }
 
   setUser (user) {
-    if (!user) return false;
+    if (!user) {
+      return false;
+    }
+
+    user.expiredAt = Date.now() + user.expired * 1000;
     if (typeof user === 'object') {
       user = JSON.stringify(user);
     }
+
     return this.store.setItem(this.key, user);
   }
 
@@ -43,5 +48,18 @@ export default class storage {
   clear() {
     this.store.removeItem(this.key);
     this.store.removeItem('token');
+  }
+
+  check() {
+    const user = this.getUser();
+    if (!user) {
+      return false;
+    }
+
+    if (user.expiredAt < Date.now()) {
+      return false;
+    }
+
+    return true;
   }
 }

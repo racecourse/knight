@@ -78,8 +78,34 @@ class Photo extends Controller {
     {
     }
 
-    public function list()
+    public function list(Request $request)
     {
+        $page = $request->getQuery('page', 1);
+        $pageSize = $request->getQuery('pageSize', 21);
+        $image = new Image();
+        $where = [
+            'id' => ['$gt' => 1]
+        ];
+        $options = [
+            'order' => ['id' => 'DESC'],
+            'limit' => $pageSize,
+            'offset' => ($page - 1) * $pageSize, 
+        ];
+        $list = [];
+        $list = $image->find($where, $options);
+        $list = $image->toArray($list);
+        $total = $image->count();
+
+        $response = new Response();
+        return $response->json([
+            'message' => 'ok',
+            'data' => [
+                'list' => $list,
+                'total' => $total,
+                'page' => $page,
+                'pageSize' => $pageSize,
+            ]
+        ]);
     }
 
     public static function getFileKey()

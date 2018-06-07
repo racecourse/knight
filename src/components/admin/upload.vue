@@ -28,7 +28,6 @@
       <mu-flat-button slot="actions" @click="showCreate" primary label="取消"/>
       <mu-flat-button slot="actions" primary @click="createAlbum" label="确定"/>
     </mu-dialog>
-    <div>{{currentAlbum}}</div>
   </div>
 </template>
 <style>

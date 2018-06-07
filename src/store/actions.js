@@ -221,11 +221,20 @@ export default {
       }
     );
 
-    console.log('--------->', res);
     if (res.ok) {
       commit('ALBUM_PHOTOS_FETCH_SUCCESS', res);
     } else {
       commit('ALBUM_FETCH_FAILURE', res);
     }
   },
+  async photos({
+    commit
+  }, params) {
+    const res = await fetch('/admin/photos', 'get', params);
+    if (res.ok) {
+      commit('PHOTO_FETCH_SUCCESS', res);
+    } else {
+      commit('PHOTO_FETCH_FAILURE', res);
+    }
+  }
 }

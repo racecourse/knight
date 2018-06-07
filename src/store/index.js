@@ -10,17 +10,26 @@ import comment from './modules/comment';
 import category from './modules/category';
 import Cellar from '../util/storage';
 import album from './modules/album';
+import photo from './modules/photo';
 
 Vue.use(Vuex);
 const $storage = new Cellar();
 const auth = store => {
   store.subscribe((mutation, state) => {
-    console.log('>>>>>', mutation.payload.code == 10401);
+    const {payload} = mutation;
+    const {to} = payload;
+    if (to && to.path.search(/^\/admin\/(.*?)/) !== -1) {
+      const userState = $storage.check();
+      if (!userState) {
+        $storage.clear();
+        state.user.auth = null;
+      }
+    }
+
     if (
       // mutation.type === 'FETCH_FAILURE' &&
-      mutation.payload.code == 10401
+      payload.code == 10401
     ) {
-      console.log('%%%%%%', store);
       $storage.clear();
       state.user.auth = null;
     }
@@ -35,6 +44,7 @@ export default new Vuex.Store({
     comment,
     category,
     album,
+    photo,
   },
   strict: true,
   actions,

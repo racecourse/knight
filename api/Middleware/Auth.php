@@ -110,11 +110,25 @@ class Auth implements MiddlewareInterface
         $token = (new Parser())->parse((string)$token); // Parses from a string
         $created = $token->getClaim('iat');
         $time = time();
-        if ($created > $time) return false;
-        if ($token->getClaim('exp') <= $time) return false;
-        if ($token->getHeader('jti') !== $this->id) return false;
-        if ($token->getClaim('iss') !== $this->config['issuer']) return false;// will print "http://example.com"
-        if ($token->getClaim('aud') !== $this->config['audience']) return false;
+        if ($created > $time) {
+            return false;
+        }
+
+        if ($token->getClaim('exp') <= $time) {
+            return false;
+        }
+
+        if ($token->getHeader('jti') !== $this->id) {
+            return false;
+        }
+
+        if ($token->getClaim('iss') !== $this->config['issuer']) {
+            return false;// will print "http://example.com"
+        }
+
+        if ($token->getClaim('aud') !== $this->config['audience']) {
+            return false;
+        }
 
         return $token->getClaim('data');
     }

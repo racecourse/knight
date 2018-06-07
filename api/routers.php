@@ -35,6 +35,7 @@ $app->group('/admin', function (App $app) {
     $auth = new Auth(Config::get('jwt'), 'knight');
     $app->add($auth);
     $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
+    $app->get('/photos', [Knight\Controller\Photo::class, 'list']);
     $app->get('/survey', [Knight\Controller\Admin::class, 'survey']);
     $app->get('/article', [Knight\Controller\Admin::class, 'article']);
     $app->get('/article/:id', [Knight\Controller\Admin::class, 'detail']);

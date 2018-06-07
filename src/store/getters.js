@@ -10,5 +10,8 @@ export default {
   },
   getCategory({category}) {
     return category.category;
+  },
+  getPhoto({photo}) {
+    return photo.photos;
   }
 }

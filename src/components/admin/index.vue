@@ -6,9 +6,6 @@
     <div class="main-wrapper">
       <router-view></router-view>
     </div>
-    <div class="footer">
-      <Bottom></Bottom>
-    </div>
   </div>
 </template>
 <style>

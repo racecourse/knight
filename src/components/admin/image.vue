@@ -1,34 +1,57 @@
 <template>
   <div class="image-grid">
-    <div class="img-box">
-      <img src="http://pic.yupoo.com/craber_v/7db3c4f9/9305776c.jpeg">
-      <div class="img-date">2018-03-02 12:00:00</div>
+    <div class="img-box" v-for="(photo, index) in photos" :key="index">
+      <img src="http://pic.yupoo.com/craber_v/1961fda4/7436b084.jpeg">
+      <div class="img-date">
+        {{new Date(photo.created * 1000).toLocaleDateString()}}</div>
       <div class="img-action">
         <div class="img-select">
           <mu-checkbox class="img-checkbox"/>
         </div>
         <div class="img-info">
-          <span >name</span>
+          <span >{{photo.name}}</span>
         </div>
       </div>
     </div>
-    <div class="img-box">
-      <img src="http://pic.yupoo.com/craber_v/1961fda4/7436b084.jpeg">
-      <div class="img-date">2018-03-02 12:00:00</div>
-      <div class="img-action">
-        <div class="img-select">
-          <mu-checkbox class="img-checkbox"/>
-        </div>
-        <div class="img-info">
-          <span >name</span>
-        </div>
-      </div>
+    <div class="a-page">
+      <Pagination 
+        :total="total"
+        :list="photos"
+        :current="page"
+        :pageSize="pageSize"
+        @query="loadPhotos"
+      />
     </div>
   </div>
 </template>
 <script>
+  import Pagination from '../Pagination/general.vue';
   export default {
-    
+    data() {
+      return {
+        total: 0,
+        page: 1,
+        pageSize: 21,
+        photos: [],
+      }
+    },
+    async beforeMount() {
+      await this.loadPhotos();
+    },
+    components: {
+      Pagination,
+    },
+    methods: {
+      async loadPhotos() {
+        const page = this.$route.query.page || 1;
+        await this.$store.dispatch('photos', { page });
+        const photos = this.$store.getters.getPhoto;
+        this.photos = photos.list;
+        this.total = Number(photos.total) || 0;
+        this.page = Number(photos.page) || 1;
+        this.pageSize = Number(photos.pageSize) || 0;
+      }
+    }
   }
 </script>
 <style lang="css">
