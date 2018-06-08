@@ -20,8 +20,7 @@
         </div>
       </div>
     </div>
-    <!-- <Pagination :page="page" :total="total" :pageSize="pageSize"></Pagination> -->
-    <div class="a-page" @click="more">
+    <div class="a-page" @click="more" v-if="page * pageSize < total">
       <div class="p-more">more</div>
       <mu-icon value="more_horiz"></mu-icon>
     </div>
