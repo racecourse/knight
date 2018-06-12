@@ -20,9 +20,10 @@ const auth = store => {
     const {to} = payload;
     if (to && to.path.search(/^\/admin\/(.*?)/) !== -1) {
       const userState = $storage.check();
-      if (!userState) {
-        $storage.clear();
-        state.user.auth = null;
+      console.log('uuuuuuu', userState);
+      if (userState === false) {
+        // $storage.clear();
+        // state.user.auth = null;
       }
     }
 

@@ -1,4 +1,0 @@
----
-  webroot_src: "<your path>/{{ role }}"
-  webroot_dest: "<remote path>"
-  app_home: "{{ webroot_dest }}/{{ role }}"

@@ -2,7 +2,7 @@ import develop from './develop';
 import production from './production';
 
 let config = {
-  version: '0.1.1'
+  version: '0.1.2'
 };
 
 const env = process.env.NODE_ENV;

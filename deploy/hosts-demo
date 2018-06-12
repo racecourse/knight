@@ -1,2 +1,0 @@
-[web]
-knight ansible_ssh_host=<yourhost> ansible_ssh_user=<ssh username>

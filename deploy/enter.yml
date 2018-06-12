@@ -1,4 +1,0 @@
----
-  - hosts: "{{ node }}"
-    roles:
-      - "{{ role }}"
