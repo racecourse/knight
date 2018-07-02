@@ -19,6 +19,6 @@ module.exports = {
     channel: 'general',
     username: 'bug-dog'
   },
-  git: false,
+  git: true,
   debug: true,
 };

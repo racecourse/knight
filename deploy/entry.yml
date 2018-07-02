@@ -3,6 +3,7 @@
   vars:
     src: /workspace/myself/knight
     dest: /usr/webapp
+    app_home: /usr/webapp/knight
   remote_user: root
   tasks:
     - name: ping
@@ -21,6 +22,8 @@
           - "--exclude=.git"
           - "--exclude=node_modules"
     - name: "build" 
-      shell: "cd {{ dest }}; echo fuck world"
+      shell: "cd {{ app_home }} && docker build ."
       tags: 
         - build
+    - name: "ci"
+      shell: "cd {{app_home }} && "
