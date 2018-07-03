@@ -1,0 +1,173 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: devops
+   labels:
+     name: development
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: drone-config
+  namespace: devops
+data:
+
+  #######################
+  # Drone Server Config #
+  #######################
+
+  # server host name
+  server.host: drone.sangsay.com
+  # start the server in debug mode
+  server.debug: "true"
+  # open user registration
+  server.open: "true"
+  # database driver, defaul as mysql
+  server.database.driver: mysql
+  # database driver configuration string
+  server.database.datasource: root:123123@tcp(10.254.b.a:3306)/drone?parseTime=true
+
+  # remote parameters (GitHub)
+  server.remote.github: "true"
+  server.remote.github.client: xxx
+  server.remote.github.secret: yyyy
+
+  ######################
+  # Drone Agent Config #
+  ######################
+  agent.debug: "false"
+  agent.debug.pretty: "false"
+  agent.max.procs: "1"
+  agent.healthcheck: "true"
+
+ ### secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: drone-secrets
+  namespace: devops
+data:
+  server.secret: bXVsYmVycnlAZnVja3dvcmxkCg==
+
+######service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drone-service
+  namespace: devops
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8000
+  - name: grpc
+    protocol: TCP
+    port: 9000
+    targetPort: 9000
+  selector:
+    app: drone-server
+
+
+##### deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drone-server
+  namespace: devops
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: drone-server
+    spec:
+      # 仅有一个节点
+      nodeName: master 
+      containers:
+      - image: drone/drone:0.8
+        imagePullPolicy: Always
+        name: drone-server
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        - containerPort: 9000
+          protocol: TCP
+        volumeMounts:
+          # Persist our configs in an SQLite DB in here
+          - name: drone-server-db
+            mountPath: /var/lib/drone
+        resources:
+          requests:
+            cpu: 40m
+            memory: 100Mi
+        env:
+        - name: DRONE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.host
+        - name: DRONE_OPEN
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.open
+        - name: DRONE_DATABASE_DRIVER
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.database.driver
+        - name: DRONE_DATABASE_DATASOURCE
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.database.datasource
+        - name: DRONE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: drone-secrets
+              key: server.secret
+        - name: DRONE_GITHUB
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.remote.github
+        - name: DRONE_GITHUB_CLIENT
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.remote.github.client
+        - name: DRONE_GITHUB_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.remote.github.secret
+        - name: DRONE_DEBUG
+          valueFrom:
+            configMapKeyRef:
+              name: drone-config
+              key: server.debug
+      volumes:
+        - name: drone-server-db
+          hostPath:
+            path: /data/k8s/drone
+
+###ingress
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: drone-ingress
+  namespace: devops
+spec:
+  rules:
+  - host: drone.sangsay.com
+    http:
+      paths:
+      - backend:
+          serviceName: drone-service
+          servicePort: 80
+        path: /

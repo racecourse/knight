@@ -5,6 +5,11 @@
       "Knight\\": "api/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Knight\\Tests\\": "tests/"
+    }
+  },
   "repositories": {
     "packagist": {
       "type": "composer",
@@ -41,7 +46,8 @@
     "eclogue/mews": "dev-master",
     "eclogue/ben": "dev-master",
     "eclogue/lily": "dev-master",
-    "eclogue/manjusaka": "dev-master"
+    "eclogue/manjusaka": "dev-master",
+    "phpunit/phpunit": "^7"
   },
   "scripts": {
     "doc": "php bin/document.php"
