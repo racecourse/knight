@@ -84,7 +84,7 @@ class Auth implements MiddlewareInterface
                 'code' => 10401,
             ]);
         }
-        
+
         list($bearer, $token) = $authorization;
         if ($bearer !== 'Bearer') {
             return $res->withStatus(401)->json([

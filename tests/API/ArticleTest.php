@@ -10,7 +10,6 @@
 namespace Knight\Tests\Controller;
 
 
-use Knight\Model\User;
 use Knight\Tests\AbstractTestCase;
 use Knight\Tests\TestHelper;
 
@@ -96,7 +95,6 @@ class ArticleTest extends AbstractTestCase
             'username' => $userInfo['username'],
             'password' => $userInfo['password'],
         ];
-        (new User())->findOne(['username' => $params['username']]);
         $this->visit('/login', 'post', $params)
             ->expectStatus(200)
             ->expectJson('message', 'ok');

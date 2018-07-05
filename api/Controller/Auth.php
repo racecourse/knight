@@ -69,7 +69,7 @@ class Auth extends Controller
         $userInfo = $userInfo->toArray();
         unset($userInfo['password']);
         $userInfo['expired'] = Config::get('jwt.expired');
-        
+
         return $response->json([
             'message' => 'ok',
             'data' => [

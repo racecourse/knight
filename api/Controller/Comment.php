@@ -104,6 +104,7 @@ class Comment extends Controller
         ];
         $comment = new Discuss();
         $comment->insert($data);
+
         return $this->response->json([
             'message' => 'ok',
             'code' => 0,

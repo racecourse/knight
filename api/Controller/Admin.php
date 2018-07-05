@@ -6,6 +6,7 @@
  * @date      : 2017/4/2
  * @time      : 下午4:38
  */
+
 namespace Knight\Controller;
 
 use Hayrick\Http\Response;
@@ -222,11 +223,11 @@ class Admin extends Controller
         $art = $post->findById($id);
         if (!$art) {
             return $response
-            ->withStatus(400)
-            ->json([
-                'message' => 'article not found',
-                'code' => 2,
-            ]);
+                ->withStatus(400)
+                ->json([
+                    'message' => 'article not found',
+                    'code' => 2,
+                ]);
         }
 
         if (is_array($tags)) {
@@ -271,16 +272,16 @@ class Admin extends Controller
         $art = $post->findById($id);
         if (!$art) {
             return $response->withStatus(400)
-            ->json([
-                'message' => 'article not found',
-                'code' => 2,
-            ]);
+                ->json([
+                    'message' => 'article not found',
+                    'code' => 2,
+                ]);
         }
         $art->delete();
         return $response->json([
-                'message' => 'ok',
-                'code' => 0,
-            ]);
+            'message' => 'ok',
+            'code' => 0,
+        ]);
     }
 
     public function detail(Request $request)

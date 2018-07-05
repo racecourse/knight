@@ -158,8 +158,8 @@ class Album
         if (!is_numeric($albumId)) {
             return $response->withStatus(400)
                 ->json([
-                   'message' => 'illegal param albumId',
-                   'code' => 1,
+                    'message' => 'illegal param albumId',
+                    'code' => 1,
                 ]);
         }
 
@@ -168,8 +168,8 @@ class Album
         if (!$album) {
             return $response->withStatus(400)
                 ->json([
-                   'message' => 'album not found',
-                   'code' => 2,
+                    'message' => 'album not found',
+                    'code' => 2,
                 ]);
         }
 

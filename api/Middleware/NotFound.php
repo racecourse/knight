@@ -1,4 +1,5 @@
 <?php
+
 namespace Knight\Middleware;
 
 use Hayrick\Http\Request;
@@ -8,8 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class NotFound implements MiddlewareInterface {
-
+class NotFound implements MiddlewareInterface
+{
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

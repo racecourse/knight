@@ -6,7 +6,8 @@
  * @date      : 2017/4/2
  * @time      : 下午4:38
  */
- namespace Knight\Controller;
+
+namespace Knight\Controller;
 
 use Knight\Component\Controller;
 use Knight\Model\Photo as Image;
@@ -16,7 +17,8 @@ use Ben\Config;
 use Upyun\Upyun;
 use Upyun\Config as UConfig;
 
-class Photo extends Controller {
+class Photo extends Controller
+{
 
     /**
      * upload a new photo
@@ -50,11 +52,11 @@ class Photo extends Controller {
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
                 $attr = $client->write($savePath, $uploaded->getStream());
                 $extInfo = [];
-                foreach($attr as $field => $value) {
+                foreach ($attr as $field => $value) {
                     $field = str_replace('x-upyun-', '', $field);
                     $extInfo[$field] = $value;
                 }
-                $url = $config['domain']  . '/' . $savePath;
+                $url = $config['domain'] . '/' . $savePath;
                 $image->url = $url;
                 $image->albumId = $album;
                 $image->created = time();
@@ -67,7 +69,7 @@ class Photo extends Controller {
         }
 
         $response = new Response;
-        
+
         return $response->json([
             'message' => 'ok',
             'data' => $success
@@ -89,7 +91,7 @@ class Photo extends Controller {
         $options = [
             'order' => ['id' => 'DESC'],
             'limit' => $pageSize,
-            'offset' => ($page - 1) * $pageSize, 
+            'offset' => ($page - 1) * $pageSize,
         ];
         $list = [];
         $list = $image->find($where, $options);

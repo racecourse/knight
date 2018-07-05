@@ -6,21 +6,23 @@
  * @date      : 2017/4/2
  * @time      : 下午4:38
  */
- namespace Knight\Controller;
 
- use Knight\Component\Controller;
- use Knight\Model\Category as Cate;
- use Hayrick\Http\Request;
- use Hayrick\Http\Response;
+namespace Knight\Controller;
 
- class Category extends Controller {
+use Knight\Component\Controller;
+use Knight\Model\Category as Cate;
+use Hayrick\Http\Request;
+use Hayrick\Http\Response;
 
-     /**
-      * create category
-      *
-      * @param Request $request
-      * @return \Psr\Http\Message\ResponseInterface|static
-      */
+class Category extends Controller
+{
+
+    /**
+     * create category
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function create(Request $request)
     {
         $name = $request->getPayload('name');
@@ -46,12 +48,12 @@
             ]);
     }
 
-     /**
-      * drop category by id
-      *
-      * @param Request $request
-      * @return \Psr\Http\Message\ResponseInterface|static
-      */
+    /**
+     * drop category by id
+     *
+     * @param Request $request
+     * @return \Psr\Http\Message\ResponseInterface|static
+     */
     public function drop(Request $request)
     {
         $id = $request->getParam('id');
@@ -84,12 +86,12 @@
             ]);
     }
 
-     /**
-      * get category list
-      *
-      * @return \Psr\Http\Message\ResponseInterface|static
-      * @throws \Exception
-      */
+    /**
+     * get category list
+     *
+     * @return \Psr\Http\Message\ResponseInterface|static
+     * @throws \Exception
+     */
     public function list()
     {
         $category = new Cate();
@@ -101,15 +103,15 @@
             'id' => [
                 '$gt' => 0,
             ]
-            ];
+        ];
         $list = yield $category->find($where, $options);
         $list = $category->toArray($list);
-        
+
         return (new Response)
-        ->json([
-            'message' => 'ok',
-            'code' => 0,
-            'data' => $list,
-        ]);
+            ->json([
+                'message' => 'ok',
+                'code' => 0,
+                'data' => $list,
+            ]);
     }
- }
+}
