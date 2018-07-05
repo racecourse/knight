@@ -33,7 +33,7 @@ class Article extends Controller
         $keyword = $request->getQuery('q');
         $order = $order === 'archive' ? 'created' : 'id';
         $page = $page ?: 1;
-        $pageSize = 10;
+        $pageSize = abs($request->getQuery('pageSize', 10));
         $offset = ($page - 1) * $pageSize;
         $article = new Post();
         $condition = [
@@ -79,17 +79,24 @@ class Article extends Controller
     public function detail(Request $request)
     {
         $id = $request->getParam('id');
+        $response = new Response();
+        if (!$id || $id < 1) {
+            return $response->withStatus(400)
+                ->json([
+                    'message' => 'Illegal ID',
+                    'code' => 1,
+                ]);
+        }
         $article = new Post();
         $condition = [
             'id' => $id,
         ];
         $art = yield $article->findOne($condition);
         if (!$art) {
-            return (new Response)
-                ->withStatus(400)
+            return $response->withStatus(400)
                 ->json([
                     'message' => 'article not found',
-                    'code' => 1,
+                    'code' => 2,
                 ]);
         }
 
@@ -172,8 +179,8 @@ class Article extends Controller
         $offset = ($page - 1) * $pageSize;
         $comment = new Comment();
         $comments = $comment->find([
-                'artId' => $id,
-            ],
+            'artId' => $id,
+        ],
             [
                 'limit' => $pageSize,
                 'offset' => $offset,

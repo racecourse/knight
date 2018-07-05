@@ -74,9 +74,16 @@ abstract class AbstractTestCase extends TestCase
 
     public function visit(string $path, string $method, $params = [])
     {
+        $method = strtolower($method);
+        $path = strtolower($path);
         $_SERVER['REQUEST_METHOD'] = $method;
         $_SERVER['REQUEST_URI'] = $path;
-        $_POST = array_merge($_POST, $params);
+        if ($method === 'get') {
+            $_GET = array_merge($_GET, $params);
+        } else {
+            $_POST = array_merge($_POST, $params);
+        }
+
         $response = self::$app->run($path);
         $this->response = $response;
 
