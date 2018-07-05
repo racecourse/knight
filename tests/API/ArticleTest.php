@@ -10,11 +10,33 @@
 namespace Knight\Tests\Controller;
 
 
+use Knight\Model\User;
 use Knight\Tests\AbstractTestCase;
 use Knight\Tests\TestHelper;
 
 class ArticleTest extends AbstractTestCase
 {
+
+    public $records = [];
+
+    public $user;
+
+    public function setUp()
+    {
+        $this->records = TestHelper::addArticle();
+        $this->user = TestHelper::addUser();
+
+    }
+
+    public function tearDown()
+    {
+        foreach ($this->records as $record) {
+            $record->remove();
+        }
+
+        $this->user->remove();
+        parent::tearDown();
+    }
 
     public function testArticleList()
     {
@@ -46,12 +68,12 @@ class ArticleTest extends AbstractTestCase
         $this->visit('/posts/' . $id, 'get')
             ->expectStatus(400)
             ->expectJson('code', 1);
-        $id = 1;
+        $id = pow(1024, 5);
         $this->visit('/posts/' . $id, 'get')
             ->expectStatus(400)
             ->expectJson('code', 2);
 
-        $id = 2; // @todo load from dataSet
+        $id = $this->records[0]->id;
         $this->visit('/posts/' . $id, 'get')
             ->expectStatus(200)
             ->expectJson('code', 0);
@@ -65,14 +87,28 @@ class ArticleTest extends AbstractTestCase
 
     public function testAdminArticle()
     {
-//        $user['password'] = 123123;
-//        $this->write($user)
-//            ->visit('/login', 'post', $user)
-//            ->expectStatus(200)
-//            ->expectJson('message', 'ok');
+        $this->visit('/admin/article', 'get')
+            ->expectStatus(401)
+            ->expectJson('code', 10401);
+        $dataSet = TestHelper::getDataSet()->getTable('users');
+        $userInfo = $dataSet->getRow(0);
+        $params = [
+            'username' => $userInfo['username'],
+            'password' => $userInfo['password'],
+        ];
+        (new User())->findOne(['username' => $params['username']]);
+        $this->visit('/login', 'post', $params)
+            ->expectStatus(200)
+            ->expectJson('message', 'ok');
+        $response = $this->getResponse();
+        $this->assertArrayHasKey('data', $response);
+        $data = $response['data'];
+        $this->assertArrayHasKey('token', $data);
+        $token = $data['token'];
+        $this->header('Authorization', 'Bearer ' . $token)
+            ->visit('/admin/article', 'get')
+            ->expectStatus(200);
 
-        $helper = new TestHelper();
-        $helper->addArticle();
     }
 }
 

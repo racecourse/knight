@@ -12,12 +12,12 @@ class Comment extends Dao
         'artId' => ['column' => 'art_id', 'type' => 'int'],
         'username' => ['column' => 'username', 'type' => 'int'],
         'email' => ['column' => 'email', 'type' => 'int'],
-        'site' => ['column' => 'site', 'type' => 'string','default' => ''],
-        'content' => ['column' => 'content', 'type' => 'string'],
+        'site' => ['column' => 'site', 'type' => 'varchar','default' => ''],
+        'content' => ['column' => 'content', 'type' => 'varchar'],
         'like' => ['column' => 'like', 'type' => 'int', 'default' => 0],
         'unlike' => ['column' => 'unlike', 'type' => 'int', 'default' => 0],
         'created' => ['column' => 'created', 'type' => 'int'],
-        'updated' => ['column' => 'updated', 'type' => 'timestamp'],
+        'updated' => ['column' => 'updated', 'type' => 'timestamp', 'default' => 'current'],
     ];
 }
 

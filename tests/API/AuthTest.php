@@ -11,6 +11,7 @@ namespace Knight\Tests\Controller;
 use Courser\Relay;
 use Hayrick\Http\Request;
 use Knight\Tests\AbstractTestCase;
+use Knight\Tests\TestHelper;
 use PHPUnit\DbUnit\DataSet\YamlDataSet;
 use Knight\Tests\Dao;
 
@@ -23,15 +24,14 @@ class AuthTest extends AbstractTestCase
 
     public function setUp()
     {
-        $this->dataSet = $this->getDataSet();
-        $user = $this->dataSet->getTable('users');
-        $this->user = $user->getRow(0);
+        $this->user = TestHelper::addUser();
         parent::setUp();
     }
 
     public function tearDown()
     {
-        $this->dataSet = null;
+        $this->user->remove();
+        parent::tearDown();
     }
 
     public function getDataSet()
@@ -70,8 +70,10 @@ class AuthTest extends AbstractTestCase
         $this->visit('/login', 'post', $user)
             ->expectStatus(404)
             ->expectJson('code', 2);
+        $dataSet = TestHelper::getDataSet()->getTable('users');
+        $row = $dataSet->getRow(0);
         $user = [
-            'username' => 'mulberry10',
+            'username' => $row['username'],
             'password' => 'some-password'
         ];
 
@@ -79,7 +81,8 @@ class AuthTest extends AbstractTestCase
             ->visit('/login', 'post', $user)
             ->expectStatus(401);
 
-        $user['password'] = 123123;
+
+        $user['password'] = $row['password'];
         $this->write($user)
             ->visit('/login', 'post', $user)
             ->expectStatus(200)

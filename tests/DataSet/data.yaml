@@ -3,11 +3,10 @@ users:
     username: knight-test
     password: 123123
     nickname: bugbear
+    email: knight-test@knight.me
     status: 1
     extra: just for test
     created: 1530679862
-    updated: 2018-07-04 04:51:42
-
 articles:
   -
     userId: 1

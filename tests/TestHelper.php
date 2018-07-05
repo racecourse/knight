@@ -18,30 +18,40 @@ class TestHelper
 
     public static $dataSet;
 
-    public function addUser()
+    public static function addUser()
     {
-        $dataSet = $this->getDataSet();
+        $dataSet = self::getDataSet();
         $user = $dataSet->getTable('users');
         $admin = $user->getRow(0);
+        $admin['password'] = password_hash($admin['password'], PASSWORD_DEFAULT);
         $model = new User();
-        $model->insert($admin);
+        $schema = $model->getSchema();
+        $sql = $schema->tableInfo();
+        $model->query($sql);
+        return $model->insert($admin);
     }
 
 
-    public function addArticle()
+    public static function addArticle()
     {
-        $dataSet = $this->getDataSet();
+        $dataSet = self::getDataSet();
         $article = $dataSet->getTable('articles');
         $count = $article->getRowCount();
         $model = new Post();
+        $schema = $model->getSchema();
+        $sql = $schema->tableInfo();
+        $model->query($sql);
+        $records = [];
         for($i = 0; $i < $count; $i++) {
             $post = $article->getRow($i);
-            $model->insert($post);
+            $records[] = $model->insert($post);
         }
+
+        return $records;
     }
 
 
-    public function getDataSet()
+    public static function getDataSet()
     {
         if (!self::$dataSet) {
             $path = dirname(__FILE__);
@@ -50,6 +60,19 @@ class TestHelper
         }
 
         return self::$dataSet;
+    }
+
+
+
+    public static function removeUser() {
+        $dataSet = self::getDataSet();
+        $user = $dataSet->getTable('users');
+        $admin = $user->getRow(0);
+        $model = new User();
+        $record = $model->findOne(['username' => $admin['username']]);
+        if ($record) {
+            $record->remove();
+        }
     }
 
 

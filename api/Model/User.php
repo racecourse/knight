@@ -6,6 +6,7 @@
  * @date      : 2017/3/16
  * @time      : 下午5:42
  */
+
 namespace Knight\Model;
 
 use Knight\Component\Dao;
@@ -15,13 +16,49 @@ class User extends Dao
     public $table = 'users';
 
     public $fields = [
-        'id' => ['column' => 'id', 'pk' => true, 'type' => 'int'],
-        'username' => ['column' => 'username', 'type' => 'string'],
-        'nickname' => ['column' => 'nickname', 'type' => 'string'],
-        'password' => ['column' => 'password', 'type' => 'string'],
-        'email' => ['column' => 'email', 'type' => 'string', 'default' => ''],
-        'created' => ['column' => 'created', 'type' => 'int'],
-        'updated' => ['column' => 'updated', 'type' => 'timestamp'],
+        'id' => [
+            'column' => 'id',
+            'pk' => true,
+            'auto' => true,
+            'type' => 'int'
+        ],
+        'username' => [
+            'column' => 'username',
+            'type' => 'varchar'
+        ],
+        'nickname' => [
+            'column' => 'nickname',
+            'type' => 'varchar'
+        ],
+        'password' => [
+            'column' => 'password',
+            'type' => 'varchar'
+        ],
+        'email' => [
+            'column' => 'email',
+            'type' => 'varchar',
+            'default' => ''
+        ],
+        'created' => [
+            'column' => 'created',
+            'type' => 'int'
+        ],
+        'updated' => [
+            'column' => 'updated',
+            'type' => 'timestamp',
+            'default' => 'current',
+        ],
+    ];
+
+    public $indexes = [
+        'username' => [
+            'type' => 'unique',
+            'column' => ['username']
+        ],
+        'email' => [
+            'type' => 'key',
+            'column' => ['email'],
+        ]
     ];
 
 }

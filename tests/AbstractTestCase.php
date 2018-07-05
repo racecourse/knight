@@ -28,12 +28,12 @@ abstract class AbstractTestCase extends TestCase
 
     public $body = [];
 
-    public $headers = [];
+    public static $headers = [];
 
 
     public function __construct()
     {
-        $this->headers = [
+        self::$headers = [
             'Content-Type' => 'application/json',
             'Content-Length' => 1024,
         ];
@@ -71,6 +71,16 @@ abstract class AbstractTestCase extends TestCase
         return self::$app;
     }
 
+    public function tearDown()
+    {
+        $_POST = [];
+        $_GET = [];
+        self::$headers = [
+            'Content-Type' => 'application/json',
+            'Content-Length' => 1024,
+        ];
+    }
+
 
     public function visit(string $path, string $method, $params = [])
     {
@@ -93,6 +103,12 @@ abstract class AbstractTestCase extends TestCase
     public function write(array $data)
     {
         $_POST = array_merge($_POST, $data);
+
+        return $this;
+    }
+
+    public function header($key, $value) {
+        self::$headers[$key] = $value;
 
         return $this;
     }
@@ -136,10 +152,14 @@ abstract class AbstractTestCase extends TestCase
         };
     }
 
+    public function getHeaders() {
+        return self::$headers;
+    }
+
     public function RelayProvider()
     {
         return function () {
-            $headers = $this->headers;
+            $headers = $this->getHeaders();
             $server = $_SERVER;
             $cookie = $_COOKIE;
             $files = $_FILES;

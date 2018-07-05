@@ -69,13 +69,14 @@ class Auth implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $res = new Response();
-        $authorization = $request->getHeader('authorization');
+        $authorization = $request->getHeader('Authorization');
         if (!$authorization) {
             return $res->withStatus(401)->json([
                 'message' => 'unauthorization',
                 'code' => 10401,
             ]);
         }
+
         $authorization = explode(' ', $authorization);
         if (count($authorization) !== 2) {
             return $res->withStatus(401)->json([
