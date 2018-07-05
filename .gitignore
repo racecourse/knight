@@ -11,4 +11,5 @@ api/config/production.php
 dist/
 *.lock
 *.retry
+*.cache
 package-lock.json

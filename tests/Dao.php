@@ -18,7 +18,7 @@ class Dao extends Model
 
     public $fields = [];
 
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
 
     }

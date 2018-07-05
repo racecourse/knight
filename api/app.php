@@ -16,8 +16,8 @@ use Ben\Config;
 Config::load(APP_ROOT . '/api/config');
 $app = require (APP_ROOT . '/api/routers.php');
 
-$server = new Server($app);
-$setting = Config::get('server');
-$server->bind($setting['host'], $setting['port']);
-$server->setting(Config::get('server.setting'));
-$server->start();
+//$server = new Server($app);
+//$setting = Config::get('server');
+//$server->bind($setting['host'], $setting['port']);
+//$server->setting(Config::get('server.setting'));
+//$server->start();

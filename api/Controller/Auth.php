@@ -15,6 +15,7 @@ use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
 use Ben\Config;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class Auth extends Controller
 {
@@ -100,6 +101,7 @@ class Auth extends Controller
                     'code' => 1,
                 ]);
         }
+
         if (!$password || strlen($password) < 5 || $password !== $confirm) {
             return $response->withStatus(400)
                 ->json([
@@ -107,6 +109,7 @@ class Auth extends Controller
                     'code' => 2,
                 ]);
         }
+
         $user = new User();
         $user->username = $username;
         $user->password = password_hash($password, PASSWORD_DEFAULT);
@@ -115,6 +118,7 @@ class Auth extends Controller
         $user->created = time();
         $user->save();
         $userInfo = $user->toArray();
+
         return $response->json([
             'message' => 'ok',
             'data' => $userInfo,

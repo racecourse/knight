@@ -1,0 +1,22 @@
+users:
+  -
+    id: 1
+    username: knight
+    password: $2y$10$0O5/S0oPZpY1slBqXp7IHuqpCZCwAZ6KOrVQPQXsLG5g9OpBGAoVq
+    nickname: bugbear
+    status: 1
+    extra:
+    created: 1530679862
+    updated: 2018-07-04 04:51:42
+
+articles:
+  -
+    id: 1
+    userId: 1
+    cateId: 1
+    title: test
+    content: just kidding
+    permission: 1
+    tags: php,test
+    views: 1
+    created: 1530679863

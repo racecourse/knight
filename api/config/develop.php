@@ -27,9 +27,9 @@ return [
             'dbname' => 'knight',
             'charset' => 'UTF8',
             'poolSize' => 50,
-            'pool' => true,
+            'pool' => false,
         ],
-        'debug' => true,
+        'debug' => false,
     ],
     'session' => [
         'class' =>'Marmot\Session',

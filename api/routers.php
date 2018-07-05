@@ -52,6 +52,7 @@ $app->group('/admin', function (App $app) {
 
 $app->add(new NotFound());
 $app->setReporter(function(RequestInterface $request, Throwable $err) {
+    var_dump($err->getMessage(), $err->getFile(), $err->getLine());
     $response = new Response();
     $response = $response->json([
         'error' => $err->getMessage(),
