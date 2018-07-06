@@ -106,7 +106,19 @@ class ArticleTest extends AbstractTestCase
         $this->header('Authorization', 'Bearer ' . $token)
             ->visit('/admin/article', 'get')
             ->expectStatus(200);
+    }
 
+    public function CreateEditArticle()
+    {
+        $params = [];
+        $this->visit('/admin/article', 'post')
+            ->expectStatus(400)
+            ->expectJson('code', 1);
+        $title = uniqid();
+        $params['title'] = $title;
+        $this->visit('/admin/article', 'post')
+            ->expectStatus(400)
+            ->expectJson('code', 4);
     }
 }
 

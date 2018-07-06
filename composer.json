@@ -2,7 +2,7 @@
   "version": "0.1.1",
   "scripts": {
     "doc": "php bin/document.php",
-    "test": "vendor/bin/phpunit"
+    "test": "php vendor/bin/phpunit --coverage-text"
   },
   "autoload": {
     "psr-4": {
@@ -43,7 +43,8 @@
     "linfo/linfo": "dev-master",
     "upyun/sdk": "dev-master",
     "symfony/yaml": "^4.1@dev",
-    "riverline/multipart-parser": "dev-master"
+    "riverline/multipart-parser": "dev-master",
+    "phpunit/phpcov": "^5.0@dev"
   },
   "require-dev": {
     "eclogue/courser": "dev-develop",

@@ -1,5 +1,11 @@
 language: php
-
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+      - mysql-client
 php:
   - 7.0
   - 7.1
@@ -14,6 +20,9 @@ matrix:
   - php: 7.2
     env: COMPOSER_FLAGS="--prefer-lowest"
 before_install:
+  - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('123123') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
+  - sudo mysql_upgrade
+  - sudo service mysql restart
   - mysql -e 'CREATE DATABASE IF NOT EXISTS knight;'
 before_script:
   - travis_retry composer self-update

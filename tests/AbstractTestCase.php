@@ -14,9 +14,9 @@ use Ben\Config;
 use DI\Container;
 use Courser\Relay;
 use Hayrick\Http\Stream;
+use Mews\Model;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use PHPUnit\DbUnit\DataSet\YamlDataSet;
 
 
 abstract class AbstractTestCase extends TestCase
@@ -29,6 +29,8 @@ abstract class AbstractTestCase extends TestCase
     public $body = [];
 
     public static $headers = [];
+
+    public $records = [];
 
 
     public function __construct()
@@ -79,6 +81,12 @@ abstract class AbstractTestCase extends TestCase
             'Content-Type' => 'application/json',
             'Content-Length' => 1024,
         ];
+
+        foreach ($this->records as $record) {
+            if ($record instanceof Model) {
+                $record->remove();
+            }
+        }
     }
 
 
@@ -172,6 +180,5 @@ abstract class AbstractTestCase extends TestCase
             return $relay;
         };
     }
-
 
 }

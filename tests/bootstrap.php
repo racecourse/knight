@@ -13,3 +13,4 @@ date_default_timezone_set('Asia/Shanghai');
 $autoloader = require dirname(__DIR__) . '/vendor/autoload.php';
 // Register test classes
 $autoloader->addPsr4('Knight\\Tests\\', __DIR__);
+//putenv('env=ci');
