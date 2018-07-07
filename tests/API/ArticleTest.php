@@ -23,19 +23,10 @@ class ArticleTest extends AbstractTestCase
     public function setUp()
     {
         $this->records = TestHelper::addArticle();
-        $this->user = TestHelper::addUser();
+        parent::setUp();
 
     }
 
-    public function tearDown()
-    {
-        foreach ($this->records as $record) {
-            $record->remove();
-        }
-
-        $this->user->remove();
-        parent::tearDown();
-    }
 
     public function testArticleList()
     {
@@ -89,21 +80,7 @@ class ArticleTest extends AbstractTestCase
         $this->visit('/admin/article', 'get')
             ->expectStatus(401)
             ->expectJson('code', 10401);
-        $dataSet = TestHelper::getDataSet()->getTable('users');
-        $userInfo = $dataSet->getRow(0);
-        $params = [
-            'username' => $userInfo['username'],
-            'password' => $userInfo['password'],
-        ];
-        $this->visit('/login', 'post', $params)
-            ->expectStatus(200)
-            ->expectJson('message', 'ok');
-        $response = $this->getResponse();
-        $this->assertArrayHasKey('data', $response);
-        $data = $response['data'];
-        $this->assertArrayHasKey('token', $data);
-        $token = $data['token'];
-        $this->header('Authorization', 'Bearer ' . $token)
+        $this->header('Authorization', 'Bearer ' . $this->token)
             ->visit('/admin/article', 'get')
             ->expectStatus(200);
     }

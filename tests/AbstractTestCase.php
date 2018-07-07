@@ -32,6 +32,10 @@ abstract class AbstractTestCase extends TestCase
 
     public $records = [];
 
+    public $user;
+
+    public $token;
+
 
     public function __construct()
     {
@@ -71,6 +75,15 @@ abstract class AbstractTestCase extends TestCase
         }
 
         return self::$app;
+    }
+
+
+    public function setUp()
+    {
+        $this->user = TestHelper::addUser();
+        $this->token = TestHelper::auth($this->user);
+
+        parent::setUp();
     }
 
     public function tearDown()

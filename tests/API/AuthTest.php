@@ -9,42 +9,16 @@
 namespace Knight\Tests\Controller;
 
 use Courser\Relay;
+use Knight\Model\User;
 use Hayrick\Http\Request;
 use Knight\Tests\AbstractTestCase;
 use Knight\Tests\TestHelper;
-use PHPUnit\DbUnit\DataSet\YamlDataSet;
-use Knight\Tests\Dao;
 
 class AuthTest extends AbstractTestCase
 {
 
-    public $dataSet = null;
-
     public $user;
 
-    public function setUp()
-    {
-        $this->user = TestHelper::addUser();
-        parent::setUp();
-    }
-
-    public function tearDown()
-    {
-        $this->user->remove();
-        parent::tearDown();
-    }
-
-    public function getDataSet()
-    {
-        if (!$this->dataSet) {
-            $path = dirname(dirname(__FILE__));
-            $dataSet =  new YamlDataSet($path . '/DataSet/data.yaml');
-            $this->dataSet = $dataSet;
-        }
-
-
-        return $this->dataSet;
-    }
 
     public function requestProvider()
     {
@@ -55,7 +29,7 @@ class AuthTest extends AbstractTestCase
 
 
     /*
-     * @test
+     * @after
      */
     public function testLogin()
     {
@@ -77,10 +51,8 @@ class AuthTest extends AbstractTestCase
             'password' => 'some-password'
         ];
 
-        $this->write($user)
-            ->visit('/login', 'post', $user)
+        $this->visit('/login', 'post', $user)
             ->expectStatus(401);
-
 
         $user['password'] = $row['password'];
         $this->write($user)

@@ -15,7 +15,6 @@ use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
 use Ben\Config;
-use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class Auth extends Controller
 {

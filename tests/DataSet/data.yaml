@@ -26,3 +26,8 @@ articles:
     tags: nginx,test
     views: 1
     created: 1530679864
+
+category:
+  -
+    name: knight-cate
+    created: 1530679864

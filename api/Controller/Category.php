@@ -44,7 +44,7 @@ class Category extends Controller
             ->json([
                 'message' => 'ok',
                 'code' => 0,
-                'data' => $cate,
+                'data' => $cate->toArray(),
             ]);
     }
 
