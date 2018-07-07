@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="courser coding standard">
-    <description>courser coding standard</description>
+<ruleset name="eclogue coding standard">
+    <description>eclogue coding standard</description>
 
     <!-- display progress -->
     <arg value="p"/>

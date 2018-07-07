@@ -108,6 +108,7 @@ class Admin extends Controller
             'limit' => $pageSize,
             'order' => ['id' => 'DESC'],
         ];
+        $total = yield $article->count($where);
         $articles = yield $article->find($where, $option);
         $list = $article->toArray($articles);
 
@@ -117,6 +118,7 @@ class Admin extends Controller
                 'page' => $page,
                 'pageSize' => $pageSize,
                 'list' => $list,
+                'total' => $total,
             ],
         ]);
     }

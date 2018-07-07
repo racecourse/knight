@@ -142,6 +142,7 @@ class Article extends Controller
             'order' => ['id' => 'DESC'],
         ];
         $articles = yield $article->find($where, $option);
+        $total = $article->count($where);
         $list = $article->toArray($articles);
         return (new Response())->json([
             'message' => 'ok',
@@ -149,6 +150,7 @@ class Article extends Controller
                 'page' => $page,
                 'pageSize' => $pageSize,
                 'list' => $list,
+                'total' => $total,
             ],
         ]);
     }

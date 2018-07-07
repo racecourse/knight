@@ -7,7 +7,6 @@ addons:
       - mysql-server
       - mysql-client
 php:
-  - 7.0
   - 7.1
   - 7.2
 
@@ -30,3 +29,4 @@ before_script:
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover --env=ci
+  - vendor/bin/phpcs

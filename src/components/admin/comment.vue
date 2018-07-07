@@ -111,6 +111,6 @@
         };
         return data[level] ? data[level] : 'unknown';
       }
-    }
+    },
   }
 </script>

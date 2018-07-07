@@ -29,15 +29,14 @@
           </mu-td>
         </mu-tr>
       </mu-tbody>
-      <mu-tfoot slot="footer">
-        <mu-tr>
-          <mu-td>
-            <mu-pagination :total="total" :pageSize="pageSize" :current="page" @pageChange="onPagination">
-            </mu-pagination>
-          </mu-td>
-        </mu-tr>
-      </mu-tfoot>
     </mu-table>
+    <div class="a-page">
+      <Pagination :current="page"
+        :total="total"
+        :pageSize="pageSize"
+        @query="onPagination"
+      ></Pagination>
+    </div>
   </div>
 </template>
 <style>
@@ -49,10 +48,11 @@
 
 </style>
 <script>
+  import Pagination from '../pagination/general.vue';
   export default {
     data: () => ({
       page: 1,
-      pageSize: 0,
+      pageSize: 10,
       total: 20,
       list: [],
       category: [],
@@ -64,16 +64,14 @@
       enableSelectAll: false,
       showCheckbox: true,
     }),
+    components: {
+      Pagination,
+    },
     methods: {
       async onPagination() {
-        let page = this.page;
         const total = this.total;
-        const pageSize = this.pageSize;
-        if(!page) {
-          page = this.$route.query.page || 1;
-        }
-        page = page + 1;
-//        if (page * pageSize >= total) return null;
+        const page = this.$route.query.page || 1;
+        const pageSize = this.$route.query.page || 10;
         await this.$store.dispatch('article', {page, pageSize, total});
         this.loadArticle();
       },
