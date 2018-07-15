@@ -38,7 +38,7 @@
     }
   },
   "require": {
-    "eclogue/courser": "dev-develop",
+    "eclogue/courser": "dev-master",
     "eclogue/mews": "dev-master",
     "eclogue/ben": "dev-master",
     "eclogue/lily": "dev-master",
