@@ -84,4 +84,6 @@ EXPOSE 5121
 EXPOSE 5122
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
+RUN composer install
+RUN npm i
 CMD [ "php api/app.php --env=production", "pm2-docker start server.js" ]

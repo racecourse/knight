@@ -1,0 +1,9 @@
+.dockerignore
+.git
+.vscode
+.idea
+*.log
+Dockerfile
+run
+node_modules
+vendor

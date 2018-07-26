@@ -35,6 +35,7 @@ class Photo extends Controller
 //        $cfg->debug = true;
         $client = new Upyun($cfg);
         $files = $request->getUploadedFiles();
+        var_dump($files);
         $success = [];
         foreach ($files as $key => $uploaded) {
             try {
@@ -47,9 +48,12 @@ class Photo extends Controller
                     continue;
                 }
 
-                $extname = end(explode('/', $type));
+                var_dump($type);
+                $extname = explode('/', $type);
+                $extname = end($extname);
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
+                var_dump($uploaded->getStream());
                 $attr = $client->write($savePath, $uploaded->getStream());
                 $extInfo = [];
                 foreach ($attr as $field => $value) {
@@ -62,8 +66,10 @@ class Photo extends Controller
                 $image->created = time();
                 $image->attr = json_encode($extInfo);
                 $image = $image->save();
+                var_dump($image);
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
+                var_dump($err->getMessage());
                 continue;
             }
         }

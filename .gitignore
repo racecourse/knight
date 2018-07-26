@@ -14,3 +14,4 @@ dist/
 *.retry
 *.cache
 package-lock.json
+deploy/docker-compose.yaml

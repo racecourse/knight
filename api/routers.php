@@ -28,7 +28,7 @@ $app->post('/posts/:id/comments', [Knight\Controller\Comment::class , 'add']);
 $app->get('category', [Knight\Controller\Category::class , 'list']);
 $app->post('/login', [Knight\Controller\Auth::class, 'login']);
 $app->get('/article', [Knight\Controller\Admin::class, 'article']);
-// $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
+//  $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
 $app->get('/albums', [Knight\Controller\Album::class, 'list']);
 $app->get('/albums/:albumId/photos', [Knight\Controller\Album::class, 'photos']);
 $app->group('/admin', function (App $app) {
