@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: registry
+    labels:
+      name: registry
+spec:
+    type: NodePort
+    ports:
+    - port: 5000
+      nodePort: 30002
+    selector:
+      name: registry
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: registry
+  labels:
+    name: registry
+spec:
+  replicas: 1
+  selector:
+    name: registry
+  template:
+    metadata:
+      labels:
+        name: registry
+    spec:
+      containers:
+      - name: registry
+        image: registry
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - mountPath: "/var/lib/registry"
+          name: regisry-volume
+      volumes:
+      - name: regisry-volume
+        hostPath:
+          path: /data/k8s/registry
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: registry-ingress
+spec:
+  rules:
+  - host: reg.mulberry10.com
+    http:
+      paths:
+      - backend:
+          serviceName: registry
+          servicePort: 5000
+        path: /
