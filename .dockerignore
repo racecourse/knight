@@ -5,5 +5,5 @@
 *.log
 Dockerfile
 run
-node_modules
-vendor
+#node_modules
+#vendor

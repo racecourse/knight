@@ -22,4 +22,4 @@ app.get('/knight', function (req, res, next) {
     res.send(doc);
 });
 app.use(express.static(pathToSwaggerUi));
-app.listen(3000);
+app.listen(5123);

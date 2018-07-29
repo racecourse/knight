@@ -12,13 +12,13 @@ module.exports = {
       node: 'knight'
     }
   },
-  scripts: ['npm run build'],
+  // scripts: ['npm run build'],
   slack: {
     project: 'knight',
     webhook: 'https://hooks.slack.com/services/T2AV0RV8E/B2UQU57HU/*****',
     channel: 'general',
     username: 'bug-dog'
   },
-  git: true,
+  git: false,
   debug: true,
 };

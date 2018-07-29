@@ -48,7 +48,7 @@ metadata:
   name: registry-ingress
 spec:
   rules:
-  - host: reg.mulberry10.com
+  - host: reg.sangsay.com
     http:
       paths:
       - backend:

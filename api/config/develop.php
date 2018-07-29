@@ -9,8 +9,8 @@
 
 return [
     'server' => [
-        'host' => '127.0.0.1',
-        'port' => '5001',
+        'host' => '0.0.0.0',
+        'port' => '5121',
         'setting' => [
             'daemonize' => false,
             'worker_num' => 1,

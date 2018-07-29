@@ -3,7 +3,8 @@
   "scripts": {
     "doc": "php bin/document.php",
     "test": "php vendor/bin/phpunit --coverage-text",
-    "phpcs": "php vendor/bin/phpcs"
+    "phpcs": "php vendor/bin/phpcs",
+    "start": "php api/app.php"
   },
   "autoload": {
     "psr-4": {
@@ -35,6 +36,10 @@
     "4": {
       "type": "vcs",
       "url": "http://github.com/eclogue/lily"
+    },
+    "5": {
+      "type": "vcs",
+      "url": "http://github.com/eclogue/ben"
     }
   },
   "require": {
