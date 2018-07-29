@@ -1,0 +1,72 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: knight-service
+spec:
+  type: NodePort
+  ports:
+    - name: knight-be
+      protocol: TCP
+      port: 5121
+      nodePort: 30021
+    - name: knight-fe
+      protocol: TCP
+      port: 5122
+      nodePort: 30022
+  selector:
+    app: knight
+---
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: knight
+spec:
+  selector:
+    matchLabels:
+      app: knight
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: knight
+    spec:
+      containers:
+        - name: knight-api
+          image: reg.sangsay.com/knight:dev
+          command: ["php"]
+          args: ["api/app.php"]
+          env:
+            - name: BEN_ENV
+              value: production
+          ports:
+            - containerPort: 5121
+          volumeMounts:
+            - name: knight-storage
+              mountPath: /var/run/knight
+        - name: knight-front
+          image: reg.sangsay.com/knight:dev
+          command: ["node"]
+          args: ["server.js"]
+          ports:
+            - containerPort: 5122  
+      volumes:
+        - name: knight-storage
+          hostPath:
+            path: /data/k8s/knight
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: knight-ingress
+spec:
+  rules:
+  - host: api.sangsay.com
+    http:
+      paths:
+      - backend:
+          serviceName: knight
+          servicePort: 5121
+        path: /

@@ -67,7 +67,8 @@ WORKDIR $APP_DIR/knight
 ADD ./api $APP_DIR/knight/api
 ADD ./tests $APP_DIR/knight/tests
 ADD ./vendor $APP_DIR/knight/vendor
-ADD ./server $APP_DIR/knight/server
+ADD ./server.js $APP_DIR/knight/
+ADD ./package.json $APP_DIR/knight/
 RUN npm i --production
 # RUN  apt-get install unzip python -y
 # RUN composer install --prefer-dist -vvv
