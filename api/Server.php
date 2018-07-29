@@ -81,13 +81,24 @@ class Server
         $instance = new class extends \Courser\Terminator {
 
             public function end(ResponseInterface $response) {
-                $headers = $response->getHeaders();
-                foreach ($headers as $key => $header) {
-                    $this->origin->header($key, $header);
+                try {
+                    $headers = $response->getHeaders();
+                    foreach ($headers as $key => $header) {
+                        $this->origin->header($key, $header);
+                    }
+
+                    $this->origin->status($response->getStatusCode());
+                    $data = $response->getContent();
+                    $this->origin->end($data);
+                } catch (Exception $e) {
+                    $this->origin->status(500);
+                    $data = [
+                        'code' => 500,
+                        'message' => 'server error',
+                    ];
+                    $this->origin->end(json_encode($data));
                 }
-                $this->origin->status($response->getStatusCode());
-                $data = $response->getContent();
-                $this->origin->end($data);
+                
             }
         };
 
@@ -116,6 +127,7 @@ class Server
         }
 
         $body = new Stream($stream);
+        $server = array_change_key_case($server, CASE_UPPER);
         $relay = new Relay($server, $headers, $cookie, $files, $query, $body);
 
         return $relay;
@@ -136,8 +148,13 @@ class Server
      */
     public function mount($req, $res)
     {
-        $path = $req->server['request_uri'] ?? '/';
-        $this->app->run($path, $req, $res);
+        try {
+            $path = $req->server['request_uri'] ?? '/';
+            $this->app->run($path, $req, $res);
+        } catch (Exception $e) {
+             var_dump($e->getMessage(), $e->getFile());
+        }
+        
     }
 
 

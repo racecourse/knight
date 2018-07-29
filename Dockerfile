@@ -67,6 +67,7 @@ WORKDIR $APP_DIR/knight
 ADD ./api $APP_DIR/knight/api
 ADD ./tests $APP_DIR/knight/tests
 ADD ./vendor $APP_DIR/knight/vendor
+ADD ./public $APP_DIR/knight/public
 ADD ./server.js $APP_DIR/knight/
 ADD ./package.json $APP_DIR/knight/
 RUN npm i --production

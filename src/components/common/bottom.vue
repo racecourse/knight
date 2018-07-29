@@ -10,7 +10,7 @@
         <img class="repo" src="./github.png">
       </a>
       <div>
-        <div>备案号:<span>这家伙比较懒没有备案</span></div>
+        <div>备案号:<span>浙ICP备18031483号-1</span></div>
       </div>
     </div>
   </div>
