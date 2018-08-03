@@ -1,6 +1,6 @@
 # knight
 
-courser framework [blog demo](http://193.112.127.136:5000/)
+courser framework [blog demo](http://mulberry10.com)
 
 
 ### install
@@ -17,11 +17,12 @@ courser framework [blog demo](http://193.112.127.136:5000/)
 
 - `npm run dev`  dev 环境启动前端服务
 
-- `php api/app.php` dev 环境启动后端服务
+- `composer run-script dev` 后端 dev 环境
+- `php api/app.php` 基于swoole http server 的 dev 环境启动后端服务
 
 - `npm run build` 打包前端文件
 
-- `php api/app.php --env=production` 线上环境启动后端服务
+- `php api/app.php --env=production` 线上环境启动后端服务(swoole)，或者设置环境变量 BEN_ENV=production
 
 - `composer run-script doc` 自动生成 swagger api 文档
 
@@ -53,7 +54,7 @@ knight api 文档使用 [manjuska](https://github.com/eclogue/manjusaka)
 
 文档生成命令： `composer run-script doc`
 
-详情见： [document](http://193.112.127.136:3000/document)
+详情见： [document](https://github.com/eclogue/knight/tree/master/docs)
 
 
 

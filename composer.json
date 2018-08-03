@@ -1,6 +1,7 @@
 {
   "version": "0.1.1",
   "scripts": {
+    "dev": "php -S 127.0.0.1:5121 -t api",
     "doc": "php bin/document.php",
     "test": "php vendor/bin/phpunit --coverage-text",
     "phpcs": "php vendor/bin/phpcs",
