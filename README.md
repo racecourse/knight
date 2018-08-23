@@ -30,7 +30,6 @@ courser framework [blog demo](http://mulberry10.com)
 
 ### 前端
 
-**鄙人前端渣~！！！**
 
 使用 vue2.x
 
