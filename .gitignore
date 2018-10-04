@@ -15,4 +15,4 @@ dist/
 *.cache
 package-lock.json
 deploy/docker-compose.yaml
-composer.lock
+˜

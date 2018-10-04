@@ -55,6 +55,12 @@ p {
   text-align: right;
   
 }
+.post-footer .more {
+  float: right;
+  font-size: 0.8rem;
+  text-align: right;
+  
+}
 .post-footer span {
   margin: 0 5px;
 }

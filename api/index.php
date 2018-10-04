@@ -18,6 +18,11 @@ Config::load(APP_ROOT . '/api/config');
 $app = require (APP_ROOT . '/api/routers.php');
 
 try {
+    $env = Config::get('BEN_ENV');
+    if ($env === 'production') {
+        $_SERVER['REQUEST_URI'] = preg_replace('#/api/(.*?)$#', '$1', $_SERVER['REQUEST_URI']);
+    }
+    
     $app->run($_SERVER['REQUEST_URI']);
 } catch (Exception $err) {
     echo $err->getFile() . $err->getMessage() . $err->getLine();

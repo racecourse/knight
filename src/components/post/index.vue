@@ -24,9 +24,9 @@
           <mu-icon value="label_outline" v-if="article.tags" />
           <span v-for="(tag, index) in article.tags.split(',')" :key="index">{{tag}}</span>
         </div>
-        <div class="tags">
-          <mu-icon value="floder" />
-          <span @click="detail(post.id)">read more ...</span>
+        <div class="more">
+          <mu-icon value="text_fields" />
+          <span @click="detail(post.id)"> more</span>
         </div>
       </div>
       <div class="split"></div>
