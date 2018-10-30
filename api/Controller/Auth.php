@@ -9,8 +9,8 @@
 
 namespace Knight\Controller;
 
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;

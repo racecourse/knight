@@ -21,7 +21,7 @@
         rsync_opts:
           - "--exclude=.git"
           - "--exclude=node_modules"
-          # - "--exclude=vendor"
+          - "--exclude=vendor"
     - name: "build" 
       shell: "cd {{ app_home }} && docker build ."
       tags: 

@@ -17,6 +17,10 @@
       "Knight\\Tests\\": "tests/"
     }
   },
+  "config": {
+    "secure-http": false
+  },
+
   "repositories": {
     "packagist": {
       "type": "composer",
@@ -25,10 +29,6 @@
     "1": {
       "type": "vcs",
       "url": "http://github.com/eclogue/bulrush"
-    },
-    "2": {
-      "type": "vcs",
-      "url": "http://github.com/eclogue/hayrick"
     },
     "3": {
       "type": "vcs",

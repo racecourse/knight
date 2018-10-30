@@ -11,8 +11,8 @@ namespace Knight\Controller;
 
 use Knight\Component\Controller;
 use Knight\Model\Category as Cate;
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 class Category extends Controller
 {

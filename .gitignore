@@ -10,7 +10,6 @@ deploy/group_vars/all
 deploy/hosts
 api/config/production.php
 dist/
-*.lock
 *.retry
 *.cache
 package-lock.json

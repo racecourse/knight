@@ -9,12 +9,12 @@
 
 namespace Knight\Controller;
 
-use Hayrick\Http\Response;
+use Slim\Http\Response;
 use Knight\Model\Category;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Component\Controller;
-use Hayrick\Http\Request;
+use Slim\Http\Request;
 
 class Article extends Controller
 {

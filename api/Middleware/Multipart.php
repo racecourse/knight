@@ -14,7 +14,7 @@ class Multipart implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $request->bodyParser('multipart/form-data', function (Stream $body) {
+        $request->registerMediaTypeParser('multipart/form-data', function (Stream $body) {
             $input = $body->getContents();
             parse_str($input, $data);
 

@@ -12,7 +12,7 @@ namespace Knight\Controller;
 use Knight\Component\Controller;
 use Knight\Model\Comment as Discuss;
 use Knight\Model\Post;
-use Hayrick\Http\Request;
+use Slim\Http\Request;
 
 class Comment extends Controller
 {

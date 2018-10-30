@@ -20,10 +20,11 @@ $app = require (APP_ROOT . '/api/routers.php');
 try {
     $env = Config::get('BEN_ENV');
     if ($env === 'production') {
-        $_SERVER['REQUEST_URI'] = preg_replace('#/api/(.*?)$#', '$1', $_SERVER['REQUEST_URI']);
+        $_SERVER['REQUEST_URI'] = preg_replace('#/api/(.*?)$#', '/$1', $_SERVER['REQUEST_URI']);
     }
     
-    $app->run($_SERVER['REQUEST_URI']);
+    
+    $app->run();
 } catch (Exception $err) {
     echo $err->getFile() . $err->getMessage() . $err->getLine();
 }

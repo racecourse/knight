@@ -11,8 +11,8 @@ namespace Knight\Controller;
 
 use Knight\Component\Controller;
 use Knight\Model\Photo as Image;
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
+use Slim\Http\Request;
+use Slim\Http\Response;
 use Ben\Config;
 use Upyun\Upyun;
 use Upyun\Config as UConfig;
