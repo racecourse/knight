@@ -2,8 +2,7 @@
 
 namespace Knight\Middleware;
 
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
+use Zend\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -18,7 +17,7 @@ class Cors implements MiddlewareInterface
         if ($method !== "OPTIONS") {
             $response = $handler->handle($request);
         } else {
-            $response = new Response();
+            $response = new JsonResponse([]);
         }
 
         $response = $response->withHeader('Access-Control-Allow-Origin', '*')

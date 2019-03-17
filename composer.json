@@ -51,7 +51,6 @@
     "eclogue/manjusaka": "dev-master",
     "lcobucci/jwt": "^3.2",
     "illuminate/support": "^5.4",
-    "psr/http-message": "^1.0",
     "linfo/linfo": "dev-master",
     "upyun/sdk": "dev-master",
     "symfony/yaml": "^4.1@dev",

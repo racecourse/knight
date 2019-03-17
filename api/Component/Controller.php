@@ -10,16 +10,17 @@
 namespace Knight\Component;
 
 
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
+
+use Zend\Diactoros\Response\JsonResponse;
 
 class Controller
 {
     protected $response;
 
-    public function __construct()
+
+    protected function json(array $data, int $status = 200)
     {
-        $this->response = new Response();
+        return new JsonResponse($data, $status);
     }
 
 }

@@ -4,9 +4,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var baseWebpackConfig = require('./webpack.base.config');
 var utils = require('./utils');
 var config = require('./config');
-// var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-const DashboardPlugin = require('webpack-dashboard/plugin');
 // 热替换
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = [
@@ -29,16 +27,6 @@ module.exports = merge(baseWebpackConfig, {
     rules: utils.styleLoaders()
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin(),
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: 'index.tpl.html',
-    //   inject: true
-    // }),
-    // new FriendlyErrorsPlugin()
-    new DashboardPlugin(),
-    // new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({

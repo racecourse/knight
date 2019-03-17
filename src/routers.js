@@ -1,7 +1,7 @@
 export default [
   {
     path: '/',
-    component: require('./components/common/post.vue'),
+    component: require('./components/common/layout.vue'),
     meta: { auth: false },
     children: [
       {

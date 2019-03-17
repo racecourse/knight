@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side">
     <div class="menu" @click="toggle()">
       <mu-flat-button
         icon="list"
@@ -22,7 +22,7 @@
           <mu-list-item title="时间线" @click="navigate('/timeline')">
             <mu-icon value="toys" slot="left"/>
           </mu-list-item>
-          
+
         </mu-list>
       </div>
     </mu-drawer>
@@ -30,17 +30,20 @@
 </template>
 
 <style type="css">
-  .menu {
-    position: flex;
-    z-index: 100;
+  .side {
+    width: 100px;
   }
-  
+  .menu {
+    z-index: 100;
+    display: inline;
+  }
+
   .resume {
     padding: 1em;
     text-align: center;
     max-height: 20em;
   }
-  
+
   .avatar {
     margin: 1em auto;
     border: 1px;

@@ -17,12 +17,10 @@
 </template>
 <style>
   .common-bottom {
-    /* position: absolute; */
     bottom:0;
     width: 100%;
-    padding: 2em;
     text-align: center;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     color: #b2b2b2;
   }
 

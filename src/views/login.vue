@@ -29,8 +29,12 @@
   }
 
   .container {
+    position: relative;
     width: 100%;
     margin: 10px auto;
+    padding: 24px;
+    box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.01);
+    min-height: calc(100vh - 198px);
   }
 
 </style>

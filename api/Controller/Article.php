@@ -9,12 +9,12 @@
 
 namespace Knight\Controller;
 
-use Slim\Http\Response;
+use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\ServerRequest as Request;
 use Knight\Model\Category;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Component\Controller;
-use Slim\Http\Request;
 
 class Article extends Controller
 {
@@ -28,12 +28,13 @@ class Article extends Controller
      */
     public function posts(Request $request)
     {
-        $page = abs($request->getQuery('page', 1));
-        $order = $request->getQuery('order');
-        $keyword = $request->getQuery('q');
+        $params = $request->getQueryParams();
+        $page = abs($params['page']) ?? 1;
+        $order = $params['order'] ?? 'id';
+        $keyword = $params['q'] ?? null;
         $order = $order === 'archive' ? 'created' : 'id';
         $page = $page ?: 1;
-        $pageSize = abs($request->getQuery('pageSize', 10));
+        $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
         $article = new Post();
         $condition = [
@@ -55,8 +56,7 @@ class Article extends Controller
         $list = yield $article->find($condition, $options);
         $list = $article->toArray($list);
         $total = yield $article->count($condition);
-        $response = new Response();
-        $response = $response->json([
+        $response = new JsonResponse([
             'message' => 'ok',
             'code' => '0',
             'data' => [

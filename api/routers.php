@@ -12,14 +12,14 @@ use Courser\App;
 use Knight\Middleware\Cors;
 use Knight\Middleware\Auth;
 use Psr\Http\Message\RequestInterface;
-use Hayrick\Http\Response;
 use Ben\Config;
 use Knight\Middleware\NotFound;
+use Zend\Diactoros\Response\JsonResponse;
 
 $app = new App();
 $cors = new Cors();
 $app->add($cors);
-$app->add(new \Knight\Middleware\Multipart());
+//$app->add(new \Knight\Middleware\Multipart());
 
 $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);
@@ -53,12 +53,11 @@ $app->group('/admin', function (App $app) {
 $app->add(new NotFound());
 $app->setReporter(function(RequestInterface $request, Throwable $err) {
     var_dump($err->getMessage(), $err->getFile(), $err->getLine());
-    $response = new Response();
-    $response = $response->json([
+    $response = new JsonResponse([
         'error' => $err->getMessage(),
         'file' => $err->getFile(),
         'line' => $err->getLine(),
-    ])->withStatus(500);
+    ], 500);
 
     return $response;
 });
