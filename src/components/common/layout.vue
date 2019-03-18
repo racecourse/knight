@@ -46,6 +46,8 @@
           </mu-col>
         </mu-row>
       </div>
+      <div class="nav"></div>
+      <div class="sider"></div>
     </div>
     <div class="footer"><Bottom></Bottom></div>
   </div>
@@ -60,12 +62,10 @@
   }
   .main > .container {
     flex: 1;
-    min-width: 100%;
   }
   .main > .nav,
   .main > .sider {
     flex: 0 0 20vw;
-    background: beige;
   }
   .main > .nav {
     order: -1;
@@ -84,7 +84,6 @@
   .container {
     height: 100%;
     padding-bottom: 0;
-    margin: 0 auto;
     padding-top: 10px;
   }
 
@@ -119,11 +118,13 @@
     text-align: center;
     flex-wrap: nowrap;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
   }
 
   .nav-header .nav-name::before {
-    content: '桑'
+    content: '桑';
+    color: #d6e69c;
   }
   @media screen and (max-width: 768px) {
     .nav-toggle {
@@ -170,6 +171,9 @@
   .line {
     border-bottom: 1px solid #585a58;
     margin: 2rem 0;
+  }
+  .blank {
+    width: 330px;
   }
 
 </style>

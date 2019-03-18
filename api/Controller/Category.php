@@ -11,8 +11,8 @@ namespace Knight\Controller;
 
 use Knight\Component\Controller;
 use Knight\Model\Category as Cate;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\ServerRequest as Request;
 
 class Category extends Controller
 {
@@ -23,16 +23,15 @@ class Category extends Controller
      * @param Request $request
      * @return \Psr\Http\Message\ResponseInterface|static
      */
-    public function create(Request $request)
+    public function create(Request $request): JsonResponse
     {
-        $name = $request->getPayload('name');
+        $body = $request->getParsedBody();
+        $name = $body['name'];
         if (!$name) {
-            return (new Response)
-                ->withStatus(400)
-                ->json([
-                    'message' => 'Illegal Param',
-                    'code' => 1,
-                ]);
+            return $this->json([
+                'message' => 'Illegal Param',
+                'code' => 1,
+            ], 400);
         }
 
         $category = new Cate();
@@ -40,12 +39,11 @@ class Category extends Controller
         $category->created = time();
         $cate = $category->save();
 
-        return (new Response)
-            ->json([
-                'message' => 'ok',
-                'code' => 0,
-                'data' => $cate->toArray(),
-            ]);
+        return $this->json([
+            'message' => 'ok',
+            'code' => 0,
+            'data' => $cate->toArray(),
+        ]);
     }
 
     /**
@@ -56,34 +54,30 @@ class Category extends Controller
      */
     public function drop(Request $request)
     {
-        $id = $request->getParam('id');
+        $params = $request->getAttribute('params');
+        $id = $params['id'];
         if (!$id) {
-            return (new Response)
-                ->withStatus(400)
-                ->json([
-                    'message' => 'cate id miss',
-                    'code' => 1,
-                ]);
+            return $this->json([
+                'message' => 'cate id miss',
+                'code' => 1,
+            ], 400);
         }
 
         $category = new Cate();
         $cate = $category->findById($id);
         if (!$cate) {
-            return (new Response)
-                ->withStatus(404)
-                ->json([
-                    'message' => 'category not found',
-                    'code' => 2,
-                ]);
+            return $this->json([
+                'message' => 'category not found',
+                'code' => 2,
+            ], 400);
         }
 
         $cate->delete();
 
-        return (new Response)
-            ->json([
-                'message' => 'ok',
-                'code' => 0,
-            ]);
+        return $this->json([
+            'message' => 'ok',
+            'code' => 0,
+        ]);
     }
 
     /**
@@ -107,11 +101,10 @@ class Category extends Controller
         $list = yield $category->find($where, $options);
         $list = $category->toArray($list);
 
-        return (new Response)
-            ->json([
-                'message' => 'ok',
-                'code' => 0,
-                'data' => $list,
-            ]);
+        return $this->json([
+            'message' => 'ok',
+            'code' => 0,
+            'data' => $list,
+        ]);
     }
 }

@@ -1,10 +1,9 @@
 .post {
-  margin: 0 auto;
-  padding: 20px;
+  justify-content: center;
+  align-items: center;
   max-width: 860px;
   padding: 0 15px;
   min-height: 100%;
-  position: relative;
 }
 .post-header {
   text-align: center;
@@ -12,8 +11,8 @@
 .post img  {
   max-width: 700px;
   padding: 10px;
-  margin-left: auto; 
-  margin-right:auto; 
+  margin-left: auto;
+  margin-right:auto;
   display:block;
   overflow: hidden;
 }
@@ -53,13 +52,13 @@ p {
   float: right;
   font-size: 0.8rem;
   text-align: right;
-  
+
 }
 .post-footer .more {
   float: right;
   font-size: 0.8rem;
   text-align: right;
-  
+
 }
 .post-footer span {
   margin: 0 5px;
@@ -67,7 +66,7 @@ p {
 
 .mu-icon {
   position: relative;
-  margin-right: 2px; 
+  margin-right: 2px;
   top: 5px;
   font-size: 1rem;
   font-weight: 400 !important;

@@ -6,7 +6,7 @@
     <mu-row>
       <mu-col width="100"
         tablet="50"
-        desktop="33"
+        desktop="50"
         v-for="(photo, index) in picture"
         :key="index"
       >
@@ -124,7 +124,7 @@ export default {
         if (!photo) {
           continue;
         }
-        
+
         let attr = {};
         try {
           attr = JSON.parse(photo.attr);

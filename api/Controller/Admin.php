@@ -9,13 +9,13 @@
 
 namespace Knight\Controller;
 
-use Slim\Http\Response;
 use Knight\Component\Controller;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Model\Category;
-use Slim\Http\Request;
 use Linfo\Linfo;
+use Zend\Diactoros\Response\JsonResponse;
+use Zend\Diactoros\ServerRequest as Request;
 
 class Admin extends Controller
 {
@@ -48,7 +48,6 @@ class Admin extends Controller
         $settings['show']['hostname'] = true;
         $settings['show']['model'] = true; # Model of system. Supported on certain OS's. ex: Macbook Pro
         $settings['cpu_usage'] = true;
-        $response = new Response();
         $linfo = new Linfo($settings);
         $linfo->scan();
         $info = $linfo->getInfo();
@@ -69,7 +68,7 @@ class Admin extends Controller
 //            echo $key . PHP_EOL;
 //        }
 //        var_dump($output);
-        return $response->json([
+        return $this->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -112,7 +111,7 @@ class Admin extends Controller
         $articles = yield $article->find($where, $option);
         $list = $article->toArray($articles);
 
-        return (new Response())->json([
+        return $this->json([
             'message' => 'ok',
             'data' => [
                 'page' => $page,
@@ -131,31 +130,27 @@ class Admin extends Controller
      */
     public function create(Request $request)
     {
-        $response = new Response();
         $title = $request->getPayload('title');
         $content = $request->getPayload('content');
         $tags = $request->getPayload('tags');
         $cateId = $request->getPayload('cateId');
         $permission = $request->getPayload('permission');
         if (!in_array($permission, [0, 1, 2])) {
-            return $response->withStatus(400)
-                ->json([
+            return $this->json([
                     'message' => 'Illegal param permission',
                     'code' => 1,
-                ]);
+                ], 400);
         }
 
         if (!$title) {
-            return $response->withStatus(400)
-                ->json([
+            return $this->json([
                     'message' => 'title required',
                     'code' => 1,
                 ]);
         }
 
         if (!$content) {
-            return $response->withStatus(400)
-                ->json([
+            return $this->json([
                     'message' => 'content can not empty'
                 ]);
         }
@@ -176,7 +171,7 @@ class Admin extends Controller
         $article = new Post();
         $article->insert($post);
 
-        return $response->json([
+        return $this->json([
             'code' => 0,
             'message' => 'ok',
         ]);

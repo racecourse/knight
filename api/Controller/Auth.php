@@ -9,12 +9,12 @@
 
 namespace Knight\Controller;
 
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Ben\Config;
 use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
-use Ben\Config;
+use Zend\Diactoros\ServerRequest as Request;
+use Zend\Diactoros\Response\JsonResponse;
 
 class Auth extends Controller
 {
@@ -28,33 +28,31 @@ class Auth extends Controller
      */
     public function login(Request $request)
     {
-        $username = $request->getPayload('username');
-        $password = $request->getPayload('password');
-        $response = new Response;
+        $payload = $request->getParsedBody();
+        $username = $payload['username'] ?? null;
+        $password = $payload['password'] ?? null;
         if (!$username || !$password) {
-            return $response
-                ->withStatus(400)
-                ->json(['message' => 'param error', 'code' => 1]);
+            return $this->json([
+                'message' => 'param error',
+                'code' => 1
+            ], 400);
         }
+
         $user = new User();
         $userInfo = yield $user->findOne(['username' => $username]);
         if (!$userInfo) {
-            return $response
-                ->withStatus(404)
-                ->json([
-                    'message' => 'user not found',
-                    'code' => 2,
-                ]);
+            return $this->json([
+                'message' => 'user not found',
+                'code' => 2,
+            ], 400);
         }
 
         $verify = password_verify($password, $userInfo->password);
         if (!$verify) {
-            return $response
-                ->withStatus(401)
-                ->json([
-                    'message' => 'password incorrect',
-                    'code' => 3,
-                ]);
+            return $this->json([
+                'message' => 'password incorrect',
+                'code' => 3,
+            ], 400);
         }
 
         $info = [
@@ -69,7 +67,7 @@ class Auth extends Controller
         unset($userInfo['password']);
         $userInfo['expired'] = Config::get('jwt.expired');
 
-        return $response->json([
+        return $this->json([
             'message' => 'ok',
             'data' => [
                 'user' => $userInfo,

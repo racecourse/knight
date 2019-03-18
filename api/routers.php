@@ -19,7 +19,7 @@ use Zend\Diactoros\Response\JsonResponse;
 $app = new App();
 $cors = new Cors();
 $app->add($cors);
-//$app->add(new \Knight\Middleware\Multipart());
+$app->add(new \Knight\Middleware\Multipart());
 
 $app->get('/posts', [Knight\Controller\Article::class, 'posts']);
 $app->get('/posts/:id', [Knight\Controller\Article::class, 'detail']);

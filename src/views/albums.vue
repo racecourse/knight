@@ -7,7 +7,7 @@
       <mu-row>
         <mu-col width="100"
           tablet="50"
-          desktop="33"
+          desktop="50"
           v-for="(photo, index) in album.photos"
           :key="index"
         >
@@ -55,7 +55,7 @@
        @query="loadAlbums"
       />
     </div>
-    
+
   </div>
 </template>
 

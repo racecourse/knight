@@ -78,14 +78,16 @@ class Article extends Controller
      */
     public function detail(Request $request)
     {
-        $id = $request->getParam('id');
-        $response = new Response();
+        $params = $request->getAttribute('params', []);
+        $id = $params['id'];
+        $response = new JsonResponse([]);
         if (!$id || $id < 1) {
-            return $response->withStatus(400)
-                ->json([
+            return $response
+                ->withPayload([
                     'message' => 'Illegal ID',
                     'code' => 1,
-                ]);
+                ])
+                ->withStatus(400);
         }
         $article = new Post();
         $condition = [
@@ -93,11 +95,11 @@ class Article extends Controller
         ];
         $art = yield $article->findOne($condition);
         if (!$art) {
-            return $response->withStatus(400)
-                ->json([
-                    'message' => 'article not found',
-                    'code' => 2,
-                ]);
+            return $response->withPayload([
+                'message' => 'article not found',
+                'code' => 2,
+            ])
+                ->withStatus(400);
         }
 
 //        if ($art->isShow < 1) {
@@ -110,7 +112,7 @@ class Article extends Controller
 //        }
         $art = $art->toArray();
 
-        return (new Response())->json([
+        return $response->withPayload([
             'message' => 'ok',
             'code' => '0',
             'data' => $art,
@@ -126,7 +128,8 @@ class Article extends Controller
      */
     public function article(Request $request)
     {
-        $page = abs($request->getQuery('page'));
+        $query = $request->getQueryParams();
+        $page = abs($query['page'] ?? 1);
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
@@ -144,7 +147,7 @@ class Article extends Controller
         $articles = yield $article->find($where, $option);
         $total = $article->count($where);
         $list = $article->toArray($articles);
-        return (new Response())->json([
+        return new JsonResponse([
             'message' => 'ok',
             'data' => [
                 'page' => $page,
@@ -166,16 +169,18 @@ class Article extends Controller
      */
     public function comments(Request $request)
     {
-        $id = $request->getParam('id');
-        $response = new Response();
+        $params = $request->getAttribute('params');
+        $query = $request->getQueryParams();
+        $id = $params['id'];
+        $response = new JsonResponse([]);
         if (!$id) {
-            return $response->withStatus(400)->json([
+            return $this->json([
                 'message' => 'param id required',
                 'code' => 1,
-            ]);
+            ], 400);
         }
 
-        $page = abs($request->getQuery('page'));
+        $page = abs($query['page'] ?? 1);
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
@@ -190,7 +195,7 @@ class Article extends Controller
         $total = 0; // @todo
         $comments = $comment->toArray($comments);
 
-        return $response->json([
+        return $this->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
@@ -214,39 +219,33 @@ class Article extends Controller
      */
     public function create(Request $request)
     {
-        $response = new Response();
-        $title = $request->getPayload('title');
-        $content = $request->getPayload('content');
-        $tags = $request->getPayload('body');
+        $body = $request->getParsedBody();
+        $title = $body['title'] ?? '';
+        $content = $body['content'] ?? '';
+        $tags = $body['body'];
         $cateId = $request->getPayload('cateId');
         if (!$title) {
-            return $response
-                ->withStatus(400)
-                ->json([
-                    'message' => 'title required',
-                    'code' => 1,
-                ]);
+            return $this->json([
+                'message' => 'title required',
+                'code' => 1,
+            ], 400);
         }
 
         if (!$content) {
-            return $response
-                ->withStatus(400)
-                ->json([
-                    'message' => 'content can not empty',
-                    'code' => 4,
-                ]);
+            return $this->json([
+                'message' => 'content can not empty',
+                'code' => 4,
+            ], 400);
         }
 
         if ($cateId) {
             $category = new Category();
             $cate = $category->findById($cateId);
             if (!$cate) {
-                return $response
-                    ->withStatus(400)
-                    ->json([
-                        'message' => 'category not found',
-                        'code' => 3,
-                    ]);
+                return $this->json([
+                    'message' => 'category not found',
+                    'code' => 3,
+                ], 400);
             }
         }
 
@@ -260,7 +259,7 @@ class Article extends Controller
         $article = new Post();
         yield $article->insert($post);
 
-        return $response->json([
+        return $this->json([
             'message' => 'ok',
             'code' => 0,
         ]);
