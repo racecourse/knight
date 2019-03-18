@@ -1,7 +1,6 @@
 .post {
-  justify-content: center;
-  align-items: center;
-  max-width: 860px;
+  margin: 0 auto;
+  max-width: 720px;
   padding: 0 15px;
   min-height: 100%;
 }

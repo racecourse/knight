@@ -58,14 +58,16 @@
   }
   .main {
     display: flex;
-    min-height: calc(100vh - 40vh);
+    min-height: calc(100vh - 20vh);
+    justify-content: center;
+    align-items: center;
   }
   .main > .container {
     flex: 1;
   }
   .main > .nav,
   .main > .sider {
-    flex: 0 0 20vw;
+    flex: 0 0 10vw;
   }
   .main > .nav {
     order: -1;
@@ -74,7 +76,7 @@
     padding: 1em;
   }
   .header, .footer {
-    height: 20vh;
+    height: 10vh;
   }
   .layout {
     padding: 0;
