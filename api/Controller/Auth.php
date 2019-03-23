@@ -14,7 +14,6 @@ use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
 use Zend\Diactoros\ServerRequest as Request;
-use Zend\Diactoros\Response\JsonResponse;
 
 class Auth extends Controller
 {

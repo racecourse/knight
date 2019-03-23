@@ -51,10 +51,10 @@
     "eclogue/manjusaka": "dev-master",
     "lcobucci/jwt": "^3.2",
     "illuminate/support": "^5.4",
-    "linfo/linfo": "dev-master",
     "upyun/sdk": "dev-master",
     "symfony/yaml": "^4.1@dev",
-    "riverline/multipart-parser": "dev-master"
+    "riverline/multipart-parser": "dev-master",
+    "jimdo/prometheus_client_php": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",

@@ -15,9 +15,12 @@ use Psr\Http\Message\RequestInterface;
 use Ben\Config;
 use Knight\Middleware\NotFound;
 use Zend\Diactoros\Response\JsonResponse;
+use Knight\Middleware\Prometheus;
 
 $app = new App();
 $cors = new Cors();
+$prometheus = new Prometheus();
+$app->add($prometheus);
 $app->add($cors);
 $app->add(new \Knight\Middleware\Multipart());
 
