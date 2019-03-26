@@ -45,6 +45,9 @@
   .side-bg {
     background: rgba(50,50,0, 0.5);
   }
+  .mu-drawer {
+    max-width: 200px;
+  }
 </style>
 <script>
   export default {

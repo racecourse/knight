@@ -1,8 +1,6 @@
 <template>
   <div class="layout">
-    <div class="header">
-      <SideNav></SideNav>
-    </div>
+    <SideNav></SideNav>
     <div class="main-wrapper">
       <router-view></router-view>
     </div>

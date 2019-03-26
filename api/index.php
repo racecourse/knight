@@ -14,6 +14,8 @@ require APP_ROOT . '/vendor/autoload.php';
 use Ben\Config;
 
 Config::load(APP_ROOT . '/api/config');
+var_dump(Config::all());
+exit(1);
 $app = require (APP_ROOT . '/api/routers.php');
 
 try {

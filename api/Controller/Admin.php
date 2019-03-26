@@ -276,13 +276,13 @@ class Admin extends Controller
 
     public function detail(Request $request)
     {
+        $this->params = $request->getAttribute('params');
         $id = $this->getParam('id');
         if (!intval($id)) {
-            return $this->withStatus(400)
-                ->json([
-                    'message' => 'Illegal ID',
-                    'code' => 1,
-                ]);
+            return $this->json([
+                'message' => 'Illegal ID',
+                'code' => 1,
+            ], 400);
         }
 
         $post = new Post();

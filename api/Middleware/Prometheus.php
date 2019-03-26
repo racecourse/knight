@@ -30,7 +30,7 @@ class Prometheus implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
 
-        $start = microtime(true);
+        $start = microtime( true);
         $uri = $request->getUri()->getPath();
         $registry = new CollectorRegistry(new InMemory());
         if ($uri === '/metrics') {

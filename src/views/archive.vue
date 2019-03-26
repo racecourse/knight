@@ -1,25 +1,31 @@
 <template>
   <div>
-    <div class="arch-wrap">
-      <div v-for="(posts, month) in archive" :key="month">
-        <div class="month">{{month}}</div>
-        <div v-if="Array.isArray(posts)">
-          <mu-timeline
-            lineColor="black"
-            lineType="dashed"
-          >
-            <div v-for="post in posts" :key="post.id">
-              <mu-timeline-item iconColor="red" iconType="dotted">
-                <span slot="time">
-                  {{new Date(post.created * 1000).toLocaleString()}}
-                </span>
-                <span slot="des">{{post.title}}</span>
-              </mu-timeline-item>
+    <mu-container ref="container" class="demo-loadmore-content">
+      <mu-load-more
+        :loading="loading"
+        @load="load">
+        <div class="arch-wrap">
+          <div v-for="(posts, month) in archive" :key="month">
+            <div class="month">{{month}}</div>
+            <div v-if="Array.isArray(posts)">
+              <mu-timeline
+                lineColor="black"
+                lineType="dashed"
+              >
+                <div v-for="post in posts" :key="post.id">
+                  <mu-timeline-item iconColor="red" iconType="dotted">
+                    <span slot="time">
+                      {{new Date(post.created * 1000).toLocaleString()}}
+                    </span>
+                    <span slot="des">{{post.title}}</span>
+                  </mu-timeline-item>
+                </div>
+              </mu-timeline>
             </div>
-          </mu-timeline>
+          </div>
         </div>
-      </div>
-    </div>
+      </mu-load-more>
+    </mu-container>
     <div class="a-page" @click="more" v-if="page * pageSize < total">
       <div class="p-more">more</div>
       <mu-icon value="more_horiz"></mu-icon>
@@ -36,19 +42,12 @@
         pageSize: 20,
         total: 0,
         list: [],
+        loading: false
       }
     },
     beforeMount() {
       this.load();
     },
-    // beforeUpdate() {
-    //   const page = Number(this.$route.query.page);
-    //   console.log(page * this.pageSize , this.total)
-      
-    //   if(page && page * this.pageSize <= this.total ) {
-    //     this.load();
-    //   }
-    // },
     computed: {
       archive: function () {
         const data = {};
@@ -69,6 +68,7 @@
     methods: {
       async load() {
         // @todo 加载逻辑有问题
+        this.loading = false;
         const query = Object.assign({}, this.$route.query);
         await this.$store.dispatch('posts', query);
         const res = this.$store.state.post;
@@ -78,6 +78,7 @@
         this.page = page;
         this.pageSize = pageSize;
         this.total = total;
+        this.loading = false;
       },
       async more() {
         let page = this.$route.query.page || 1;
@@ -86,6 +87,9 @@
           this.$router.push({ query: { page } });
           await this.load();
         }
+      },
+      async refresh() {
+        this.$router.replace({name:"archive", hash: '#archive'})
       }
     },
     components: {

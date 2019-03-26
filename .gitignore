@@ -14,4 +14,4 @@ dist/
 *.cache
 package-lock.json
 deploy/docker-compose.yaml
-˜
+.env

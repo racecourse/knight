@@ -28,8 +28,8 @@ class Article extends Controller
      */
     public function posts(Request $request)
     {
-        $params = $request->getQueryParams();
-        $page = abs($params['page']) ?? 1;
+        $this->params = $request->getQueryParams();
+        $page = $this->getParam('page', 1);
         $order = $params['order'] ?? 'id';
         $keyword = $params['q'] ?? null;
         $order = $order === 'archive' ? 'created' : 'id';

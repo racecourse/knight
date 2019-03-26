@@ -67,7 +67,7 @@
   }
   .main > .nav,
   .main > .sider {
-    flex: 0 0 10vw;
+    flex: 0 0 15vw;
   }
   .main > .nav {
     order: -1;
@@ -76,7 +76,12 @@
     padding: 1em;
   }
   .header, .footer {
-    height: 10vh;
+    height: 15vh;
+  }
+  @media screen and (min-width: 1400px) {
+    .header, .footer {
+      height: 5vh;
+    }
   }
   .layout {
     padding: 0;

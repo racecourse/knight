@@ -12,12 +12,11 @@ namespace Knight\Middleware;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
-use Hayrick\Http\Request;
-use Hayrick\Http\Response;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Zend\Diactoros\Response\JsonResponse;
 
 class Auth implements MiddlewareInterface
 {
@@ -68,37 +67,36 @@ class Auth implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $res = new Response();
-        $authorization = $request->getHeader('Authorization');
+        $authorization = $request->getHeaderLine('Authorization');
         if (!$authorization) {
-            return $res->withStatus(401)->json([
+            return new JsonResponse([
                 'message' => 'unauthorization',
                 'code' => 10401,
-            ]);
+            ], 401);
         }
 
         $authorization = explode(' ', $authorization);
         if (count($authorization) !== 2) {
-            return $res->withStatus(401)->json([
+            return new JsonResponse([
                 'message' => 'unauthorization',
                 'code' => 10401,
-            ]);
+            ], 401);
         }
 
         list($bearer, $token) = $authorization;
         if ($bearer !== 'Bearer') {
-            return $res->withStatus(401)->json([
+            return new JsonResponse([
                 'message' => 'unauthorization',
                 'code' => 10401,
-            ]);
+            ], 401);
         }
 
         $user = $this->decode($token);
         if (!$user) {
-            return $res->withStatus(401)->json([
+            return new JsonResponse([
                 'message' => 'unauthorization',
                 'code' => 10401,
-            ]);
+            ], 401);
         }
 
         $request = $request->withAttribute('session', $user);
