@@ -75,13 +75,7 @@
   .header, .footer, .container, .nav, .sider {
     padding: 1em;
   }
-  .header, .footer {
-    height: 15vh;
-  }
   @media screen and (min-width: 1400px) {
-    .header, .footer {
-      height: 5vh;
-    }
   }
   .layout {
     padding: 0;

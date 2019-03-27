@@ -8,7 +8,6 @@
           <span>{{result.created}}</span>
         </mu-sub-header>
       </div>
-      
       <mu-content-block>
         <section v-html="result.content" @click="preview"></section>
       </mu-content-block>
@@ -17,30 +16,6 @@
         <div class="tags">php</div>
       </div>
       <div class="split"></div>
-    </div>
-    <div class="comment-wrapper">
-      <div v-for="comment in comments.list" :key="comment.id">
-        <div class="comments">
-          <div class="user">{{comment.username}}</div>
-          <div class="text">
-            <p>{{comment.content}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="form-outside">
-        <div class="form-inside">
-          <mu-text-field label="username" hintText="username" v-model="username"/>
-          <mu-text-field label="email" hintText="email" v-model="email"/>
-          <mu-text-field label="site" hintText="site" v-model="site"/>
-          <mu-text-field label="content" hintText="content" v-model="content" multiLine :rows="10" :rowsMax="60" :maxLength="200"/>
-        </div>
-        <div class="from-btn">
-          <div @click="submit">
-             <mu-raised-button label="发表评论"/>
-          </div>
-        </div>
-      </div>
-      <mu-snackbar v-if="snackbar.show" :message="snackbar.message" action="close" @actionClick="hideSnackbar" @close="hideSnackbar"/>
     </div>
     <vue-preview></vue-preview>
   </div>

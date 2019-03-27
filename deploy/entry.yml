@@ -1,8 +1,8 @@
 ---
 - hosts: "{{node}}"
   vars:
-    src: /workspace/myself/knight
-    dest: /usr/local/webapp
+    src: /workspace/myself/knight/public
+    dest: /var/www/knight
     app_home: /usr/local/webapp/knight
   remote_user: root
   tasks:
@@ -22,9 +22,9 @@
           - "--exclude=.git"
           - "--exclude=node_modules"
           - "--exclude=vendor"
-    - name: "build" 
+    - name: "build"
       shell: "cd {{ app_home }} && docker build ."
-      tags: 
+      tags:
         - build
     - name: "ci"
       shell: "cd {{app_home }} && "

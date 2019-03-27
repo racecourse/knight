@@ -5,7 +5,7 @@ module.exports = {
     // hosts: ['193.112.127.136'],
     tasks: ['ping', 'sync'],
     node: 'knight',
-    user: 'root',
+    user: 'sang',
     port: '22',
     debug: false,
     vars: {
