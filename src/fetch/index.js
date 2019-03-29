@@ -10,7 +10,6 @@ const getHeaders = () => {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   };
-  console.log('ttttttt', token);
   if (token) {
     header['Authorization'] = 'Bearer ' + token;
   }
@@ -32,7 +31,9 @@ export default async function api (uri, method, data) {
     if (method !== 'get') fetchParams.body = data;
     else uri += '?' + util.queryString(data);
   }
-  const url = 'http://' + config.api + uri;
+
+  const scheme = window.location.protocol;
+  const url = scheme + '//' + config.api + uri;
   const res = await fetch(url, fetchParams);
   let body = await res.json();
   body = body && typeof body === 'object' ? body : {};

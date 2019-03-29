@@ -1,4 +1,4 @@
 export default {
-  api: 'sangsay.com/api',
-  domain: 'sangsay.com'
+  api: 'blog.sangsay.com/api',
+  domain: 'blog.sangsay.com'
 }

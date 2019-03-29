@@ -132,30 +132,30 @@ class Admin extends Controller
         $tags = $this->getPayload('tags');
         $cateId = $this->getPayload('cateId');
         $permission = $this->getPayload('permission');
-        if (!in_array($permission, [0, 1, 2])) {
-            return $this->json([
-                'message' => 'Illegal param permission',
-                'code' => 1,
-            ], 400);
-        }
+//        if (!in_array($permission, [0, 1, 2])) {
+//            return $this->json([
+//                'message' => 'Illegal param permission',
+//                'code' => 1,
+//            ], 400);
+//        }
 
         if (!$title) {
             return $this->json([
                 'message' => 'title required',
                 'code' => 1,
-            ]);
+            ], 400);
         }
 
         if (!$content) {
             return $this->json([
                 'message' => 'content can not empty'
-            ]);
+            ], 400);
         }
 
         $user = $request->getAttribute('session');
         $created = $this->getPayload('created');
         $created = $created ? strtotime($created) : time();
-        $tags = \is_array($tags) ? \implode(',', $tags) : $tags;
+        $tags = is_array($tags) ? implode(',', $tags) : $tags;
         $post = [
             'userId' => $user->id,
             'title' => $title,
@@ -197,6 +197,8 @@ class Admin extends Controller
 
     public function edit(Request $request)
     {
+        $this->params = $request->getAttribute('params');
+        $this->payload = $request->getParsedBody();
         $id = $this->getParam('id');
         $title = $this->getPayload('title');
         $tags = $this->getPayload('tags');
