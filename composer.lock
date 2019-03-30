@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "2ba1504e8c0d29dec848ab6dc7f338c5",
@@ -110,12 +110,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/eclogue/ben.git",
-                "reference": "552af5405933082871d9979e3eada0af5683f752"
+                "reference": "3cd11ae2f268097dcbcf8719023454d15e324b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/eclogue/ben/zipball/552af5405933082871d9979e3eada0af5683f752",
-                "reference": "552af5405933082871d9979e3eada0af5683f752",
+                "url": "https://api.github.com/repos/eclogue/ben/zipball/3cd11ae2f268097dcbcf8719023454d15e324b73",
+                "reference": "3cd11ae2f268097dcbcf8719023454d15e324b73",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "source": "https://github.com/eclogue/ben/tree/master",
                 "issues": "https://github.com/eclogue/ben/issues"
             },
-            "time": "2019-03-25 12:09:58"
+            "time": "2019-03-26T03:14:54+00:00"
         },
         {
             "name": "eclogue/bulrush",
@@ -249,7 +249,7 @@
                 "source": "https://github.com/eclogue/courser/tree/master",
                 "issues": "https://github.com/eclogue/courser/issues"
             },
-            "time": "2019-03-22 09:50:36"
+            "time": "2019-03-22T09:50:36+00:00"
         },
         {
             "name": "eclogue/lily",
@@ -653,7 +653,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-03-21 23:31:28"
+            "time": "2019-03-21T23:31:28+00:00"
         },
         {
             "name": "jimdo/prometheus_client_php",
@@ -701,7 +701,7 @@
                     "email": "jan.brauer@jimdo.com"
                 }
             ],
-            "time": "2018-03-19 21:33:29"
+            "time": "2018-03-19T21:33:29+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -1596,7 +1596,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-14 07:32:46"
+            "time": "2019-03-14T07:32:46+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -1666,7 +1666,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-03-19 18:41:07"
+            "time": "2019-03-19T18:41:07+00:00"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -1722,7 +1722,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-02-06 07:57:58"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1970,7 +1970,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-07 08:54:57"
+            "time": "2019-03-07T08:54:57+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2141,7 +2141,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-03-23 10:56:16"
+            "time": "2019-03-23T10:56:16+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -2265,7 +2265,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2019-03-17 17:37:11"
+            "time": "2019-03-17T17:37:11+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -3184,7 +3184,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-03-18 12:48:21"
+            "time": "2019-03-18T12:48:21+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -3890,7 +3890,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-03-22 02:38:48"
+            "time": "2019-03-22T02:38:48+00:00"
         },
         {
             "name": "symfony/finder",
@@ -3939,7 +3939,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-22 07:19:24"
+            "time": "2019-03-22T07:19:24+00:00"
         },
         {
             "name": "theseer/fdomdocument",
