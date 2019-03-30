@@ -20,18 +20,18 @@ a {
 }
 code {
   display: inline;
-  overflow-x: auto;
+  overflow: auto;
   color: #333;
-  background: #efefef;
-  -webkit-text-size-adjust: none;
+  padding: 5px 12px;
+  background-color: #eed;
 }
 pre code {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
-  color: #333;
+  padding: 1rem;
   background: #fefefe;
-  -webkit-text-size-adjust: none;
+  border: 1px solid #ddd;
+  white-space: pre;
 }
 
 .a-page {

@@ -11,6 +11,7 @@ namespace Knight\Middleware;
 
 use Prometheus\RenderTextFormat;
 use Prometheus\Storage\InMemory;
+use Prometheus\Storage\Redis;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -32,7 +33,7 @@ class Prometheus implements MiddlewareInterface
 
         $start = microtime( true);
         $uri = $request->getUri()->getPath();
-        $registry = new CollectorRegistry(new InMemory());
+        $registry = new CollectorRegistry(new Redis());
         if ($uri === '/metrics') {
             $render = new RenderTextFormat();
             $metrics = $render->render($registry->getMetricFamilySamples());
@@ -43,20 +44,21 @@ class Prometheus implements MiddlewareInterface
 
         $response = $handler->handle($request);
         $end = microtime(true);
-        $duration = ($end - $start) * 1000;
+        $duration = ($end - $start);
         $statusCode = $response->getStatusCode();
         $context = $request->getAttribute('context');
         $routes = $context->getRoutes();
         $method = $request->getMethod();
         $labels = ['status_code', 'method', 'route'];
         foreach ($routes as $route) {
+            $labelValues = [$method, $statusCode, $route];
             $counter = $registry->registerCounter(
                 'knight',
                 'knight_request_total', 'Total number of HTTP requests',
                 $labels
             );
 
-            $counter->inc([$method, $statusCode, $route]);
+            $counter->inc($labelValues);
             $histogram = $registry->registerHistogram(
                 'knight',
                 'knight_request_duration_seconds',
@@ -64,8 +66,9 @@ class Prometheus implements MiddlewareInterface
                 $labels,
                 [0.005, 0.05, 0.1, 0.5, 1.5, 10]
             );
-            $histogram->observe($duration, $labels);
+            $histogram->observe($duration, $labelValues);
         }
+
 
         return $response;
     }

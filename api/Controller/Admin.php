@@ -127,7 +127,7 @@ class Admin extends Controller
     public function create(Request $request)
     {
         $this->payload = $request->getParsedBody();
-        $title = $body['title'] ?? '';
+        $title = $this->getPayload('title');
         $content = $this->getPayload('content');
         $tags = $this->getPayload('tags');
         $cateId = $this->getPayload('cateId');

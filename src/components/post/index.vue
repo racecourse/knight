@@ -11,7 +11,7 @@
           <span>{{new Date(post.created * 1000).toLocaleDateString()}}</span>
         </mu-sub-header>
       </div>
-      
+
       <mu-content-block>
         <section v-html="post.content"></section>
       </mu-content-block>
@@ -63,7 +63,7 @@
           },
         };
         marked.setOptions(markedOptions);
-        post.content = post.content.substr(0, 500);
+        post.content = post.content.substr(0, 200);
         if (post.content.search(/```[^`]+$/) !== -1) {
           post.content += '```';
         }
