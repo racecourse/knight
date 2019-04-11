@@ -54,7 +54,7 @@ class Prometheus implements MiddlewareInterface
             $labelValues = [$method, $statusCode, $route];
             $counter = $registry->registerCounter(
                 'knight',
-                'knight_request_total', 'Total number of HTTP requests',
+                'request_total', 'Total number of HTTP requests',
                 $labels
             );
 
