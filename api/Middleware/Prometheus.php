@@ -61,7 +61,7 @@ class Prometheus implements MiddlewareInterface
             $counter->inc($labelValues);
             $histogram = $registry->registerHistogram(
                 'knight',
-                'knight_request_duration_seconds',
+                'request_duration_seconds',
                 'duration histogram of http responses',
                 $labels,
                 [0.005, 0.05, 0.1, 0.5, 1.5, 10]
