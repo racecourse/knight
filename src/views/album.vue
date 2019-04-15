@@ -13,7 +13,7 @@
         <div class="image-box">
           <div class="image-cover">
             <div v-if="photo.panorama">
-              <img class="panorama-thumb" :src="'http://' + photo.url + '!thumb'" />
+              <img class="panorama-thumb" :src="'https://' + photo.url + '!thumb'" />
               <div class="panorama-zoom"  @click="showPanorama(photo)">
                 全景图片点击观看
               </div>

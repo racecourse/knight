@@ -13,9 +13,9 @@ use Knight\Component\Controller;
 use Knight\Model\Comment;
 use Knight\Model\Post;
 use Knight\Model\Category;
-use Linfo\Linfo;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\ServerRequest as Request;
+use Knight\Model\Photo;
 
 class Admin extends Controller
 {
@@ -369,5 +369,24 @@ class Admin extends Controller
             'message' => 'ok',
             'code' => 0,
         ]);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function resolveSSLPhone()
+    {
+        $model = new Photo();
+        $photos = $model->findAll();
+        foreach ($photos as $photo) {
+            $url = parse_url('http://' . $photo->url);
+            $photo->url = $url['path'];
+            $photo->save();
+        }
+
+        return new JsonResponse([
+            'message' => 'ok',
+            'code' => 0,
+        ], 200);
     }
 }

@@ -11,8 +11,7 @@ namespace Knight\Controller;
 
 use Knight\Component\Controller;
 use Knight\Model\Photo as Image;
-use Slim\Http\Request;
-use Slim\Http\Response;
+use Zend\Diactoros\ServerRequest as Request;
 use Ben\Config;
 use Upyun\Upyun;
 use Upyun\Config as UConfig;
@@ -35,7 +34,6 @@ class Photo extends Controller
 //        $cfg->debug = true;
         $client = new Upyun($cfg);
         $files = $request->getUploadedFiles();
-        var_dump($files);
         $success = [];
         foreach ($files as $key => $uploaded) {
             try {
@@ -48,28 +46,25 @@ class Photo extends Controller
                     continue;
                 }
 
-                var_dump($type);
                 $extname = explode('/', $type);
                 $extname = end($extname);
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
-                var_dump($uploaded->getStream());
                 $attr = $client->write($savePath, $uploaded->getStream());
                 $extInfo = [];
                 foreach ($attr as $field => $value) {
                     $field = str_replace('x-upyun-', '', $field);
                     $extInfo[$field] = $value;
                 }
-                $url = $config['domain'] . '/' . $savePath;
+
+                $url = '/' . $savePath;
                 $image->url = $url;
                 $image->albumId = $album;
                 $image->created = time();
-                $image->attr = json_encode($extInfo);
+                $image->attrs = json_encode($extInfo);
                 $image = $image->save();
-                var_dump($image);
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
-                var_dump($err->getMessage());
                 continue;
             }
         }

@@ -1,8 +1,10 @@
 .post {
-  margin: 0 auto;
-  max-width: 720px;
-  padding: 0 15px;
+  margin: 10px auto;
+  max-width: 780px;
+  padding: 15px;
   min-height: 100%;
+  border: 1px solid#ddd;
+  background-color: #ffffff;
 }
 .post-header {
   text-align: center;

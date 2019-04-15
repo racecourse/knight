@@ -61,6 +61,7 @@
     min-height: calc(100vh - 20vh);
     justify-content: center;
     align-items: center;
+    background-color: #eeeeee;
   }
   .main > .container {
     flex: 1;
@@ -75,6 +76,13 @@
   .header, .footer, .container, .nav, .sider {
     padding: 1em;
   }
+
+  .header {
+    border-top: 3px solid #d6e69c;
+    box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);
+    background: #fafafa;
+  }
+
   @media screen and (min-width: 1400px) {
   }
   .layout {

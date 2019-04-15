@@ -13,5 +13,8 @@ return [
     'env' => [
         'dir' => dirname(dirname(__DIR__)),
         'overload' => true,
-    ]
+    ],
+    'logger' => [
+        'path' =>  dirname(dirname(__DIR__)) . '/storage/logs',
+    ],
 ];

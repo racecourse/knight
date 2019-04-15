@@ -16,6 +16,7 @@ use Ben\Config;
 use Knight\Middleware\NotFound;
 use Zend\Diactoros\Response\JsonResponse;
 use Knight\Middleware\Prometheus;
+use Knight\Lib\Logger;
 
 $app = new App();
 $cors = new Cors();
@@ -35,7 +36,7 @@ $app->get('/article', [Knight\Controller\Admin::class, 'article']);
 $app->get('/albums', [Knight\Controller\Album::class, 'list']);
 $app->get('/albums/:albumId/photos', [Knight\Controller\Album::class, 'photos']);
 $app->group('/admin', function (App $app) {
-    $auth = new Auth(Config::get('jwt'), 'knight');
+    $auth = new Auth(Config::get('jwt'));
     $app->add($auth);
     $app->post('/photos', [Knight\Controller\Photo::class, 'create']);
     $app->get('/photos', [Knight\Controller\Photo::class, 'list']);
@@ -50,12 +51,13 @@ $app->group('/admin', function (App $app) {
     $app->delete('/category/:id', [Knight\Controller\Category::class, 'drop']);
     $app->get('/all/albums', [Knight\Controller\Album::class, 'all']);
     $app->post('/albums', [Knight\Controller\Album::class, 'create']);
+    $app->post('/resolve/photos', [Knight\Controller\Admin::class, 'resolveSSLPhone']);
 
 });
 
 $app->add(new NotFound());
 $app->setReporter(function(RequestInterface $request, Throwable $err) {
-    var_dump($err->getMessage(), $err->getFile(), $err->getLine());
+    Logger::error($err->getMessage());
     $response = new JsonResponse([
         'error' => $err->getMessage(),
         'file' => $err->getFile(),

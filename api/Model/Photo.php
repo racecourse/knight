@@ -33,7 +33,7 @@ class Photo extends Dao
             'column' => 'name',
             'type' => 'varchar'
         ],
-        'attr' => [
+        'attrs' => [
             'column' => 'attr',
             'type' => 'text'
         ],

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ba1504e8c0d29dec848ab6dc7f338c5",
+    "content-hash": "5fdd7bb63c2811f6255ce92b19dca9b8",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -141,7 +141,7 @@
                 "source": "https://github.com/eclogue/ben/tree/master",
                 "issues": "https://github.com/eclogue/ben/issues"
             },
-            "time": "2019-03-26T03:14:54+00:00"
+            "time": "2019-03-26 03:14:54"
         },
         {
             "name": "eclogue/bulrush",
@@ -249,7 +249,7 @@
                 "source": "https://github.com/eclogue/courser/tree/master",
                 "issues": "https://github.com/eclogue/courser/issues"
             },
-            "time": "2019-03-22T09:50:36+00:00"
+            "time": "2019-03-22 09:50:36"
         },
         {
             "name": "eclogue/lily",
@@ -653,7 +653,7 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-03-21T23:31:28+00:00"
+            "time": "2019-03-21 23:31:28"
         },
         {
             "name": "jimdo/prometheus_client_php",
@@ -701,7 +701,7 @@
                     "email": "jan.brauer@jimdo.com"
                 }
             ],
-            "time": "2018-03-19T21:33:29+00:00"
+            "time": "2018-03-19 21:33:29"
         },
         {
             "name": "lcobucci/jwt",
@@ -757,6 +757,88 @@
                 "jwt"
             ],
             "time": "2019-02-05T07:17:17+00:00"
+        },
+        {
+            "name": "monolog/monolog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/monolog.git",
+                "reference": "ebb804e432e8fe0fe96828f30d89c45581d36d07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ebb804e432e8fe0fe96828f30d89c45581d36d07",
+                "reference": "ebb804e432e8fe0fe96828f30d89c45581d36d07",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "psr/log": "^1.0.1"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
+                "doctrine/couchdb": "~1.0@dev",
+                "elasticsearch/elasticsearch": "^6.0",
+                "graylog2/gelf-php": "^1.4.2",
+                "jakub-onderka/php-parallel-lint": "^0.9",
+                "php-amqplib/php-amqplib": "~2.4",
+                "php-console/php-console": "^3.1.3",
+                "phpspec/prophecy": "^1.6.1",
+                "phpunit/phpunit": "^7.5",
+                "predis/predis": "^1.1",
+                "rollbar/rollbar": "^1.3",
+                "ruflin/elastica": ">=0.90 <3.0",
+                "sentry/sentry": "^1.9",
+                "swiftmailer/swiftmailer": "^5.3|^6.0"
+            },
+            "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
+                "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
+                "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
+                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+                "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
+                "php-console/php-console": "Allow sending log messages to Google Chrome",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
+                "sentry/sentry": "Allow sending log messages to a Sentry server"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Monolog\\": "src/Monolog"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
+            "homepage": "http://github.com/Seldaek/monolog",
+            "keywords": [
+                "log",
+                "logging",
+                "psr-3"
+            ],
+            "time": "2018-12-26 14:39:50"
         },
         {
             "name": "nesbot/carbon",
@@ -1316,6 +1398,53 @@
             "time": "2018-10-30T17:12:04+00:00"
         },
         {
+            "name": "psr/log",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "c4421fcac1edd5a324fda73e589a5cf96e52ffd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/c4421fcac1edd5a324fda73e589a5cf96e52ffd0",
+                "reference": "c4421fcac1edd5a324fda73e589a5cf96e52ffd0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2018-11-21 13:42:00"
+        },
+        {
             "name": "psr/simple-cache",
             "version": "dev-master",
             "source": {
@@ -1596,7 +1725,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-14T07:32:46+00:00"
+            "time": "2019-03-14 07:32:46"
         },
         {
             "name": "symfony/contracts",
@@ -1666,7 +1795,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-03-19T18:41:07+00:00"
+            "time": "2019-03-19 18:41:07"
         },
         {
             "name": "symfony/polyfill-apcu",
@@ -1722,7 +1851,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-02-06T07:57:58+00:00"
+            "time": "2019-02-06 07:57:58"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1970,7 +2099,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-07T08:54:57+00:00"
+            "time": "2019-03-07 08:54:57"
         },
         {
             "name": "symfony/yaml",
@@ -2141,7 +2270,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-03-23T10:56:16+00:00"
+            "time": "2019-03-23 10:56:16"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -2265,7 +2394,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2019-03-17T17:37:11+00:00"
+            "time": "2019-03-17 17:37:11"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -3184,7 +3313,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-03-18T12:48:21+00:00"
+            "time": "2019-03-18 12:48:21"
         },
         {
             "name": "pimple/pimple",
@@ -3890,7 +4019,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-03-22T02:38:48+00:00"
+            "time": "2019-03-22 02:38:48"
         },
         {
             "name": "symfony/finder",
@@ -3939,7 +4068,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-03-22T07:19:24+00:00"
+            "time": "2019-03-22 07:19:24"
         },
         {
             "name": "theseer/fdomdocument",
@@ -4085,6 +4214,7 @@
         "symfony/yaml": 20,
         "riverline/multipart-parser": 20,
         "jimdo/prometheus_client_php": 20,
+        "monolog/monolog": 20,
         "phpunit/dbunit": 20,
         "phpunit/phpcov": 20,
         "mockery/mockery": 20

@@ -25,6 +25,7 @@
   import fecha from 'fecha';
   import PhotoSwipe from '../../components/preview';
   import Preview from '../../components/preview/index.vue'
+  import highlightLine from 'highlightjs-line-numbers.js'
 
   export default {
     props: {

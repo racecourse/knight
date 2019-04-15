@@ -54,7 +54,8 @@
     "upyun/sdk": "dev-master",
     "symfony/yaml": "^4.1@dev",
     "riverline/multipart-parser": "dev-master",
-    "jimdo/prometheus_client_php": "dev-master"
+    "jimdo/prometheus_client_php": "dev-master",
+    "monolog/monolog": "^2.0@dev"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",
