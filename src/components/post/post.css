@@ -6,11 +6,24 @@
   border: 1px solid#ddd;
   background-color: #ffffff;
 }
+@media screen and (min-width: 1400px) {
+  .post {
+    max-width: 980px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .post {
+    padding: 10px;
+  }
+}
+
+
 .post-header {
   text-align: center;
 }
 .post img  {
-  max-width: 700px;
+  max-width: 100%;
+  height: auto;
   padding: 10px;
   margin-left: auto;
   margin-right:auto;

@@ -59,11 +59,11 @@
           },
         };
         marked.setOptions(markedOptions);
-        post.content = post.content.substr(0, 200);
-        if (post.content.search(/```[^`]+$/) !== -1) {
-          post.content += '```';
-        }
+        // const match = post.content.match(pattern)
+        // post.content = match[0] || ''
         post.content =  marked(post.content);
+        const match = post.content.match(/<p>(.*?)<\/p>/)
+        post.content = match && match[0] || ''
         return post;
       }
     }

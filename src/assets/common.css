@@ -1,7 +1,8 @@
 body {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti, SimSun, serif;
+  font-size: 15px;
+  font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Noto Sans CJK SC,WenQuanYi Micro Hei,Arial,sans-serif;
   font-size: 1em;
-  line-height: 1.7;
+  line-height: 1.5;
   min-height: 100vh;
   display: -webkit-box;
   display: -webkit-flex;
@@ -10,10 +11,12 @@ body {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
+  -webkit-font-smoothing: antialiased;
   -ms-flex-direction: column;
   flex-direction: column;
   -ms-touch-action: manipulation;
   touch-action: manipulation;
+  text-rendering: optimizeLegibility;
 }
 a {
   color: #000000;

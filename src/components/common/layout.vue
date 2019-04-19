@@ -37,7 +37,7 @@
     <div class="main">
       <div class="container">
         <mu-row>
-          <mu-col width="100" tablet="95" desktop="100" class="content-warp">
+          <mu-col width="100" tablet="100" desktop="100" class="content-warp">
             <div>
               <transition>
                 <router-view></router-view>
@@ -74,7 +74,7 @@
     order: -1;
   }
   .header, .footer, .container, .nav, .sider {
-    padding: 1em;
+    padding: 1rem 0.5rem;
   }
 
   .header {
@@ -83,8 +83,6 @@
     background: #fafafa;
   }
 
-  @media screen and (min-width: 1400px) {
-  }
   .layout {
     padding: 0;
     color: rgb(28, 28, 28);
@@ -110,9 +108,12 @@
     float: right;
     margin-right: 10rem;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 760px) {
     .item-box {
       display: none;
+    }
+    .main {
+      display: block;
     }
   }
   .nav-toggle {

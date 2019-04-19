@@ -13,7 +13,7 @@
         <div class="image-box">
           <div class="image-cover">
             <div v-if="photo.panorama">
-              <img class="panorama-thumb" :src="'https://' + photo.url + '!thumb'" />
+              <img class="panorama-thumb" :src="'https://' + imageDomain + photo.url + '!thumb'" />
               <div class="panorama-zoom"  @click="showPanorama(photo)">
                 全景图片点击观看
               </div>
@@ -49,6 +49,7 @@
 import Panorama from "../components/panorama/index.vue";
 import fecha from "fecha";
 import path from "path";
+import config from '../config'
 export default {
   data() {
     return {
@@ -60,6 +61,7 @@ export default {
       pageSize: 20,
       total: 0,
       last: 0,
+      imageDomain: config.imageDomain
     };
   },
   methods: {
@@ -133,8 +135,8 @@ export default {
         }
 
         const preview = {
-          src: "//" + photo.url,
-          msrc: "//" + photo.url + "!thumb",
+          src: "//" + config.imageDomain + photo.url,
+          msrc: "//" + config.imageDomain + photo.url + "!thumb",
           alt: photo.name,
           title: photo.name,
           w: Number(attr.width) || 400,
