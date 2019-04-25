@@ -1,16 +1,2 @@
  {
-   "presets": [
-     "es2015",
-     "stage-3"
-   ],
-   "plugins": [
-     [ "transform-decorators-legacy"],
-     ["transform-runtime", {
-       "polyfill": false,
-       "regenerator": true
-     }]
-
-   ],
-   "comments": false,
-   "compact": true
  }

@@ -1,16 +1,14 @@
 <template>
   <div>
-    <mu-pagination 
-      :total="total" 
-      :current.sync="current" 
+    <mu-pagination
+      :total="total"
+      :current.sync="current"
       :page-size="pageSize"
       :pageCount="pageCount"
       @pageChange="next">
     </mu-pagination>
   </div>
 </template>
-
-
 <script>
 export default {
   props: {

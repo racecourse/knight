@@ -57,7 +57,6 @@ class Photo extends Dao
         ],
         'updated' => [
             'column' => 'updated',
-            'default' => 'current',
             'type' => 'timestamp'
         ],
     ];

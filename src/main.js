@@ -10,11 +10,12 @@ import MuseUI from 'muse-ui';
 import VuePreview from 'vue-preview'
 import hljs from 'highlight.js';
 import 'muse-ui/dist/muse-ui.css';
-import teal from 'muse-ui/dist/theme-teal.css'
+// import teal from 'muse-ui/dist/theme-teal.css'
 import './assets/hljs.css';
 import './assets/common.css';
 import './assets/reset.css';
 import './assets/md-icon.css';
+import router from './routers'
 
 
 window.hljs = hljs;
@@ -26,12 +27,12 @@ window.addEventListener('load', () => {
   FastClick.attach(document.body)
 });
 Vue.use(VueRouter);
-export const router = new VueRouter({
+export const $router = new VueRouter({
   mode: env !== 'develop' ? 'hash' : 'hash',
   routes,
 });
 
-router.beforeEach((to, from, next, ...rest) => {
+$router.beforeEach((to, from, next) => {
   const meta = to.meta || {};
   const user = storage.getUser();
   const path = to.path;
@@ -46,8 +47,8 @@ router.beforeEach((to, from, next, ...rest) => {
 window.$router = router;
 sync(store, router);
 new Vue({
-  router,
   store,
+  router: router,
   render: h => h(App),
 }).$mount('#app');
 

@@ -10,7 +10,9 @@
 namespace Knight\Controller;
 
 use Knight\Component\Controller;
+use Knight\Lib\Logger;
 use Knight\Model\Photo as Image;
+use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\ServerRequest as Request;
 use Ben\Config;
 use Upyun\Upyun;
@@ -27,16 +29,32 @@ class Photo extends Controller
      */
     public function create(Request $request)
     {
+        $this->payload = $this->payload = $request->getParsedBody();
         $user = $request->getAttribute('session');
-        $album = $request->getPayload('album', 1);
+        $album = $this->getPayload('album', 1);
+        $files = $request->getUploadedFiles();
+        $success = $this->upload($files, $user, $album);
+
+        return new JsonResponse([
+            'message' => 'ok',
+            'data' => $success
+        ], 200);
+    }
+
+
+    protected function upload($files, $user, $album)
+    {
         $config = Config::get('upyun');
         $cfg = new UConfig($config['bucket'], $config['username'], $config['password']);
-//        $cfg->debug = true;
         $client = new Upyun($cfg);
-        $files = $request->getUploadedFiles();
         $success = [];
         foreach ($files as $key => $uploaded) {
             try {
+                if (is_array($uploaded)) {
+                    $success = $this->upload($uploaded, $user, $album);
+                    continue;
+                }
+
                 $image = new Image();
                 $image->userId = $user->id ?? 1;
                 $image->name = $uploaded->getClientFilename();
@@ -65,16 +83,12 @@ class Photo extends Controller
                 $image = $image->save();
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
+                Logger::error('upload photo error' . $err->getMessage());
                 continue;
             }
         }
 
-        $response = new Response;
-
-        return $response->json([
-            'message' => 'ok',
-            'data' => $success
-        ]);
+        return $success;
     }
 
     public function drop(Request $request)
@@ -83,8 +97,9 @@ class Photo extends Controller
 
     public function list(Request $request)
     {
-        $page = $request->getQuery('page', 1);
-        $pageSize = $request->getQuery('pageSize', 21);
+        $this->query = $request->getQueryParams();
+        $page = $this->getQuery('page', 1);
+        $pageSize = $this->getQuery('pageSize', 21);
         $image = new Image();
         $where = [
             'id' => ['$gt' => 1]
@@ -94,7 +109,6 @@ class Photo extends Controller
             'limit' => $pageSize,
             'offset' => ($page - 1) * $pageSize,
         ];
-        $list = [];
         $list = $image->find($where, $options);
         $list = $image->toArray($list);
         $total = $image->count();

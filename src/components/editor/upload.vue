@@ -8,23 +8,21 @@
   </div> 
 </template>
 <style>
-  @import "~uppy/dist/uppy.min.css";
   .UppyDragDrop-Progress {
     position: relative;
   }
 </style>
 <script>
-  const Uppy = require("uppy/lib/core");
-  const Dashboard = require("uppy/lib/plugins/Dashboard");
-  const Webcam = require("uppy/lib/plugins/Webcam");
-  const XHRUpload = require("uppy/lib/plugins/XHRUpload");
-
+  const Webcam = require("@uppy/webcam");
+  const XHRUpload = require("@uppy/xhr-upload");
+  const Uppy = require('@uppy/core')
+  const Dashboard = require('@uppy/dashboard')
   import config from "../../config";
   import Storage from '../../util/storage';
 
   export default {
     props: {
-      notify: {
+      uploaded: {
         type: Function,
         required: false,
         default: function () {
@@ -32,7 +30,7 @@
         }
       },
       album: {
-        type: String,
+        type: Number,
         required: false,
         default: 1,
       }
@@ -87,16 +85,30 @@
           },
           getResponseData(xhr) {
             let image = [];
+            console.log(xhr)
             if (xhr.status === 200) {
               const response = JSON.parse(xhr.response);
               image = response.data;
               self.images = image;
+              self.uploaded(image)
             }
 
             return image;
           }
         })
-        .run();
+      uppy.on('upload-success', (file, body) => {
+        console.log(file, body)
+      })   
+      uppy.upload().then((result) => {
+        console.info('Successful uploads:', result.successful)
+
+  if (result.failed.length > 0) {
+  console.error('Errors:')
+  result.failed.forEach((file) => {
+      console.error(file.error)
+    })
+  }
+})
       uppy.on("complete", function (result) {
         console.log("successful files:", result.successful);
         console.log("failed files:", result.failed);

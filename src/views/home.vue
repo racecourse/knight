@@ -1,24 +1,18 @@
 <template>
-  <div>
-    <h1> ffffffuck world</h1>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
-<style>
-  .main-wrapper {
-    margin: 1em auto;
-    width: 60%;
-    max-width: 760px;
-    height: 80em;
-    background: #99b2ff;
-  }
-</style>
+
 <script>
-  import Survey from '../components/admin/survey.vue';
-  export default {
-    components: {
-      Survey,
-    },
-    mounted() {
-    }
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'home',
+  components: {
+    HelloWorld
   }
+}
 </script>

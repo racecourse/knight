@@ -36,7 +36,6 @@ class Logger
 
     /**
      * @return Logger
-     * @throws Exception
      */
     public static function getInstance(): self
     {

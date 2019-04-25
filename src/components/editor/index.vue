@@ -33,9 +33,9 @@
         <mu-raised-button label="submit" @click="commit"/>
       </div>
     </div>
-    <mu-snackbar v-if="snackbar.show" :message="snackbar.message" 
+    <mu-snackbar v-if="snackbar.show" :message="snackbar.message"
       action="close" @actionClick="hideSnackbar" @close="hideSnackbar">
-    </mu-snackbar>  
+    </mu-snackbar>
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>upload</span>
@@ -49,7 +49,6 @@
 <style lang='sass'>
   @import './editor.scss';
   @import '../admin/main.css';
-  @import '~simplemde-theme-base/dist/simplemde-theme-base.min.css';
 </style>
 <style>
   .newcate {
@@ -67,7 +66,6 @@
 </style>
 <script>
 import { markdownEditor } from 'vue-simplemde';
-import SimpleMDE from 'simplemde';
 import fecha from 'fecha';
 import Uploader from './upload.vue';
 
@@ -102,12 +100,9 @@ export default {
       newCate: '',
       content: '',
       title: '',
-      tags: [],
       cateId: 1,
       permission: "1",
       configs: {
-        autosave: true,
-        status: true,
         initialValue: '',
         autosave: {
           delay: 5000,
@@ -157,7 +152,7 @@ export default {
       if (!article.content) {
         return this.tip('content can not be empty~!');
       }
-      
+
       const data = {
         title: article.title,
         cateId: article.cateId,
@@ -195,6 +190,7 @@ export default {
       this.dialog = false;
     },
     uploadNotify(result, images) {
+      // console.log('>>>', result, images)
       if (Array.isArray(images)) {
         images.map(image => {
           console.log(this);
@@ -210,7 +206,7 @@ export default {
       const created = data.created ? new Date(data.created * 1000) : new Date();
       data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
       data.tags = data.tags ? data.tags.split(',') : [];
-      this.tags = data.tags;
+      // this.tags = data.tags;
       return data;
     },
     simplemde (){

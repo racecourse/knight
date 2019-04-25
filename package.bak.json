@@ -1,0 +1,119 @@
+{
+  "name": "knight",
+  "version": "1.0.1",
+  "description": "knight base on courser",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start api/production.php",
+    "server": "pm2-docker start server.js",
+    "deploy": "stuart run deploy/entry.js",
+    "dev": "NODE_ENV=develop node src/build/dev.js",
+    "doc": "node docs/server.js",
+    "start-doc": "pm2 start docs/server.js",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --env=production",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^2.6.5",
+    "@uppy/webcam": "^0.30.5",
+    "@uppy/xhr-upload": "^0.30.5",
+    "codemirror": "^5.46.0",
+    "express": "^4.16.4",
+    "highlightjs-line-numbers.js": "^2.7.0",
+    "swagger-ui-dist": "^3.22.1",
+    "vue": "^2.6.10",
+    "uppy": "^0.30.5"
+  },
+  "devDependencies": {
+    "animate.css": "^3.7.0",
+    "autoprefixer": "^6.7.5",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-async-generator-functions": "^6.22.0",
+    "babel-plugin-transform-async-to-module-method": "^6.22.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-1": "^6.22.0",
+    "babel-preset-stage-3": "^6.5.0",
+    "babel-runtime": "^6.18.0",
+    "cli-color": "^1.4.0",
+    "css-loader": "^2.1.1",
+    "cssnano": "^4.1.10",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "fastclick": "^1.0.6",
+    "fecha": "^2.3.1",
+    "file-loader": "^0.10.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "gharry": "^2.0.1",
+    "highlight.js": "^9.15.6",
+    "html-webpack-plugin": "^2.28.0",
+    "js-cookie": "^2.1.3",
+    "muse-ui": "^2.1.0",
+    "node-sass": "^4.11.0",
+    "opn": "^4.0.2",
+    "pm2-docker": "^2.1.0",
+    "postcss-loader": "^1.3.1",
+    "precss": "^1.4.0",
+    "pygmentize-bundled": "^2.3.0",
+    "qs": "^6.7.0",
+    "quill": "^1.2.4",
+    "sass-loader": "^6.0.5",
+    "simplemde-theme-base": "^0.2.1",
+    "stuart": "0.0.5",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.5.0",
+    "uglify-es": "git://github.com/mishoo/UglifyJS2.git#harmony",
+    "uglify-js": "^3.5.7",
+    "uglifyjs-webpack-plugin": "^0.4.3",
+    "url-loader": "^1.1.2",
+    "vue-core-image-upload": "^2.4.11",
+    "vue-loader": "^12.0.3",
+    "vue-preview": "^1.1.3",
+    "vue-quill-editor": "^2.3.0",
+    "vue-router": "^2.5.3",
+    "vue-simplemde": "^0.3.8",
+    "vue2-dropzone": "^2.3.3",
+    "vuex": "^2.2.1",
+    "vuex-router-sync": "^4.1.2",
+    "webpack": "^2.5.1",
+    "webpack-dashboard": "^3.0.3",
+    "webpack-dev-server": "^3.3.1",
+    "webpack-merge": "^4.2.1",
+    "@vue/cli-plugin-babel": "^3.6.0",
+    "@vue/cli-plugin-eslint": "^3.6.0",
+    "@vue/cli-service": "^3.6.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "author": "bugbear",
+  "license": "ISC"
+}

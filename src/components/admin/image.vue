@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="a-page">
-      <Pagination 
+      <Pagination
         :total="total"
         :list="photos"
         :current="page"
@@ -25,7 +25,8 @@
   </div>
 </template>
 <script>
-  import Pagination from '../Pagination/general.vue';
+
+  import Pagination from '../pagination/general.vue'
   export default {
     data() {
       return {
