@@ -1,9 +1,9 @@
 <template>
   <div class="side">
     <div class="menu" @click="toggle()">
-      <mu-flat-button
-        icon="list"
-        primary />
+      <mu-button flat primary>
+        <mu-icon right value="list"></mu-icon>
+      </mu-button>
     </div>
     <mu-drawer left :open="open" @close="toggle()">
       <div class="resume" @click="toggle()">

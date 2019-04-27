@@ -12,9 +12,9 @@
         </mu-sub-header>
       </div>
 
-      <mu-content-block>
+      <mu-card-text>
         <section v-html="post.content"></section>
-      </mu-content-block>
+      </mu-card-text>
       <div class="post-footer">
         <div class="cate">
           <mu-icon value="assignment" />

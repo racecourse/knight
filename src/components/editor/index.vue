@@ -40,8 +40,8 @@
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>upload</span>
         <Uploader v-on:uploaded="uploadNotify" :album="1" />
-        <mu-flat-button slot="actions" @click="closeUploadBox" primary label="取消"/>
-        <mu-flat-button slot="actions" primary @click="closeUploadBox" label="确定"/>
+        <mu-button flat slot="actions" @click="closeUploadBox" primary label="取消"/>
+        <mu-button flat slot="actions" primary @click="closeUploadBox" label="确定"/>
       </mu-dialog>
     </div>
   </div>

@@ -16,7 +16,7 @@
         </div>
         <div class="create-item">
           <mu-text-field hintText="描述"
-          v-model="albumDetail" 
+          v-model="albumDetail"
           multiLine
           :rows="3"
           :rowsMax="6"/>
@@ -25,8 +25,8 @@
           <mu-switch label="是否可见" v-model="albumShow" />
         </div>
       </div>
-      <mu-flat-button slot="actions" @click="showCreate" primary label="取消"/>
-      <mu-flat-button slot="actions" primary @click="createAlbum" label="确定"/>
+      <mu-button flat slot="actions" @click="showCreate" primary label="取消"/>
+      <mu-button flat slot="actions" primary @click="createAlbum" label="确定"/>
     </mu-dialog>
   </div>
 </template>
@@ -44,7 +44,7 @@
     display: inline-block;
   }
   .create-btn {
-    vertical-align: middle; 
+    vertical-align: middle;
     padding: 2px 15px;
     border: 1px solid #b2b2b2;
     border-radius: 5px;
@@ -64,7 +64,7 @@
     padding: 1px 10px;
     margin-bottom: 10px;
   }
-  
+
 </style>
 <script>
   import Uploader from '../editor/upload.vue'
@@ -115,7 +115,7 @@
         }
         await this.$store.dispatch('createAlbum', data);
         await this.$store.dispatch('albumNames');
-        
+
         const albums = this.$store.state.album.albums;
         this.currentAlbum = albums.list[0].id; // @todo
         this.loadAlbum(albums.list);

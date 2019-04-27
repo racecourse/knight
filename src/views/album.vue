@@ -38,7 +38,7 @@
       @close="closePanorama"
       bodyClass="dialog-body"
     >
-      <mu-flat-button label="close" slot="actions"  @click="closePanorama"/>
+      <mu-button flat label="close" slot="actions"  @click="closePanorama"/>
       <Panorama :panorama="panorama.url"></Panorama>
     </mu-dialog>
 

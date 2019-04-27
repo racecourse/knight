@@ -34,6 +34,7 @@ export default async function api (uri, method, data) {
 
   const scheme = window.location.protocol;
   const url = scheme + '//' + config.api + uri;
+  console.log(url)
   const res = await fetch(url, fetchParams);
   let body = await res.json();
   body = body && typeof body === 'object' ? body : {};
@@ -57,4 +58,4 @@ export default async function api (uri, method, data) {
   //     message: 'Exception:' + err.message,
   //   };
   // }
-};
+}

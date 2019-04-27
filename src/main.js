@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import routes from './routers';
 import store from './store';
 import FastClick from 'fastclick';
 import { sync } from 'vuex-router-sync';
@@ -15,24 +14,18 @@ import './assets/hljs.css';
 import './assets/common.css';
 import './assets/reset.css';
 import './assets/md-icon.css';
-import router from './routers'
+import 'muse-ui/dist/muse-ui.css';
+
+import router from './router'
+
+Vue.config.productionTip = false
 
 
-window.hljs = hljs;
-Vue.use(MuseUI);
+Vue.use(MuseUI)
 Vue.use(VuePreview);
 const storage = new Cellar();
-const env = process.env.NODE_ENV;
-window.addEventListener('load', () => {
-  FastClick.attach(document.body)
-});
 Vue.use(VueRouter);
-export const $router = new VueRouter({
-  mode: env !== 'develop' ? 'hash' : 'hash',
-  routes,
-});
-
-$router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   const meta = to.meta || {};
   const user = storage.getUser();
   const path = to.path;
@@ -40,17 +33,21 @@ $router.beforeEach((to, from, next) => {
     return next({ path: '/login' });
   }
   if(user && path === '/login' ){
-    return next({ path: '/admin/home' });
+    return next({ path: '/admin/dashboard' });
   }
   next();
 });
+window.addEventListener('load', () => {
+  FastClick.attach(document.body)
+});
+window.hljs = hljs;
 window.$router = router;
 sync(store, router);
 new Vue({
+  router,
   store,
-  router: router,
-  render: h => h(App),
-}).$mount('#app');
+  render: h => h(App)
+}).$mount('#app', true)
 
 
 

@@ -4,7 +4,7 @@
       <span class="md-error">{{message}}</span>
       <mu-text-field label="username" hintText="username" class="container" v-model="username" labelFloat/>
       <mu-text-field label="password" hintText="password" type="password" class="container" v-model="password" labelFloat/>
-       <mu-flat-button label="login" @click="submit" primary/>
+       <mu-button flat label="login" @click="submit" primary/>
     </div>
   </div>
 </template>

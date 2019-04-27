@@ -15,21 +15,33 @@
         <div class="item-box">
             <div class="nav-item">
               <router-link :to="{ path: '/posts' }">
-                <mu-flat-button label="文章" icon="gesture" primary/>
+                <mu-button flat>
+                  文章
+                  <mu-icon left value="gesture"></mu-icon>
+                </mu-button>
               </router-link>
             </div>
             <div class="nav-item">
               <router-link :to="{ path: '/albums' }">
-              <mu-flat-button label="相册" icon="image" primary/>
+              <mu-button flat>
+                相册
+                <mu-icon left value="image"></mu-icon>
+              </mu-button>
               </router-link>
             </div>
             <div class="nav-item">
               <router-link :to="{ path: '/timeline' }">
-                <mu-flat-button label="时间轴" icon="linear_scale" primary/>
+                <mu-button flat>
+                  时间轴
+                  <mu-icon left value="linear_scale"></mu-icon>
+                </mu-button>
               </router-link>
             </div>
             <div class="nav-item">
-              <mu-flat-button label="标签" icon="flag" primary/>
+              <mu-button flat>
+                标签
+                <mu-icon left value="flag"></mu-icon>
+              </mu-button>
             </div>
           </div>
         </div>
