@@ -1,19 +1,16 @@
 <template>
   <div>
     <div class="editor">
-      <markdownEditor :configs="configs" ref="editor" v-model="art.content"></markdownEditor>
+      <markdownEditor :configs="configs" ref="editor" v-model="content"></markdownEditor>
       <div class="editor-option">
-        <mu-text-field hintText="created at" v-model="art.created"/>
-        <mu-text-field hintText="title" v-model="art.title"/>
-        <mu-select-field v-model="art.cateId" label="category">
-          <mu-menu-item v-for="(cate,index) in category" :key="index" :value="cate.id" :title="cate.name" />
-          <div class="newcate" v-on:keydown.enter="addCate">
-            <mu-text-field hintText="new category" v-model="newCate"/>
-          </div>
-        </mu-select-field>
+        <mu-text-field help-text="created at" v-model="created" :value="art.created"/>
+        <mu-text-field help-text="title" v-model="title"/>
+        <mu-select v-model="cateId" label="category" full-width>
+          <mu-option v-for="(cate, index) in category" :key="index" :value="cate.id" :label="cate.name" ></mu-option>
+        </mu-select>
         <br/>
         <div v-on:keydown.enter="tag">
-          <mu-text-field v-model="tagValue" hintText="tag，press enter split"/>
+          <mu-text-field v-model="tagValue" help-text="tag，press enter split"/>
         </div>
         <br/>
         <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
@@ -21,16 +18,16 @@
         </mu-chip>
         <br/>
         <div class="permission">
-          <mu-radio label="public" name="permission" nativeValue="1" v-model="art.permission" />
-          <mu-radio label="hidden" name="permission" nativeValue="2" v-model="art.permission" />
-          <mu-radio label="private" name="permission" nativeValue="3" v-model="art.permission" />
+          <mu-radio v-model="permission" label="public" value="1"></mu-radio>
+          <mu-radio v-model="permission" label="hidden" value="2"></mu-radio>
+          <mu-radio v-model="permission" label="private" value="3"></mu-radio>
         </div>
         <br/>
         <div class="upload-wrap" @click="showUploadBox">
           <mu-icon value="cloud_upload" :size="32"/>
         </div>
         <br />
-        <mu-raised-button label="submit" @click="commit"/>
+        <mu-button label="submit" @click="commit"/>
       </div>
     </div>
     <mu-snackbar v-if="snackbar.show" :message="snackbar.message"
@@ -39,7 +36,7 @@
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>upload</span>
-        <Uploader v-on:uploaded="uploadNotify" :album="1" />
+        <Uploader :uploaded="uploadNotify" :album="1" />
         <mu-button flat slot="actions" @click="closeUploadBox" primary label="取消"/>
         <mu-button flat slot="actions" primary @click="closeUploadBox" label="确定"/>
       </mu-dialog>
@@ -49,6 +46,7 @@
 <style lang='sass'>
   @import './editor.scss';
   @import '../admin/main.css';
+  @import '~simplemde/dist/simplemde.min.css';
 </style>
 <style>
   .newcate {
@@ -65,9 +63,10 @@
   }
 </style>
 <script>
-import { markdownEditor } from 'vue-simplemde';
+import markdownEditor from 'vue-simplemde/src/markdown-editor'
 import fecha from 'fecha';
 import Uploader from './upload.vue';
+import config from '../../config'
 
 export default {
   props: {
@@ -102,6 +101,7 @@ export default {
       title: '',
       cateId: 1,
       permission: "1",
+      created: '',
       configs: {
         initialValue: '',
         autosave: {
@@ -121,6 +121,10 @@ export default {
   async mounted() {
     await this.$store.dispatch('category');
     this.category = this.$store.getters.getCategory;
+    const created = this.created ? new Date(this.created * 1000) : new Date();
+    if (!this.created) {
+      this.created = fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    }
   },
   methods: {
     tag() {
@@ -189,12 +193,10 @@ export default {
     closeUploadBox() {
       this.dialog = false;
     },
-    uploadNotify(result, images) {
-      // console.log('>>>', result, images)
+    uploadNotify(images) {
       if (Array.isArray(images)) {
         images.map(image => {
-          console.log(this);
-          this.art.content += `<br>![](http://${image.url})`;
+          this.content += `![](http://${config.imageDomain}${image.url})`;
         });
       }
     }
@@ -206,7 +208,8 @@ export default {
       const created = data.created ? new Date(data.created * 1000) : new Date();
       data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
       data.tags = data.tags ? data.tags.split(',') : [];
-      // this.tags = data.tags;
+      // this.tags = data.tags;\
+      console.log(data)
       return data;
     },
     simplemde (){

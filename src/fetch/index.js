@@ -1,7 +1,7 @@
 import Storage from '../util/storage';
 import util from '../util';
 import config from '../config';
-import {router} from '../main';
+import router from '../router';
 
 const storage = new Storage();
 const getHeaders = () => {

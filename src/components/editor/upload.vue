@@ -5,9 +5,11 @@
     </button>
     <div class="DashboardContainer"></div>
     <div class="upload-form"></div>
-  </div> 
+  </div>
 </template>
 <style>
+  @import '~@uppy/core/dist/style.css';
+  @import '~@uppy/dashboard/dist/style.css';
   .UppyDragDrop-Progress {
     position: relative;
   }
@@ -83,32 +85,24 @@
           headers: {
             Authorization: 'Bearer ' + token
           },
-          getResponseData(xhr) {
-            let image = [];
-            console.log(xhr)
-            if (xhr.status === 200) {
-              const response = JSON.parse(xhr.response);
-              image = response.data;
-              self.images = image;
+          getResponseData(response) {
+            const result = JSON.parse(response)
+            if (result.message === 'ok') {
+              const image = result.data
+              self.images = image
               self.uploaded(image)
             }
-
-            return image;
+            return result;
           }
         })
-      uppy.on('upload-success', (file, body) => {
-        console.log(file, body)
-      })   
       uppy.upload().then((result) => {
         console.info('Successful uploads:', result.successful)
-
-  if (result.failed.length > 0) {
-  console.error('Errors:')
-  result.failed.forEach((file) => {
-      console.error(file.error)
-    })
-  }
-})
+        if (result.failed.length > 0) {
+        result.failed.forEach((file) => {
+            console.error(file.error)
+          })
+        }
+      })
       uppy.on("complete", function (result) {
         console.log("successful files:", result.successful);
         console.log("failed files:", result.failed);

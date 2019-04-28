@@ -19,7 +19,7 @@
                 {{system.hostname}}
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">kernel</span>
               </mu-td>
@@ -27,7 +27,7 @@
                 {{system.kernel}}
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">uptime</span>
               </mu-td>
@@ -36,7 +36,7 @@
                 <span>booted:</span>{{new Date(system.uptime.bootedTimestamp * 1000)}}
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">load</span>
               </mu-td>
@@ -46,7 +46,7 @@
                 <span>15min:</span> {{system.load['15min']}}
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">meomory</span>
               </mu-td>
@@ -56,7 +56,7 @@
                 <span>free:</span>{{(system.memory.free / GB).toFixed(2)}} GB
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">swap</span>
               </mu-td>
@@ -65,7 +65,7 @@
                 <span>free:</span>{{(system.memory.swapFree / GB).toFixed(2)}} GB
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">process</span>
               </mu-td>
@@ -76,12 +76,9 @@
                 <span>stopped:</span>{{system.process.stopped}}
               </mu-td>
             </mu-tr>
-            <mu-tr>  
+            <mu-tr>
               <mu-td>
                 <span class="pk">cpu</span>
-              </mu-td>
-              <mu-td v-if="system.cpuInfo">
-                <span v-for="item,index in system.cpuInfo" :key="index">{{item.Model}} <br></span>
               </mu-td>
             </mu-tr>
           </mu-tbody>
@@ -99,7 +96,7 @@
         <div class="sur-li">发表文章: {{survey.articleNumber}}</div>
         <div class="sur-li">评论数: {{survey.commentNumber}}</div>
         <div class="sur-li">
-          <mu-float-button icon="create"/>
+          <mu-button icon><mu-icon value="create"></mu-icon></mu-button>
         </div>
       </div>
       <hr class="sur-divider">
@@ -108,15 +105,15 @@
         <div class="sur-li">相册: {{survey.albumNumber}}</div>
         <div class="sur-li">总共上传图片: {{survey.photoNumber}}</div>
         <div class="sur-li">
-          <mu-float-button icon="cloud_upload"/>
+          <mu-button icon="cloud_upload"/>
         </div>
       </div>
       <hr class="sur-divider">
       <div class="sur-item">
         <div class="sur-title">快捷入口</div>
-        <mu-float-button icon="create"/>
-        <mu-float-button icon="sort"/>
-        <mu-float-button icon="photo"/>
+        <mu-button icon="create"/>
+        <mu-button icon="sort"/>
+        <mu-button icon="photo"/>
       </div>
     </section>
   </div>
