@@ -22,7 +22,16 @@ Vue.config.productionTip = false
 
 
 Vue.use(MuseUI)
-Vue.use(VuePreview);
+Vue.use(VuePreview, {
+  mainClass: 'pswp--minimal--dark',
+  barsSize: {top: 0, bottom: 0},
+  captionEl: false,
+  fullscreenEl: false,
+  shareEl: false,
+  bgOpacity: 0.85,
+  tapToClose: true,
+  tapToToggleControls: false
+});
 const storage = new Cellar();
 Vue.use(VueRouter);
 router.beforeEach((to, from, next) => {

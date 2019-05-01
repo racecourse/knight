@@ -4,13 +4,14 @@
       <div class="album-name">
         {{album.name}}
       </div>
-      <mu-row>
-        <mu-col width="100"
-          tablet="50"
-          desktop="50"
-          v-for="(photo, index) in album.photos"
-          :key="index"
-        >
+      <vue-preview :slides="album.photos" ></vue-preview>
+      <div v-if="album.photoNumber > 10">
+        <div class="photo-more">
+          <div class="photo-more-text" @click="more(album.id)">查看更多</div>
+        </div>
+      </div>
+      <!-- <mu-grid-list>
+        <div v-for="(photo, index) in album.photos" :key="index">
           <div class="image-box">
             <div class="image-cover">
               <div v-if="photo.panorama">
@@ -25,19 +26,15 @@
             </div>
             <div class="image-title">{{photo.name}}</div>
           </div>
-        </mu-col>
-
-        <mu-col width="100"
-          tablet="50"
-          desktop="33"
-        >
+        </div>
+        <div>
           <div v-if="album.photoNumber > 10">
             <div class="photo-more">
               <div class="photo-more-text" @click="more(album.id)">查看更多</div>
             </div>
           </div>
-        </mu-col>
-      </mu-row>
+        </div>
+      </mu-grid-list> -->
     </div>
     <mu-dialog class="panoram-dialog"
       :open="show"
@@ -58,6 +55,9 @@
 
   </div>
 </template>
+<style>
+ @import '../assets/album.css';
+</style>
 
 <script>
 import Panorama from '../components/panorama/index.vue';
@@ -116,7 +116,7 @@ export default {
             if (photo) {
               let attr = {};
               try {
-                attr = JSON.parse(photo.attr)
+                attr = JSON.parse(photo.attrs)
               } catch(err) {
                 console.log(err.message);
               }
@@ -129,8 +129,7 @@ export default {
                 w: Number(attr.width) || 400,
                 h: Number(attr.height) || 600,
               };
-              photo.preview = [preview];
-              return photo;
+              return preview;
             }
           });
           data.push(item);
@@ -141,7 +140,3 @@ export default {
   }
 }
 </script>
-<style>
- @import '../assets/album.css';
-</style>
-

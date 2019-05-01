@@ -1,8 +1,8 @@
 ---
 - hosts: "{{node}}"
   vars:
-    src: /workspace/myself/knight/public
-    dest: /var/www/knight
+    src: /workspace/myself/knight/dist/
+    dest: /var/www/knight/public
     app_home: /usr/local/webapp/knight
   remote_user: root
   tasks:

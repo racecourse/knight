@@ -48,7 +48,7 @@
       if (!token) {
         return this.$router.push('/login');
       }
-
+      const self = this;
       const uppy = Uppy({
         debug: true,
         autoProceed: false,
@@ -67,19 +67,17 @@
           allowedFileTypes: ["image/*", "video/*"]
         }
       })
-        .use(Dashboard, {
-          trigger: ".UppyModalOpenerBtn",
-          inline: true,
-          target: ".DashboardContainer",
-          replaceTargetContent: true,
-          note: "Images and video only, 1–50 files, up to 10 MB",
-          maxHeight: 450,
-          // metaFields: [
-          //   { id: "license", name: "License", placeholder: "specify license" },
-          // ]
-        })
-        .use(Webcam, { target: Dashboard })
-      const self = this;
+      uppy.use(Dashboard, {
+        trigger: ".UppyModalOpenerBtn",
+        inline: true,
+        target: ".DashboardContainer",
+        replaceTargetContent: true,
+        note: "Images and video only, 1–50 files, up to 10 MB",
+        maxHeight: 450,
+        // metaFields: [
+        //   { id: "license", name: "License", placeholder: "specify license" },
+        // ]
+      }).use(Webcam, { target: Dashboard })
       uppy.use(XHRUpload, {
           endpoint: 'http://' + config.api + '/admin/photos',
           headers: {
@@ -94,7 +92,7 @@
             }
             return result;
           }
-        })
+      })
       uppy.upload().then((result) => {
         console.info('Successful uploads:', result.successful)
         if (result.failed.length > 0) {

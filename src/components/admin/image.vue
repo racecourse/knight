@@ -1,7 +1,7 @@
 <template>
   <div class="image-grid">
     <div class="img-box" v-for="(photo, index) in photos" :key="index">
-      <img src="http://pic.yupoo.com/craber_v/1961fda4/7436b084.jpeg">
+      <img :src="'//' + imageDomain + photo.url">
       <div class="img-date">
         {{new Date(photo.created * 1000).toLocaleDateString()}}</div>
       <div class="img-action">
@@ -25,35 +25,37 @@
   </div>
 </template>
 <script>
-
-  import Pagination from '../pagination/general.vue'
-  export default {
-    data() {
-      return {
-        total: 0,
-        page: 1,
-        pageSize: 21,
-        photos: [],
-      }
-    },
-    async beforeMount() {
-      await this.loadPhotos();
-    },
-    components: {
-      Pagination,
-    },
-    methods: {
-      async loadPhotos() {
-        const page = this.$route.query.page || 1;
-        await this.$store.dispatch('photos', { page });
-        const photos = this.$store.getters.getPhoto;
-        this.photos = photos.list;
-        this.total = Number(photos.total) || 0;
-        this.page = Number(photos.page) || 1;
-        this.pageSize = Number(photos.pageSize) || 0;
-      }
+import Pagination from '../pagination/general.vue'
+import config from '../../config'
+export default {
+  data() {
+    return {
+      total: 0,
+      page: 1,
+      pageSize: 21,
+      imageDomain: config.imageDomain,
+      photos: [],
+    }
+  },
+  async beforeMount() {
+    await this.loadPhotos();
+  },
+  components: {
+    Pagination,
+  },
+  methods: {
+    async loadPhotos() {
+      const page = this.$route.query.page || 1;
+      await this.$store.dispatch('photos', { page });
+      const photos = this.$store.getters.getPhoto;
+      this.photos = photos.list;
+      this.total = Number(photos.total) || 0;
+      this.page = Number(photos.page) || 1;
+      this.pageSize = Number(photos.pageSize) || 0;
+      console.log(config, this.photos)
     }
   }
+}
 </script>
 <style lang="css">
   .image-grid {

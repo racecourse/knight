@@ -129,7 +129,7 @@ export default {
 
         let attr = {};
         try {
-          attr = JSON.parse(photo.attr);
+          attr = JSON.parse(photo.attrs);
         } catch (err) {
           console.log(err.message);
         }

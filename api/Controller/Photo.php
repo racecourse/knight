@@ -113,8 +113,7 @@ class Photo extends Controller
         $list = $image->toArray($list);
         $total = $image->count();
 
-        $response = new Response();
-        return $response->json([
+        return $this->json([
             'message' => 'ok',
             'data' => [
                 'list' => $list,

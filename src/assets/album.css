@@ -2,6 +2,8 @@
   margin: auto;
   max-width: 780px;
   padding: 0 15px;
+  border: 1px solid#ddd;
+  background-color: #ffffff;
 }
 
 .album-name {
@@ -20,16 +22,7 @@
   width: 100%;
   overflow: hidden;
 }
-.image-cover img {
-  width: 100%;
-}
 
-.image-cover figure {
-  -webkit-margin-before: 0.1em;
-  -webkit-margin-after: 0.1em;
-  -webkit-margin-start: 10px;
-  -webkit-margin-end: 10px;
-}
 .image-title {
   font-size: 12px;
   text-align: center;
@@ -64,18 +57,26 @@
   background: #8aaf8a0c;
   text-align: center;
   color: #999999;
-  height: 200px;
   font-size: 1.2rem;
+  margin-top: 10px;
+  display: block;
 }
 .photo-more-text {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  width: 50%;
-  padding: 10px;
-  border: 1px solid#b2b2b2;
+  padding: 5px ;
   border-radius: 2px;
   text-align: center;
+  cursor: pointer;
+  /* transform: translateY(-50%); */
+}
 
-  transform: translateY(-50%);
+.my-gallery figure {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin: 10px;
+  overflow: hidden;
+  text-align: center;
+}
+.my-gallery img {
+  max-height: 100px;
 }

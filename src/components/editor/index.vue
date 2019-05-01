@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="editor">
-      <markdownEditor :configs="configs" ref="editor" v-model="content"></markdownEditor>
+      <markdownEditor :configs="configs" ref="editor" v-model="originArticle.content"></markdownEditor>
       <div class="editor-option">
-        <mu-text-field help-text="created at" v-model="created" :value="art.created"/>
-        <mu-text-field help-text="title" v-model="title"/>
-        <mu-select v-model="cateId" label="category" full-width>
+        <mu-text-field help-text="created at" v-model="originArticle.created" :value="art.created"/>
+        <mu-text-field help-text="title" v-model="originArticle.title"/>
+        <mu-select v-model="originArticle.cateId" label="category" full-width>
           <mu-option v-for="(cate, index) in category" :key="index" :value="cate.id" :label="cate.name" ></mu-option>
         </mu-select>
         <br/>
         <div v-on:keydown.enter="tag">
-          <mu-text-field v-model="tagValue" help-text="tag，press enter split"/>
+          <mu-text-field v-model="originArticle.tags" help-text="tag，press enter split"/>
         </div>
         <br/>
         <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
@@ -18,20 +18,21 @@
         </mu-chip>
         <br/>
         <div class="permission">
-          <mu-radio v-model="permission" label="public" value="1"></mu-radio>
-          <mu-radio v-model="permission" label="hidden" value="2"></mu-radio>
-          <mu-radio v-model="permission" label="private" value="3"></mu-radio>
+          <mu-radio v-model="originArticle.permission" label="public" value="1"></mu-radio>
+          <mu-radio v-model="originArticle.permission" label="hidden" value="2"></mu-radio>
+          <mu-radio v-model="originArticle.permission" label="private" value="3"></mu-radio>
         </div>
         <br/>
         <div class="upload-wrap" @click="showUploadBox">
           <mu-icon value="cloud_upload" :size="32"/>
         </div>
         <br />
-        <mu-button label="submit" @click="commit"/>
+        <mu-button @click="commit">submit</mu-button>
       </div>
     </div>
-    <mu-snackbar v-if="snackbar.show" :message="snackbar.message"
-      action="close" @actionClick="hideSnackbar" @close="hideSnackbar">
+    <mu-snackbar :position="snackbar.position" :open.sync="snackbar.show">
+      {{snackbar.message}}
+      <mu-button flat slot="action" color="secondary" @click="snackbar.show = false">Close</mu-button>
     </mu-snackbar>
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
@@ -92,6 +93,7 @@ export default {
         show: false,
         snackTimer: 3000,
       },
+      originArticle: {},
       tagValue: '',
       tags: [],
       editor: null,
@@ -125,6 +127,11 @@ export default {
     if (!this.created) {
       this.created = fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
     }
+    const data = Object.assign({}, this.article);
+    data.permission = String(data.permission);
+    data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    data.tags = data.tags ? data.tags.split(',') : [];
+    this.originArticle = data;
   },
   methods: {
     tag() {
@@ -147,29 +154,22 @@ export default {
     },
     async commit() {
       const id = this.$route.params.id;
-      const article = Object.assign({}, this.art);
-      if (!article.title) {
-        const message = 'title required~!';
+      console.log(this.originArticle)
+      if (!this.originArticle.title) {
+        const message = 'title required~!'
         return this.tip(message);
       }
 
-      if (!article.content) {
-        return this.tip('content can not be empty~!');
+      if (! this.originArticle.content) {
+        return this.tip('content can not be empty~!')
       }
 
-      const data = {
-        title: article.title,
-        cateId: article.cateId,
-        permission: article.permission,
-        content: article.content,
-        tags: article.tags,
-        created: article.created,
-      }
+      const data = Object.assign({},  this.originArticle)
       if (!id) {
-        await this.$store.dispatch('addArticle', data);
+        await this.$store.dispatch('addArticle', data)
       } else {
         data.id = id;
-        await this.$store.dispatch('editArticle', data);
+        await this.$store.dispatch('editArticle', data)
       }
 
       this.tip('success~!');
@@ -196,7 +196,7 @@ export default {
     uploadNotify(images) {
       if (Array.isArray(images)) {
         images.map(image => {
-          this.content += `![](http://${config.imageDomain}${image.url})`;
+          this.originArticle.content += `![](http://${config.imageDomain}${image.url})`;
         });
       }
     }
@@ -208,7 +208,6 @@ export default {
       const created = data.created ? new Date(data.created * 1000) : new Date();
       data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
       data.tags = data.tags ? data.tags.split(',') : [];
-      // this.tags = data.tags;\
       console.log(data)
       return data;
     },

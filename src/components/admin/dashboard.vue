@@ -3,86 +3,6 @@
     <section>
       <div class="sur-desc" v-if="system">
         <div class="sur-title">system</div>
-        <mu-table :selectable="false" :showCheckbox="false">
-          <mu-thead slot="header">
-            <mu-tr>
-              <mu-th tooltip="name">Name</mu-th>
-              <mu-th tooltip="info">Information</mu-th>
-            </mu-tr>
-          </mu-thead>
-          <mu-tbody>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">hostname</span>
-              </mu-td>
-              <mu-td>
-                {{system.hostname}}
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">kernel</span>
-              </mu-td>
-              <mu-td>
-                {{system.kernel}}
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">uptime</span>
-              </mu-td>
-              <mu-td>
-                <span>info:</span>{{system.uptime.text}}
-                <span>booted:</span>{{new Date(system.uptime.bootedTimestamp * 1000)}}
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">load</span>
-              </mu-td>
-              <mu-td>
-                <span>now:</span>{{system.load.now}}
-                <span>5min:</span> {{system.load['5min']}}
-                <span>15min:</span> {{system.load['15min']}}
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">meomory</span>
-              </mu-td>
-              <mu-td>
-                <span>type:</span>{{system.memory.type}}
-                <span>total:</span>{{(system.memory.total / GB).toFixed(2)}} GB
-                <span>free:</span>{{(system.memory.free / GB).toFixed(2)}} GB
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">swap</span>
-              </mu-td>
-              <mu-td>
-                <span>total:</span>{{(system.memory.swapTotal / GB).toFixed(2)}} GB
-                <span>free:</span>{{(system.memory.swapFree / GB).toFixed(2)}} GB
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">process</span>
-              </mu-td>
-              <mu-td>
-                <span>running:</span>{{system.process.running}}
-                <span>sleeping:</span>{{system.process.sleeping}}
-                <span>idle:</span>{{system.process.idle}}
-                <span>stopped:</span>{{system.process.stopped}}
-              </mu-td>
-            </mu-tr>
-            <mu-tr>
-              <mu-td>
-                <span class="pk">cpu</span>
-              </mu-td>
-            </mu-tr>
-          </mu-tbody>
-        </mu-table>
       </div>
       <hr class="sur-divider">
       <div class="sur-desc">
@@ -105,15 +25,15 @@
         <div class="sur-li">相册: {{survey.albumNumber}}</div>
         <div class="sur-li">总共上传图片: {{survey.photoNumber}}</div>
         <div class="sur-li">
-          <mu-button icon="cloud_upload"/>
+          <mu-button icon><mu-icon value="cloud_upload"></mu-icon></mu-button>
         </div>
       </div>
       <hr class="sur-divider">
       <div class="sur-item">
         <div class="sur-title">快捷入口</div>
-        <mu-button icon="create"/>
-        <mu-button icon="sort"/>
-        <mu-button icon="photo"/>
+        <mu-button icon><mu-icon value="create"></mu-icon></mu-button>
+        <mu-button icon><mu-icon value="sort"></mu-icon></mu-button>
+        <mu-button icon><mu-icon value="photo"></mu-icon></mu-button>
       </div>
     </section>
   </div>
@@ -198,7 +118,6 @@ export default {
     await this.$store.dispatch("survey");
     const admin = this.$store.state.admin;
     this.survey = admin.survey || {};
-    console.log(">>>>>>|", this.survey.system.hostname);
     // this.system = this.survey.system;
   },
 
@@ -207,6 +126,8 @@ export default {
       if (this.survey.system) {
         return this.survey.system;
       }
+
+      return {}
     }
   }
 };

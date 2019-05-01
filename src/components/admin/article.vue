@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <mu-table :fixedFooter="fixedFooter" fixedHeader enableSelectAll multiSelectable selectable showCheckbox>
+  <mu-container>
+    <!-- <mu-table :fixedFooter="fixedFooter" fixedHeader enableSelectAll multiSelectable selectable showCheckbox>
       <mu-thead slot="header">
         <mu-tr>
           <mu-th tooltip="ID">ID</mu-th>
@@ -29,7 +29,24 @@
           </mu-td>
         </mu-tr>
       </mu-tbody>
-    </mu-table>
+    </mu-table> -->
+    <mu-paper :z-depth="1">
+      <mu-data-table :columns="columns" :data="posts">
+        <template slot-scope="scope">
+          <td>{{scope.row.id}}</td>
+          <td>{{scope.row.category}}</td>
+          <td>{{scope.row.title}}</td>
+          <td>{{scope.row.permission}}</td>
+          <td>{{scope.row.created}}</td>
+          <td>
+            <div class="action">
+              <button class="action-btn" @click="edit(row.id)">编辑</button>
+              <button class="action-btn" @click="del(row.id)">删除</button>
+            </div>
+          </td>
+        </template>
+      </mu-data-table>
+    </mu-paper>
     <div class="a-page">
       <Pagination :current="page"
         :total="total"
@@ -37,7 +54,7 @@
         @query="onPagination"
       ></Pagination>
     </div>
-  </div>
+  </mu-container>
 </template>
 <style>
   .action .action-btn {
@@ -63,6 +80,14 @@
       multiSelectable: true,
       enableSelectAll: false,
       showCheckbox: true,
+      columns:[
+        { title: 'ID', width: 80, name: 'id' },
+        { title: '类别', name: 'calories', width: 150, align: 'center', sortable: true },
+        { title: '标题', name: 'fat', align: 'center', sortable: true },
+        { title: '权限', name: 'carbs', width: 120, align: 'center', sortable: true },
+        { title: '创建时间', name: 'protein', width: 130, align: 'center', sortable: true },
+         { title: '操作', name: 'carbs', width: 150, align: 'center', sortable: true },
+      ],
     }),
     components: {
       Pagination,
