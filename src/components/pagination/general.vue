@@ -5,7 +5,7 @@
       :current.sync="current"
       :page-size="pageSize"
       :pageCount="pageCount"
-      @pageChange="next">
+      @change="next">
     </mu-pagination>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {
   methods: {
     next(page) {
       const path = this.$router.history.current.path;
+      console.log(path)
       this.$router.push({ path, query: { page } });
       this.$emit('query');
     }

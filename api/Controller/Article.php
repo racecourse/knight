@@ -30,9 +30,9 @@ class Article extends Controller
     {
         $this->params = $request->getQueryParams();
         $page = $this->getParam('page', 1);
-        $order = $params['order'] ?? 'id';
+        $order = $params['order'] ?? 'created';
         $keyword = $params['q'] ?? null;
-        $order = $order === 'archive' ? 'created' : 'id';
+        $order = $order === 'archive' ? 'created' : 'created';
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;

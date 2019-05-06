@@ -20,8 +20,11 @@ use Knight\Lib\Logger;
 
 $app = new App();
 $cors = new Cors();
-$prometheus = new Prometheus();
-$app->add($prometheus);
+if (Config::get('BEN_ENV') === 'production') {
+    $prometheus = new Prometheus();
+    $app->add($prometheus);
+}
+
 $app->add($cors);
 $app->add(new \Knight\Middleware\Multipart());
 

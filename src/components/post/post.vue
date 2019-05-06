@@ -8,12 +8,13 @@
           <span>{{result.created}}</span>
         </mu-sub-header>
       </div>
-      <mu-content-block>
+      <mu-card-text>
         <section v-html="result.content" @click="preview"></section>
-      </mu-content-block>
+      </mu-card-text>
       <div class="post-footer">
         <div class="cate">桑下语</div>
-        <div class="tags">php</div>
+        <div class="tags" v-for="(tag, key) in result.tags" :key="key"><span>{{tag}}</span></div>
+
       </div>
       <div class="split"></div>
     </div>
@@ -36,6 +37,7 @@
           return {
             content: '',
             title: '',
+            tags: '',
           };
         }
       },
@@ -52,6 +54,7 @@
       }
     },
     async mounted() {
+      console.log(this.result)
       const id = this.$route.params.id;
       await this.$store.dispatch('getCommentsByPostId', id);
       let comments = this.$store.state.comment;
@@ -113,7 +116,11 @@
         marked.setOptions(markedOptions);
         data.content =  marked(data.content);
         const created = data.created ? new Date(data.created * 1000) : new Date();
-        data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+        data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss')
+        if (data.tags) {
+          data.tags = data.tags.split(',')
+        }
+
         return data;
       }
     },

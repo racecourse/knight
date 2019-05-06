@@ -51,6 +51,7 @@ class Photo extends Controller
         foreach ($files as $key => $uploaded) {
             try {
                 if (is_array($uploaded)) {
+
                     $success = $this->upload($uploaded, $user, $album);
                     continue;
                 }
@@ -60,6 +61,7 @@ class Photo extends Controller
                 $image->name = $uploaded->getClientFilename();
                 $image->size = $uploaded->getSize();
                 $type = $uploaded->getClientMediaType();
+
                 if (!$type) {
                     continue;
                 }

@@ -52,7 +52,6 @@ export default {
       this.total = Number(photos.total) || 0;
       this.page = Number(photos.page) || 1;
       this.pageSize = Number(photos.pageSize) || 0;
-      console.log(config, this.photos)
     }
   }
 }

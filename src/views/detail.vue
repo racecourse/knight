@@ -1,6 +1,6 @@
 <template>
   <div class="post">
-    <Detail v-bind:article="post"></Detail>
+    <Detail :article="post"></Detail>
   </div>
 </template>
 <script>

@@ -52,6 +52,9 @@
       const uppy = Uppy({
         debug: true,
         autoProceed: false,
+        limit: 1,
+        bundel: true,
+        formData: false,
         onBeforeUpload: (files) => {
           if (Number(this.album) < 1) {
             return Promise.reject('none of album be choosed')
@@ -79,7 +82,7 @@
         // ]
       }).use(Webcam, { target: Dashboard })
       uppy.use(XHRUpload, {
-          endpoint: 'http://' + config.api + '/admin/photos',
+          endpoint: '//' + config.api + '/admin/photos?albumId' + self.album,
           headers: {
             Authorization: 'Bearer ' + token
           },
@@ -94,7 +97,6 @@
           }
       })
       uppy.upload().then((result) => {
-        console.info('Successful uploads:', result.successful)
         if (result.failed.length > 0) {
         result.failed.forEach((file) => {
             console.error(file.error)
