@@ -5,36 +5,36 @@
       <div>
         <mu-list>
           <mu-list-item to="/admin/dashboard">
-            <mu-icon>create</mu-icon>
-            <span>dashboard</span>
+            <mu-list-item-action><mu-icon value="dashboard"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>dashboard</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/admin/create">
-            <mu-icon>create</mu-icon>
-            <span>write</span>
+            <mu-list-item-action><mu-icon value="create"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>write</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/admin/article">
-            <mu-icon>sort</mu-icon>
-            <span>article</span>
+            <mu-list-item-action><mu-icon value="sort"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>article</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/admin/comment">
-            <mu-icon>sort</mu-icon>
-            <span>comment</span>
+            <mu-list-item-action><mu-icon value="flip_to_front"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>comment</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/admin/image">
-            <mu-icon>perm_media</mu-icon>
-            <span>image manage</span>
+            <mu-list-item-action><mu-icon value="perm_media"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>image manage</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/admin/upload">
-            <mu-icon>photo</mu-icon>
-            <span>upload</span>
+            <mu-list-item-action><mu-icon value="cloud_upload"></mu-icon></mu-list-item-action>
+            <mu-list-item-title>upload</mu-list-item-title>
           </mu-list-item>
           <mu-list-item>
-            <mu-icon>settings</mu-icon>
-            <span>setting</span>
+            <mu-list-item-action><mu-icon value="settings">=</mu-icon></mu-list-item-action>
+            <mu-list-item-title>setting</mu-list-item-title>
           </mu-list-item>
           <mu-list-item to="/">
-            <mu-icon>home</mu-icon>
-            <span>home</span>
+            <mu-list-item-action><mu-icon value="home">=</mu-icon></mu-list-item-action>
+            <mu-list-item-title>home</mu-list-item-title>
           </mu-list-item>
         </mu-list>
       </div>

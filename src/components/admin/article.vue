@@ -40,8 +40,8 @@
           <td>{{scope.row.created}}</td>
           <td>
             <div class="action">
-              <button class="action-btn" @click="edit(row.id)">编辑</button>
-              <button class="action-btn" @click="del(row.id)">删除</button>
+              <button class="action-btn" @click="edit(scope.row.id)">编辑</button>
+              <button class="action-btn" @click="del(scope.row.id)">删除</button>
             </div>
           </td>
         </template>
@@ -86,7 +86,7 @@
         { title: '标题', name: 'fat', align: 'center', sortable: true },
         { title: '权限', name: 'carbs', width: 120, align: 'center', sortable: true },
         { title: '创建时间', name: 'protein', width: 130, align: 'center', sortable: true },
-         { title: '操作', name: 'carbs', width: 150, align: 'center', sortable: true },
+        { title: '操作', name: 'carbs', width: 150, align: 'center', sortable: true },
       ],
     }),
     components: {

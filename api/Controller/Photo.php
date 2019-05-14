@@ -33,7 +33,7 @@ class Photo extends Controller
         $user = $request->getAttribute('session');
         $album = $this->getPayload('album', 1);
         $files = $request->getUploadedFiles();
-        $success = $this->upload($files, $user, $album);
+        $success = yield $this->upload($files, $user, $album);
 
         return new JsonResponse([
             'message' => 'ok',
@@ -70,7 +70,7 @@ class Photo extends Controller
                 $extname = end($extname);
                 $fileKey = Photo::getFileKey();
                 $savePath = date('Ymd', time()) . '/' . $fileKey . '.' . $extname;
-                $attr = $client->write($savePath, $uploaded->getStream());
+                $attr = yield $client->write($savePath, $uploaded->getStream());
                 $extInfo = [];
                 foreach ($attr as $field => $value) {
                     $field = str_replace('x-upyun-', '', $field);

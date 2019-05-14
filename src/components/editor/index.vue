@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="editor">
-      <markdownEditor :configs="configs" ref="editor" v-model="originArticle.content"></markdownEditor>
+      <markdownEditor :configs="configs" ref="editor" v-model="article.content"></markdownEditor>
       <div class="editor-option">
-        <mu-text-field help-text="created at" v-model="originArticle.created" :value="art.created"/>
-        <mu-text-field help-text="title" v-model="originArticle.title"/>
-        <mu-select v-model="originArticle.cateId" label="category" full-width>
+        <mu-text-field help-text="created at" v-model="article.created" :value="article.created"/>
+        <mu-text-field help-text="title" v-model="article.title"/>
+        <mu-select v-model="article.cateId" label="category" full-width>
           <mu-option v-for="(cate, index) in category" :key="index" :value="cate.id" :label="cate.name" ></mu-option>
         </mu-select>
         <br/>
         <div v-on:keydown.enter="tag">
-          <mu-text-field v-model="originArticle.tags" help-text="tag，press enter split"/>
+          <mu-text-field v-model="article.tags" help-text="tag，press enter split"/>
         </div>
         <br/>
         <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
@@ -18,9 +18,9 @@
         </mu-chip>
         <br/>
         <div class="permission">
-          <mu-radio v-model="originArticle.permission" label="public" value="1"></mu-radio>
-          <mu-radio v-model="originArticle.permission" label="hidden" value="2"></mu-radio>
-          <mu-radio v-model="originArticle.permission" label="private" value="3"></mu-radio>
+          <mu-radio v-model="article.permission" label="public" value="1"></mu-radio>
+          <mu-radio v-model="article.permission" label="hidden" value="2"></mu-radio>
+          <mu-radio v-model="article.permission" label="private" value="3"></mu-radio>
         </div>
         <br/>
         <div class="upload-wrap" @click="showUploadBox">
@@ -77,11 +77,11 @@ export default {
       default: function () {
         return {
           permission: "1",
-          tags: '',
+          tags: [],
           title: '',
           content: '',
           cateId: 1,
-          created: '',
+          created: fecha.format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
         };
       },
     }
@@ -93,7 +93,6 @@ export default {
         show: false,
         snackTimer: 3000,
       },
-      originArticle: {},
       tagValue: '',
       tags: [],
       editor: null,
@@ -123,15 +122,17 @@ export default {
   async mounted() {
     await this.$store.dispatch('category');
     this.category = this.$store.getters.getCategory;
-    const created = this.created ? new Date(this.created * 1000) : new Date();
-    if (!this.created) {
-      this.created = fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
-    }
-    const data = Object.assign({}, this.article);
-    data.permission = String(data.permission);
-    data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
-    data.tags = data.tags ? data.tags.split(',') : [];
-    this.originArticle = data;
+    // const created = this.created ? new Date(this.created * 1000) : new Date();
+    // if (!this.created) {
+    //   this.created = fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    // }
+    // // const data = Object.assign({}, this.article);
+    // const data = this.article
+    // console.log('cccddddddcdcd', data)
+    // data.permission = String(data.permission);
+    // data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    // data.tags = data.tags ? data.tags.split(',') : [];
+    // this.article = data;
   },
   methods: {
     tag() {
@@ -154,17 +155,17 @@ export default {
     },
     async commit() {
       const id = this.$route.params.id;
-      console.log(this.originArticle)
-      if (!this.originArticle.title) {
+      console.log(this.article)
+      if (!this.article.title) {
         const message = 'title required~!'
         return this.tip(message);
       }
 
-      if (! this.originArticle.content) {
+      if (! this.article.content) {
         return this.tip('content can not be empty~!')
       }
 
-      const data = Object.assign({},  this.originArticle)
+      const data = Object.assign({},  this.article)
       if (!id) {
         await this.$store.dispatch('addArticle', data)
       } else {
@@ -196,21 +197,21 @@ export default {
     uploadNotify(images) {
       if (Array.isArray(images)) {
         images.map(image => {
-          this.originArticle.content += `![](http://${config.imageDomain}${image.url})`;
+          this.article.content += `![](http://${config.imageDomain}${image.url})`;
         });
       }
     }
   },
   computed: {
-    art: function() {
-      const data = Object.assign({}, this.article);
-      data.permission = String(data.permission);
-      const created = data.created ? new Date(data.created * 1000) : new Date();
-      data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
-      data.tags = data.tags ? data.tags.split(',') : [];
-      console.log(data)
-      return data;
-    },
+    // art: function() {
+    //   const data = Object.assign({}, this.article);
+    //   data.permission = String(data.permission);
+    //   const created = data.created ? new Date(data.created * 1000) : new Date();
+    //   data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    //   data.tags = data.tags ? data.tags.split(',') : [];
+    //   console.log(data)
+    //   return data;
+    // },
     simplemde (){
       return this.$refs.editor.simplemde
     }
