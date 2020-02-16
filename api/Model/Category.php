@@ -2,9 +2,9 @@
 
 namespace Knight\Model;
 
-use Knight\Component\Dao;
+use Knight\Component\Base;
 
-class Category extends Dao
+class Category extends Base
 {
     public $table = 'category';
 

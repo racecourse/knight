@@ -8,6 +8,7 @@ import App from './App.vue';
 import MuseUI from 'muse-ui';
 import VuePreview from 'vue-preview'
 import hljs from 'highlight.js';
+import Loading from 'muse-ui-loading';
 import 'muse-ui/dist/muse-ui.css';
 // import teal from 'muse-ui/dist/theme-teal.css'
 import './assets/hljs.css';
@@ -22,6 +23,7 @@ Vue.config.productionTip = false
 
 
 Vue.use(MuseUI)
+Vue.use(Loading)
 Vue.use(VuePreview, {
   mainClass: 'pswp--minimal--dark',
   barsSize: {top: 0, bottom: 0},
@@ -50,7 +52,7 @@ window.addEventListener('load', () => {
   FastClick.attach(document.body)
 });
 window.hljs = hljs;
-window.$router = router;
+window.$router = router;  
 sync(store, router);
 new Vue({
   router,

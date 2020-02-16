@@ -2,9 +2,9 @@
 
 namespace Knight\Model;
 
-use Knight\Component\Dao;
+use Knight\Component\Base;
 
-class Post extends Dao
+class Post extends Base
 {
     protected $table = 'articles';
 

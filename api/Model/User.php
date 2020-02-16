@@ -9,9 +9,9 @@
 
 namespace Knight\Model;
 
-use Knight\Component\Dao;
+use Knight\Component\Base;
 
-class User extends Dao
+class User extends Base
 {
     public $table = 'users';
 

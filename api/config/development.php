@@ -54,5 +54,9 @@ return [
         'username' => 'devil',
         'password' => 'knight123',
         'domain' => 'knight-test.test.upcdn.net',
+    ],
+    'mongo' => [
+        'uri' => 'mongodb://localhost:27017/',
+        'db' => 'knight',
     ]
 ];

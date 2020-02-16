@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="post">
+  <mu-container>
+    <div class="post" data-mu-loading-color="secondary" v-loading="loading">
       <Post v-for="post in posts"
             :article="post"
             :key="post.id">
@@ -14,9 +14,9 @@
         >
         </Pagination>
       </div>
-      
+
     </div>
-  </div>
+  </mu-container>
 </template>
 
 <script>
@@ -32,6 +32,7 @@
         total: 0,
         ok: false,
         message: '',
+        loading: false,
       }
     },
     methods: {
@@ -49,7 +50,9 @@
       }
     },
     async beforeMount() {
-      this.change();
+      this.loading = true
+      await this.change();
+      this.loading = false
     },
     components: {
       Post,

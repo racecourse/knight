@@ -1,5 +1,5 @@
 <template>
-  <div class="album-wrap">
+  <div class="album-wrap" v-loading="loading">
     <div v-for="album in preview" :key="album.id">
       <div class="album-name">
         {{album.name}}
@@ -10,31 +10,6 @@
           <div class="photo-more-text" @click="more(album.id)">查看更多</div>
         </div>
       </div>
-      <!-- <mu-grid-list>
-        <div v-for="(photo, index) in album.photos" :key="index">
-          <div class="image-box">
-            <div class="image-cover">
-              <div v-if="photo.panorama">
-                <img class="panorama-thumb" :src="'http://' + photo.url + '!thumb'" />
-                <div class="panorama-zoom"  @click="showPanorama(photo)">
-                  全景图片点击观看
-                </div>
-              </div>
-              <div v-else>
-                <vue-preview :slides="photo.preview" ></vue-preview>
-              </div>
-            </div>
-            <div class="image-title">{{photo.name}}</div>
-          </div>
-        </div>
-        <div>
-          <div v-if="album.photoNumber > 10">
-            <div class="photo-more">
-              <div class="photo-more-text" @click="more(album.id)">查看更多</div>
-            </div>
-          </div>
-        </div>
-      </mu-grid-list> -->
     </div>
     <mu-dialog class="panoram-dialog"
       :open="show"
@@ -74,7 +49,8 @@ export default {
       page: 1,
       pageSize: 20,
       total: 0,
-      imageDomain: config.imageDomain
+      imageDomain: config.imageDomain,
+      loading: false,
     }
   },
   methods: {
@@ -100,7 +76,9 @@ export default {
     }
   },
   async beforeMount() {
+    this.loading = true
     await this.loadAlbums();
+    this.loading = false
   },
   components: {
     Panorama,

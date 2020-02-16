@@ -2,9 +2,9 @@
 
 namespace Knight\Model;
 
-use Knight\Component\Dao;
+use Knight\Component\Base;
 
-class Photo extends Dao
+class Photo extends Base
 {
 
     public $table = 'photos';

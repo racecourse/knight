@@ -1,9 +1,9 @@
 <?php
 namespace Knight\Model;
 
-use Knight\Component\Dao;
+use Knight\Component\Base;
 
-class Comment extends Dao
+class Comment extends Base
 {
     public $table = 'comments';
 
