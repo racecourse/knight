@@ -10,7 +10,7 @@
         </mu-select>
         <br/>
         <div v-on:keydown.enter="tag">
-          <mu-text-field v-model="article.tags" help-text="tag，press enter split"/>
+          <mu-text-field v-model="tagValue" help-text="tag，press enter split" v-on:keydown.enter="tag"/>
         </div>
         <br/>
         <mu-chip v-for="(tag,index) in tags" :key="index" @delete="deleteTag(index)" showDelete>
@@ -37,9 +37,9 @@
     <div>
       <mu-dialog :open="dialog" title="upload" @close="closeUploadBox">
         <span>upload</span>
-        <Uploader :uploaded="uploadNotify" :album="1" />
-        <mu-button flat slot="actions" @click="closeUploadBox" primary label="取消"/>
-        <mu-button flat slot="actions" primary @click="closeUploadBox" label="确定"/>
+        <Uploader :uploaded="uploadNotify" :album="'default'" />
+        <mu-button flat slot="actions" @click="closeUploadBox">close</mu-button>
+        <mu-button flat slot="actions" primary @click="closeUploadBox">ok</mu-button>
       </mu-dialog>
     </div>
   </div>
@@ -50,11 +50,6 @@
   @import '~simplemde/dist/simplemde.min.css';
 </style>
 <style>
-  .newcate {
-    margin: 0 auto;
-    width: 80%;
-    overflow: hidden;
-  }
   .upload-wrap {
     text-align: center;
     padding: 5px;
@@ -80,7 +75,7 @@ export default {
           tags: [],
           title: '',
           content: '',
-          cateId: 1,
+          cateId: '',
           created: fecha.format(new Date(), 'YYYY-MM-DD HH:mm:ss'),
         };
       },
@@ -122,17 +117,17 @@ export default {
   async mounted() {
     await this.$store.dispatch('category');
     this.category = this.$store.getters.getCategory;
-    // const created = this.created ? new Date(this.created * 1000) : new Date();
-    // if (!this.created) {
-    //   this.created = fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
-    // }
-    // // const data = Object.assign({}, this.article);
-    // const data = this.article
-    // console.log('cccddddddcdcd', data)
-    // data.permission = String(data.permission);
-    // data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
-    // data.tags = data.tags ? data.tags.split(',') : [];
-    // this.article = data;
+    const created = this.created ? new Date(this.created * 1000) : new Date();
+    if (!this.created) {
+      this.created = this.$moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    // const data = Object.assign({}, this.article);
+    const data = this.article
+    data.permission = String(data.permission);
+    data.created =  fecha.format(created, 'YYYY-MM-DD HH:mm:ss');
+    data.tags = Array.isArray(data.tags) ? data.tags : data.tags.split(',');
+    this.article = data;
+    this.tags = data.tags;
   },
   methods: {
     tag() {
@@ -155,7 +150,6 @@ export default {
     },
     async commit() {
       const id = this.$route.params.id;
-      console.log(this.article)
       if (!this.article.title) {
         const message = 'title required~!'
         return this.tip(message);
@@ -166,6 +160,7 @@ export default {
       }
 
       const data = Object.assign({},  this.article)
+      data.tags = this.tags;
       if (!id) {
         await this.$store.dispatch('addArticle', data)
       } else {
@@ -186,7 +181,9 @@ export default {
     hideSnackbar () {
       this.snackbar.show = false;
       this.snackbar.message = '';
-      if (this.snackbar.snackTimer) clearTimeout(this.snackbar.snackTimer)
+      if (this.snackbar.snackTimer) {
+        clearTimeout(this.snackbar.snackTimer);
+      }
     },
     showUploadBox() {
       this.dialog = true;

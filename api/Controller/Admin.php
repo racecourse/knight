@@ -96,16 +96,15 @@ class Admin extends Controller
         $userId = $session->id;
         $article = new Post();
         $where = [
-            'userId' => $userId,
+//            'userId' => $userId,
         ];
         $option = [
-            'offset' => $offset,
+            'skip' => $offset,
             'limit' => $pageSize,
-            'order' => ['id' => 'DESC'],
+            'order' => ['id' => -1],
         ];
         $total = yield $article->count($where);
-        $articles = yield $article->find($where, $option);
-        $list = $article->toArray($articles);
+        $list = yield $article->find($where, $option);
 
         return $this->json([
             'message' => 'ok',
@@ -235,7 +234,7 @@ class Admin extends Controller
             $art->created = strtotime($time);
         }
 
-        $art->update();
+        $art->save();
 
         return $this->json([
             'message' => 'ok',
@@ -251,36 +250,9 @@ class Admin extends Controller
      */
     public function drop(Request $request)
     {
-        $id = $this->getParam('id');
-        if (!intval($id)) {
-            return $this->json([
-                'message' => 'Illegal ID',
-                'code' => 1,
-            ]);
-        }
-
-        $post = new Post();
-        $art = $post->findById($id);
-        if (!$art) {
-            return $this->json([
-                'message' => 'article not found',
-                'code' => 2,
-            ]);
-        }
-
-        $art->delete();
-
-        return $this->json([
-            'message' => 'ok',
-            'code' => 0,
-        ]);
-    }
-
-    public function detail(Request $request)
-    {
         $this->params = $request->getAttribute('params');
         $id = $this->getParam('id');
-        if (!intval($id)) {
+        if (!$id) {
             return $this->json([
                 'message' => 'Illegal ID',
                 'code' => 1,
@@ -296,7 +268,33 @@ class Admin extends Controller
             ]);
         }
 
-        $art = $art->toArray();
+        $art->remove();
+
+        return $this->json([
+            'message' => 'ok',
+            'code' => 0,
+        ]);
+    }
+
+    public function detail(Request $request)
+    {
+        $this->params = $request->getAttribute('params');
+        $id = $this->getParam('id');
+        if (!$id) {
+            return $this->json([
+                'message' => 'Illegal ID',
+                'code' => 1,
+            ], 400);
+        }
+
+        $post = new Post();
+        $art = $post->findById($id);
+        if (!$art) {
+            return $this->json([
+                'message' => 'article not found',
+                'code' => 2,
+            ]);
+        }
 
         return $this->json([
             'message' => 'ok',

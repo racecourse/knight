@@ -14,6 +14,7 @@ use Knight\Model\Album as Gallery;
 use Knight\Model\Photo;
 use Zend\Diactoros\ServerRequest as Request;
 use Zend\Diactoros\Response\JsonResponse;
+use function DI\string;
 
 class Album extends Controller
 {
@@ -35,39 +36,38 @@ class Album extends Controller
         $pageSize = abs($pageSize);
         $album = new Gallery();
         $where = [
-            'isShow' => ['$gte' => $user ? 0 : 1],
+//            'isShow' => ['$gte' => $user ? 0 : 1],
         ];
         $options = [
-            'order' => ['created' => 'desc'],
+            'sort' => ['created' => -1],
             'limit' => $pageSize,
-            'offset' => ($page - 1) * $pageSize
+            'skip' => ($page - 1) * $pageSize
         ];
 
+
         $total = $album->count($where);
-        $list = $album->find($where, $options);
-        $list = $album->toArray($list);
+        $albums = $album->find($where, $options);
         $photo = new Photo();
-        foreach ($list as $key => &$value) {
+        foreach ($albums as $key => $value) {
             $filter = [
-                'albumId' => $value['id']
+                'albumId' => (string)$value['id']
             ];
             $options = [
-                'limit' => 10,
-                'order' => ['created' => 'desc']
+                'limit' => 6,
+                'order' => ['created' => -1]
             ];
             $photos = $photo->find($filter, $options);
             $photoNumber = $photo->count($filter);
-            $value['photos'] = $photo->toArray($photos);
+            $value['photos'] = $photos;
             $value['photoNumber'] = $photoNumber;
         }
-
-        unset($value);
 
         return $this->json([
             'message' => 'ok',
             'code' => 0,
             'data' => [
-                'list' => $list,
+                'domain' => 'cdn.sangsay.com',
+                'list' => $albums,
                 'total' => $total,
                 'page' => $page,
                 'pageSize' => $pageSize,
@@ -155,7 +155,7 @@ class Album extends Controller
         $page = abs($page);
         $pageSize = abs($pageSize);
         $lastId = $query['last'] ?? '';
-        if (!is_numeric($albumId)) {
+        if (!$albumId) {
             return $this->json([
                     'message' => 'illegal param albumId',
                     'code' => 1,
@@ -177,7 +177,7 @@ class Album extends Controller
         ];
         $options = [
             'limit' => $pageSize,
-            'order' => ['id' => 'desc']
+            'order' => ['id' => 1]
         ];
         if ($lastId) {
             $where['id'] = [
@@ -202,6 +202,7 @@ class Album extends Controller
                 'list' => $photos,
                 'total' => $total,
                 'albumInfo' => $album,
+                'domain' => 'cdn.sangsay.com',
             ],
         ]);
     }

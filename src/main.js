@@ -23,7 +23,11 @@ Vue.config.productionTip = false
 
 
 Vue.use(MuseUI)
-Vue.use(Loading)
+Vue.use(Loading, {
+  overlayColor: 'hsla(0,0%,100%,.9)',
+  size: 48,
+  color: 'primary',
+})
 Vue.use(VuePreview, {
   mainClass: 'pswp--minimal--dark',
   barsSize: {top: 0, bottom: 0},
@@ -52,7 +56,7 @@ window.addEventListener('load', () => {
   FastClick.attach(document.body)
 });
 window.hljs = hljs;
-window.$router = router;  
+window.$router = router;
 sync(store, router);
 new Vue({
   router,

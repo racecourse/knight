@@ -3,12 +3,9 @@
 build/
 node_modules/
 *.log
-mews/
-courser/
-public/
-deploy/group_vars/all
-deploy/hosts
+migration/
 api/config/production.php
+api/config/development.php
 dist/
 *.retry
 *.cache

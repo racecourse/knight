@@ -5,24 +5,82 @@
         <mu-icon right value="list"></mu-icon>
       </mu-button>
     </div>
-    <mu-drawer left :open="open" @close="toggle()">
+    <mu-drawer left :open="open" @close="toggle()" width="400">
       <div class="resume" @click="toggle()">
         <div class="avatar">
           <img src="../../assets/avatar.png">
         </div>
       </div>
       <div>
+<!--        <mu-list>-->
+<!--          <mu-sub-header inset>no close button</mu-sub-header>-->
+<!--          <mu-list-item avatar button :ripple="false">-->
+<!--            <mu-list-item-action>-->
+<!--              <mu-avatar>-->
+<!--                <mu-icon value="toys"></mu-icon>-->
+<!--              </mu-avatar>-->
+<!--            </mu-list-item-action>-->
+<!--            <mu-list-item-content @click="navigate('/posts')">-->
+<!--              <mu-list-item-title >Article</mu-list-item-title>-->
+<!--            </mu-list-item-content>-->
+<!--          </mu-list-item>-->
+<!--          <mu-list-item avatar button :ripple="false">-->
+<!--            <mu-list-item-action>-->
+<!--              <mu-avatar>-->
+<!--                <mu-icon value="toys"></mu-icon>-->
+<!--              </mu-avatar>-->
+<!--            </mu-list-item-action>-->
+<!--            <mu-list-item-content @click="navigate('/albums')">-->
+<!--              <mu-list-item-title >Gallery</mu-list-item-title>-->
+<!--            </mu-list-item-content>-->
+<!--          </mu-list-item>-->
+<!--          <mu-list-item avatar button :ripple="false">-->
+<!--            <mu-list-item-action>-->
+<!--              <mu-icon value="gallery" color="pink"></mu-icon>-->
+<!--            </mu-list-item-action>-->
+<!--            <mu-list-item-title>Mike Li</mu-list-item-title>-->
+<!--            <mu-list-item-action>-->
+<!--              <mu-avatar>-->
+<!--               L-->
+<!--              </mu-avatar>-->
+<!--            </mu-list-item-action>-->
+<!--          </mu-list-item>-->
+<!--        </mu-list>-->
         <mu-list>
-          <mu-list-item title="博客" @click="navigate('/posts')">
-            <mu-icon value="toys" slot="left"/>
+          <mu-list-item avatar button :ripple="false">
+            <mu-list-item-action>
+              <mu-icon value="star" color="pink"></mu-icon>
+            </mu-list-item-action>
+            <mu-list-item-title>Mike Li</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-avatar>
+              </mu-avatar>
+            </mu-list-item-action>
           </mu-list-item>
-          <mu-list-item title="相册" @click="navigate('/albums')">
-            <mu-icon value="toys" slot="left"/>
+          <mu-list-item avatar button :ripple="false">
+            <mu-list-item-action></mu-list-item-action>
+            <mu-list-item-title>Maco Mai</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-avatar>
+              </mu-avatar>
+            </mu-list-item-action>
           </mu-list-item>
-          <mu-list-item title="时间线" @click="navigate('/timeline')">
-            <mu-icon value="toys" slot="left"/>
+          <mu-list-item avatar button :ripple="false">
+            <mu-list-item-action></mu-list-item-action>
+            <mu-list-item-title>Alex Qin</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-avatar>
+              </mu-avatar>
+            </mu-list-item-action>
           </mu-list-item>
-
+          <mu-list-item avatar button :ripple="false">
+            <mu-list-item-action></mu-list-item-action>
+            <mu-list-item-title>Allen Qun</mu-list-item-title>
+            <mu-list-item-action>
+              <mu-avatar>
+              </mu-avatar>
+            </mu-list-item-action>
+          </mu-list-item>
         </mu-list>
       </div>
     </mu-drawer>
@@ -30,9 +88,6 @@
 </template>
 
 <style type="css">
-  .side {
-    width: 100px;
-  }
   .menu {
     z-index: 100;
     display: inline;

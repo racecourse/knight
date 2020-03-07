@@ -10,7 +10,7 @@ class Category extends Base
 
     public $fields = [
         'id' => [
-            'column' => 'id',
+            'column' => '_id',
             'pk' => true,
             'type' => 'int',
             'auto' => true,

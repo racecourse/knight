@@ -10,10 +10,10 @@ class Post extends Base
 
     public $fields = [
         'id' => [
-            'column' => 'id',
+            'column' => '_id',
             'pk' => true,
             'auto' => true,
-            'type' => 'int'
+            'type' => 'str'
         ],
         'userId' => [
             'column' => 'user_id',
@@ -21,7 +21,7 @@ class Post extends Base
         ],
         'cateId' => [
             'column' => 'cate_id',
-            'type' => 'int'
+            'type' => 'str'
         ],
         'title' => [
             'column' => 'title',

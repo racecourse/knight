@@ -1,23 +1,15 @@
 <template>
-  <div>
+  <mu-paper>
     <div class="header">
       <div class="nav-header">
-        <div class="site-title">
-          <span class="logo">
-            <router-link :to="{ path: '/'}">
-              <div class="nav-name"></div>
-            </router-link>
-            <div class="nav-toggle">
-              <SideBar></SideBar>
-            </div>
-          </span>
-        </div>
+        <router-link :to="{ path: '/'}">
+          <div class="nav-name"></div>
+        </router-link>
         <div class="item-box">
             <div class="nav-item">
               <router-link :to="{ path: '/posts' }">
                 <mu-button flat>
-                  文章
-                  <mu-icon left value="gesture"></mu-icon>
+                  技术
                 </mu-button>
               </router-link>
             </div>
@@ -25,29 +17,28 @@
               <router-link :to="{ path: '/albums' }">
               <mu-button flat>
                 相册
-                <mu-icon left value="image"></mu-icon>
               </mu-button>
               </router-link>
             </div>
             <div class="nav-item">
               <router-link :to="{ path: '/timeline' }">
                 <mu-button flat>
-                  时间轴
-                  <mu-icon left value="linear_scale"></mu-icon>
+                  时间抽
                 </mu-button>
               </router-link>
             </div>
             <div class="nav-item">
-              <mu-button flat>
-                标签
-                <mu-icon left value="flag"></mu-icon>
-              </mu-button>
+              <router-link :to="{ path: '/posts', query: { type: '桑下语'} }">
+                <mu-button flat>
+                  生活
+                </mu-button>
+              </router-link>
             </div>
           </div>
         </div>
     </div>
     <div class="main">
-      <div class="container">
+      <div class="container"  >
         <mu-row>
           <mu-col width="100" tablet="100" desktop="100" class="content-warp">
             <div>
@@ -62,7 +53,7 @@
       <div class="sider"></div>
     </div>
     <div class="footer"><Bottom></Bottom></div>
-  </div>
+  </mu-paper>
 </template>
 <style>
   * {
@@ -74,6 +65,7 @@
     justify-content: center;
     align-items: center;
     background-color: #eeeeee;
+    min-height: 100%;
   }
   .main > .container {
     flex: 1;
@@ -89,11 +81,11 @@
     padding: 1rem 0.5rem;
   }
 
-  .header {
-    border-top: 3px solid #d6e69c;
-    box-shadow: 0px 2px 10px 0px r  gba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);
-    background: #fafafa;
-  }
+  /*.header {*/
+  /*  border-top: 3px solid #d6e69c;*/
+  /*  box-shadow: 0px 2px 10px 0px r  gba(0,0,0,0.1), 0 1px rgba(0,0,0,0.1);*/
+  /*  background: #fafafa;*/
+  /*}*/
 
   .layout {
     padding: 0;
@@ -110,30 +102,10 @@
     display: block;
   }
 
-  .logo{
-    font-size: 24px;
-    color: white;
-    display: block;
-  }
-
-  .item-box {
-    float: right;
-    margin-right: 10rem;
-  }
-  @media screen and (max-width: 760px) {
-    .item-box {
-      display: none;
-    }
-    .main {
-      display: block;
-    }
-  }
   .nav-toggle {
     display: none;
   }
-  .logo a {
-    color: rgb(16, 170, 132);
-  }
+
   .header .nav-header {
     display: -webkit-flex;
     display: flex;
@@ -200,12 +172,12 @@
 
 </style>
 <script>
-  import SideBar from '../nav/sideBar.vue';
   import Bottom from './bottom.vue';
   export default {
     data() {
       return {
-        isShow: this.$route.path === '/'
+        isShow: this.$route.path === '/',
+        loading: this.loading,
       }
     },
     mounted() {
@@ -214,7 +186,6 @@
       }
     },
     components: {
-      SideBar,
       Bottom,
     },
     methods: {

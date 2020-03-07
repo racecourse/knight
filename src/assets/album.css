@@ -20,6 +20,7 @@
 .image-cover {
   height: 200px;
   width: 100%;
+  text-align: center;
   overflow: hidden;
 }
 
@@ -70,13 +71,14 @@
 }
 
 .my-gallery figure {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 160px;
   display: inline-block;
   margin: 10px;
   overflow: hidden;
   text-align: center;
+  background-color: #000000;
 }
 .my-gallery img {
-  max-height: 100px;
+  max-height: 200px;
 }

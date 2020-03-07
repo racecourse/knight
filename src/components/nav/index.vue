@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mu-drawer left docked :open="open" @close="toggle()">
+    <mu-drawer left docked :open="open" @close="toggle()" width="200">
       <mu-appbar title="knight" />
       <div>
         <mu-list>
@@ -32,10 +32,6 @@
             <mu-list-item-action><mu-icon value="settings">=</mu-icon></mu-list-item-action>
             <mu-list-item-title>setting</mu-list-item-title>
           </mu-list-item>
-          <mu-list-item to="/">
-            <mu-list-item-action><mu-icon value="home">=</mu-icon></mu-list-item-action>
-            <mu-list-item-title>home</mu-list-item-title>
-          </mu-list-item>
         </mu-list>
       </div>
     </mu-drawer>
@@ -44,9 +40,6 @@
 <style>
   .side-bg {
     background: rgba(50,50,0, 0.5);
-  }
-  .mu-drawer {
-    max-width: 200px;
   }
 </style>
 <script>

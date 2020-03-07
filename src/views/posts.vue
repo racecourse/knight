@@ -1,6 +1,6 @@
 <template>
-  <mu-container>
-    <div class="post" data-mu-loading-color="secondary" v-loading="loading">
+  <mu-container v-loading="loading">
+    <div class="post" data-mu-loading-color="secondary" v-if="posts.length">
       <Post v-for="post in posts"
             :article="post"
             :key="post.id">
@@ -14,7 +14,6 @@
         >
         </Pagination>
       </div>
-
     </div>
   </mu-container>
 </template>
@@ -32,13 +31,16 @@
         total: 0,
         ok: false,
         message: '',
-        loading: false,
+        loading: true,
+        query: this.$route.query,
       }
     },
     methods: {
       async change() {
-        const page = this.$route.query.page || 1;
-        await this.$store.dispatch('posts', { page });
+        this.loading = true;
+        const query = this.query || {};
+        this.posts = [];
+        await this.$store.dispatch('posts', query);
         const res = this.$store.getters.getPost;
         const { post, ok, message } = res;
         this.posts = post.list;
@@ -47,12 +49,17 @@
         this.pageSize = Number(post.pageSize) || 0;
         this.ok = ok;
         this.message = message;
+        this.loading = false;
       }
     },
     async beforeMount() {
-      this.loading = true
       await this.change();
-      this.loading = false
+    },
+    watch: {
+      async '$route' (next)  {
+        this.query = Object.assign({}, next.query);
+        await this.change();
+      }
     },
     components: {
       Post,

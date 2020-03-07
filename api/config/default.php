@@ -10,6 +10,7 @@
 return [
     'name' => 'knight',
     'version' => '-0.0.1',
+    'debug' => true,
     'env' => [
         'dir' => dirname(dirname(__DIR__)),
         'overload' => true,

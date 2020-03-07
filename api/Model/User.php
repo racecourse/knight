@@ -17,7 +17,7 @@ class User extends Base
 
     public $fields = [
         'id' => [
-            'column' => 'id',
+            'column' => '_id',
             'pk' => true,
             'auto' => true,
             'type' => 'int'

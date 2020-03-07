@@ -14,6 +14,7 @@ use Knight\Component\Controller;
 use Knight\Model\User;
 use Knight\Middleware\Auth as JWTAuth;
 use Zend\Diactoros\ServerRequest as Request;
+use function DI\string;
 
 class Auth extends Controller
 {
@@ -55,7 +56,7 @@ class Auth extends Controller
         }
 
         $info = [
-            'id' => $userInfo->id,
+            'id' => (string)$userInfo->id,
             'username' => $userInfo->username,
             'nickname' => $userInfo->nickname,
             'email' => $userInfo->email,
@@ -63,6 +64,7 @@ class Auth extends Controller
         $jwt = new JWTAuth(Config::get('jwt'));
         $token = $jwt->encode($info);
         $userInfo = $userInfo->toArray();
+        $userInfo['id'] = (string) $userInfo['id'];
         unset($userInfo['password']);
         $userInfo['expired'] = Config::get('jwt.expired');
 

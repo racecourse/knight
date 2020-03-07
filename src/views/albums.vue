@@ -2,7 +2,7 @@
   <div class="album-wrap" v-loading="loading">
     <div v-for="album in preview" :key="album.id">
       <div class="album-name">
-        {{album.name}}
+        <router-link :to="{ path: '/albums/' + album.id + '/photos'}">{{album.name}}</router-link>
       </div>
       <vue-preview :slides="album.photos" ></vue-preview>
       <div v-if="album.photoNumber > 10">
@@ -11,15 +11,6 @@
         </div>
       </div>
     </div>
-    <mu-dialog class="panoram-dialog"
-      :open="show"
-      :title="panorama.title"
-      @close="closePanorama"
-      bodyClass="dialog-body"
-    >
-      <mu-button flat label="close" slot="actions"  @click="closePanorama"/>
-      <Panorama :panorama="panorama.url"></Panorama>
-    </mu-dialog>
     <div class="a-page" v-if="total > pageSize">
       <Pagination :total="total"
        :current="page"
@@ -35,10 +26,7 @@
 </style>
 
 <script>
-import Panorama from '../components/panorama/index.vue';
 import Pagination from '../components/pagination/general.vue';
-import fecha from 'fecha';
-import path from 'path';
 import config from '../config'
 export default {
   data() {
@@ -78,18 +66,20 @@ export default {
   async beforeMount() {
     this.loading = true
     await this.loadAlbums();
+    const data = this.$store.state.album.albums;
+    const { domain } = data;
+    this.imageDomain = domain;
     this.loading = false
   },
   components: {
-    Panorama,
     Pagination,
   },
   computed: {
     preview: function() {
       const data = [];
       for (const album of this.albums) {
+        const item = Object.assign({}, album);
         if (Array.isArray(album.photos)) {
-          const item = Object.assign({}, album);
           item.photos = item.photos.map(photo => {
             if (photo) {
               let attr = {};
@@ -100,8 +90,8 @@ export default {
               }
 
               const preview = {
-                src: '//' + config.imageDomain + photo.url,
-                msrc: '//' + config.imageDomain + photo.url + '!thumb',
+                src: '//' + this.imageDomain + photo.url,
+                msrc: '//' + this.imageDomain + photo.url + '!thumb',
                 alt: photo.name,
                 title: photo.name,
                 w: Number(attr.width) || 400,
@@ -110,9 +100,10 @@ export default {
               return preview;
             }
           });
-          data.push(item);
         }
+        data.push(item);
       }
+
       return data;
     }
   }

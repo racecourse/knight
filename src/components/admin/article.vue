@@ -1,39 +1,8 @@
 <template>
   <mu-container>
-    <!-- <mu-table :fixedFooter="fixedFooter" fixedHeader enableSelectAll multiSelectable selectable showCheckbox>
-      <mu-thead slot="header">
-        <mu-tr>
-          <mu-th tooltip="ID">ID</mu-th>
-          <mu-th tooltip="ID"><span>category</span></mu-th>
-          <mu-th tooltip="ID"><span>permission</span></mu-th>
-          <mu-th tooltip="ID">
-            <mu-icon-button icon="title"/>
-            <span>title</span>
-          </mu-th>
-          <mu-th tooltip="ID"><span>created at</span></mu-th>
-          <mu-th><span>action</span></mu-th>
-        </mu-tr>
-      </mu-thead>
-      <mu-tbody>
-        <mu-tr v-for="row in posts" :key="row.id">
-          <mu-td> {{row.id}} </mu-td>
-          <mu-td> {{row.category}}</mu-td>
-          <mu-td> {{row.permission|permit}}</mu-td>
-          <mu-td> {{row.title}} </mu-td>
-          <mu-td> {{row.created}} </mu-td>
-          <mu-td>
-            <div class="action">
-              <button class="action-btn" @click="edit(row.id)">编辑</button>
-              <button class="action-btn" @click="del(row.id)">删除</button>
-            </div>
-          </mu-td>
-        </mu-tr>
-      </mu-tbody>
-    </mu-table> -->
     <mu-paper :z-depth="1">
-      <mu-data-table :columns="columns" :data="posts">
+      <mu-data-table :columns="columns" :data="posts" border>
         <template slot-scope="scope">
-          <td>{{scope.row.id}}</td>
           <td>{{scope.row.category}}</td>
           <td>{{scope.row.title}}</td>
           <td>{{scope.row.permission}}</td>
@@ -41,7 +10,7 @@
           <td>
             <div class="action">
               <button class="action-btn" @click="edit(scope.row.id)">编辑</button>
-              <button class="action-btn" @click="del(scope.row.id)">删除</button>
+              <button class="action-btn" @click="confirm(scope.row)">删除</button>
             </div>
           </td>
         </template>
@@ -54,6 +23,11 @@
         @query="onPagination"
       ></Pagination>
     </div>
+    <mu-dialog title="Are you sure?" width="600" max-width="80%" :esc-press-close="false" :overlay-close="false" :open.sync="dialog">
+      Do you want delete article: {{currentItem.title}}
+      <mu-button slot="actions" flat color="primary" @click="closeDialog">cancel</mu-button>
+      <mu-button slot="actions" flat color="primary" @click="del(currentItem.id)">Ok</mu-button>
+    </mu-dialog>
   </mu-container>
 </template>
 <style>
@@ -80,8 +54,9 @@
       multiSelectable: true,
       enableSelectAll: false,
       showCheckbox: true,
+      dialog: false,
+      currentItem: {},
       columns:[
-        { title: 'ID', width: 80, name: 'id' },
         { title: '类别', name: 'calories', width: 150, align: 'center', sortable: true },
         { title: '标题', name: 'fat', align: 'center', sortable: true },
         { title: '权限', name: 'carbs', width: 120, align: 'center', sortable: true },
@@ -100,11 +75,19 @@
         await this.$store.dispatch('article', {page, pageSize, total});
         this.loadArticle();
       },
+      confirm(current) {
+        this.dialog = true;
+        this.currentItem = current;
+      },
+      closeDialog() {
+        this.dialog = false;
+      },
       edit (id) {
         this.$router.push('/admin/article/' + id + '/edit');
       },
-      del (id) {
-        this.$store.dispatch('delArt', {id});
+      async del (id) {
+        await this.$store.dispatch('delArt', {id});
+        this.dialog = false;
       },
       loadArticle() {
         const data = this.$store.state.article;

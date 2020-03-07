@@ -11,7 +11,7 @@ class Album extends Base
 
     public $fields = [
         'id' => [
-            'column' => 'id',
+            'column' => '_id',
             'pk' => true,
             'auto' => true,
             'type' => 'int'
@@ -30,7 +30,7 @@ class Album extends Base
             'type' => 'varchar'
         ],
         'isShow' => [
-            'column' => 'is_show',
+            'column' => 'isShow',
             'type' => 'int',
             'default' => 1
         ],

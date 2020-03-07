@@ -18,6 +18,7 @@ return [
         ]
     ],
     'db' => [
+        'type' => 'mysql',
        'servers' => [
             'host' => '127.0.0.1',
             'port' => '3306',
@@ -28,7 +29,7 @@ return [
             'poolSize' => 50,
             'pool' => false,
         ],
-        'debug' => false,
+        'debug' => true,
     ],
     'session' => [
         'class' =>'Marmot\Session',
@@ -56,7 +57,10 @@ return [
         'domain' => 'knight-test.test.upcdn.net',
     ],
     'mongo' => [
-        'uri' => 'mongodb://localhost:27017/',
+//        'uri' => 'mongodb://localhost:27017/',
+        'uri' => 'mongodb://root:sfeeawgeshr6u5w12z@193.112.127.136:47047/?authSource=admin&authMechanism=SCRAM-SHA-1',
         'db' => 'knight',
+        'type' => 'mongodb',
+        'options' => [],
     ]
 ];

@@ -27,7 +27,6 @@ export default {
     const article = state.admin.article
     console.log(article)
     this.article = Object.assign({}, article)
-    console.log('ffffffffffuck', new Date(this.article.created * 1000))
     this.article.created = fecha.format(this.article.created * 1000, 'YYYY-MM-DD HH:mm:ss')
     this.article.tags = this.article.tags.split(',')
   },

@@ -2,11 +2,10 @@
   <div class="common-bottom">
     <div class="copyright">
       <mu-badge >
-        <span style="padding: 10px">copyright &nbsp;2017-2018</span>
-        <span style="font-size: 20px;" slot="content">&copy;</span>
+        <span style="padding: 10px">copyright &nbsp;2017-2020</span>
       </mu-badge>
       <span style="padding-left:1rem">powered by <a href="//github.com/eclogue">eclogue</a></span>
-      <a href="//github.com/eclogue/knight">
+      <a href="//github.com/superbogy/knight">
         <img class="repo" src="./github.png">
       </a>
       <div>

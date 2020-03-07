@@ -1,12 +1,11 @@
 <template>
-  <div class="album-wrap">
+  <div class="album-wrap" v-loading="loading">
     <div class="album-name">
       {{album.name}}
     </div>
     <mu-row>
-      <mu-col width="100"
-        tablet="50"
-        desktop="50"
+      <mu-col
+        align-self="center"
         v-for="(photo, index) in picture"
         :key="index"
       >
@@ -27,7 +26,7 @@
       </mu-col>
 
     </mu-row>
-    <div v-if="total > 1">
+    <div v-if="total > photos.length">
       <div class="photo-load-more">
         <div class="photo-load-text" @click="more">查看更多</div>
       </div>
@@ -47,8 +46,6 @@
 
 <script>
 import Panorama from "../components/panorama/index.vue";
-import fecha from "fecha";
-import path from "path";
 import config from '../config'
 export default {
   data() {
@@ -61,7 +58,8 @@ export default {
       pageSize: 20,
       total: 0,
       last: 0,
-      imageDomain: config.imageDomain
+      imageDomain: config.imageDomain,
+      loading: false,
     };
   },
   methods: {
@@ -93,7 +91,7 @@ export default {
 
       await this.$store.dispatch('albumPhotos', params);
       const data = this.$store.state.album.photos;
-      const { list, total } = data;
+      const { list, total, domain } = data;
       if (list.length > 0) {
         this.photos = this.photos.concat(list);
       }
@@ -101,20 +99,24 @@ export default {
       this.total = total;
       this.page = data.page;
       this.pageSize = data.pageSize;
+      this.imageDomain = domain;
       // @todo 改变 query page， pageSize
     },
   },
   async beforeMount() {
+    this.loading = true;
     const page = this.$route.query.page || 1;
     const pageSize = this.$route.query.pageSize || 20;
     const albumId = this.$route.params.albumId;
     await this.$store.dispatch('albumPhotos', { page, pageSize, albumId });
     const data = this.$store.state.album.photos;
-    const { list, total } = data;
+    const { list, total, domain } = data;
     this.photos = list;
     this.total = total;
     this.page = data.page;
     this.pageSize = data.pageSize;
+    this.imageDomain = domain;
+    this.loading = false;
   },
   components: {
     Panorama
@@ -135,8 +137,8 @@ export default {
         }
 
         const preview = {
-          src: "//" + config.imageDomain + photo.url,
-          msrc: "//" + config.imageDomain + photo.url + "!thumb",
+          src: "//" + this.imageDomain + photo.url,
+          msrc: "//" + this.imageDomain + photo.url + "!thumb",
           alt: photo.name,
           title: photo.name,
           w: Number(attr.width) || 400,

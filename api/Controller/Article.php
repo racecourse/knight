@@ -31,19 +31,42 @@ class Article extends Controller
         $this->params = $request->getQueryParams();
         $page = $this->getParam('page', 1);
         $order = $params['order'] ?? 'created';
-        $keyword = $params['q'] ?? null;
+        $type = $this->getParam('type');
+        if (!$type) {
+            $type = [
+                '如是我闻',
+                '指路为码'
+            ];
+        } else {
+            $type = explode(',', $type);
+        }
+
+        $category = new Category();
+        $cates = $category->find(['name' => [
+            '$in' => $type
+        ]]);
+        $cateIds = [];
+        foreach ($cates as $item) {
+            $cateIds[] = (string)$item['id'];
+        }
         $order = $order === 'archive' ? 'created' : 'created';
         $page = $page ?: 1;
         $pageSize = 20;
         $offset = ($page - 1) * $pageSize;
         $article = new Post();
         $condition = [
-            'permission' => ['$lte' => 1],
+//            'permission' => ['$lte' => '2'],
         ];
+        if (!empty($cateIds)) {
+            $condition['cateId'] =  [
+                '$in' => $cateIds
+            ];
+        }
+
         $options = [
-            'order' => [$order => 'DESC'],
+            'sort' => [$order => -1],
             'limit' => $pageSize,
-            'offset' => $offset,
+            'skip' => $offset,
         ];
 //        if ($keyword) {
 //            $like = ''
@@ -54,7 +77,6 @@ class Article extends Controller
 //        }
 
         $list = yield $article->find($condition, $options);
-        $list = $article->toArray($list);
         $total = yield $article->count($condition);
         $response = new JsonResponse([
             'message' => 'ok',
@@ -64,6 +86,7 @@ class Article extends Controller
                 'total' => $total,
                 'page' => $page,
                 'pageSize' => $pageSize,
+                'type' => $type,
             ],
         ]);
 
@@ -110,8 +133,6 @@ class Article extends Controller
 //                    'code' => 2,
 //                ]);
 //        }
-        $art = $art->toArray();
-
         return $response->withPayload([
             'message' => 'ok',
             'code' => '0',

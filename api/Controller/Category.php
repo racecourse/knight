@@ -93,14 +93,8 @@ class Category extends Controller
         $options = [
             'limit' => $pageSize,
         ];
-        $where = [
-            'id' => [
-                '$gt' => 0,
-            ]
-        ];
+        $where = [];
         $list = yield $category->find($where, $options);
-        $list = $category->toArray($list);
-
         return $this->json([
             'message' => 'ok',
             'code' => 0,

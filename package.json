@@ -21,6 +21,7 @@
     "js-cookie": "^2.2.0",
     "marked": "^0.6.2",
     "mermaid": "^8.0.0",
+    "moment": "^2.24.0",
     "muse-ui": "^3.0.2",
     "muse-ui-loading": "^0.2.0",
     "photoswipe": "^4.1.3",

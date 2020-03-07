@@ -10,7 +10,6 @@
 namespace Knight\Component;
 
 
-
 use Zend\Diactoros\Response\JsonResponse;
 
 class Controller

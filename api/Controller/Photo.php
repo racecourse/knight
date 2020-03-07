@@ -31,7 +31,8 @@ class Photo extends Controller
     {
         $this->payload = $this->payload = $request->getParsedBody();
         $user = $request->getAttribute('session');
-        $album = $this->getPayload('album', 1);
+        $query = $request->getQueryParams();
+        $album = $query['albumId'] ?? '';
         $files = $request->getUploadedFiles();
         $success = yield $this->upload($files, $user, $album);
 
@@ -51,7 +52,6 @@ class Photo extends Controller
         foreach ($files as $key => $uploaded) {
             try {
                 if (is_array($uploaded)) {
-
                     $success = $this->upload($uploaded, $user, $album);
                     continue;
                 }
@@ -81,12 +81,13 @@ class Photo extends Controller
                 $image->url = $url;
                 $image->albumId = $album;
                 $image->created = time();
-                $image->attrs = json_encode($extInfo);
-                $image = $image->save();
+                $image->attrs =  $extInfo;
+                $image->save();
                 $success[] = $image->toArray();
             } catch (\Exception $err) {
-                Logger::error('upload photo error' . $err->getMessage());
-                continue;
+                throw $err;
+//                Logger::error('upload photo error' . $err->getMessage());
+//                continue;
             }
         }
 
@@ -97,7 +98,7 @@ class Photo extends Controller
     {
     }
 
-    public function list(Request $request)
+    public function photos(Request $request)
     {
         $this->query = $request->getQueryParams();
         $page = $this->getQuery('page', 1);
@@ -107,12 +108,11 @@ class Photo extends Controller
             'id' => ['$gt' => 1]
         ];
         $options = [
-            'order' => ['id' => 'DESC'],
+            'order' => ['id' => -1],
             'limit' => $pageSize,
-            'offset' => ($page - 1) * $pageSize,
+            'skip' => ($page - 1) * $pageSize,
         ];
         $list = $image->find($where, $options);
-        $list = $image->toArray($list);
         $total = $image->count();
 
         return $this->json([

@@ -32,9 +32,9 @@
         }
       },
       album: {
-        type: Number,
+        type: String,
         required: false,
-        default: 1,
+        default: 'default',
       }
     },
     data() {
@@ -56,12 +56,7 @@
         bundel: true,
         formData: false,
         onBeforeUpload: (files) => {
-          if (Number(this.album) < 1) {
-            return Promise.reject('none of album be choosed')
-          }
-
           uppy.setMeta({ album: this.album })
-
         },
         restrictions: {
           maxFileSize: 100000000,
@@ -77,25 +72,29 @@
         replaceTargetContent: true,
         note: "Images and video only, 1–50 files, up to 10 MB",
         maxHeight: 450,
-        // metaFields: [
         //   { id: "license", name: "License", placeholder: "specify license" },
         // ]
       }).use(Webcam, { target: Dashboard })
       uppy.use(XHRUpload, {
-          endpoint: '//' + config.api + '/admin/photos?albumId' + self.album,
+          endpoint: '//' + config.api + '/admin/photos?albumId=' + self.album,
           headers: {
             Authorization: 'Bearer ' + token
           },
           getResponseData(response) {
-            const result = JSON.parse(response)
-            if (result.message === 'ok') {
-              const image = result.data
-              self.images = image
-              self.uploaded(image)
+            console.log('????', response);
+            try {
+              const result = JSON.parse(response)
+              if (result.message === 'ok') {
+                const image = result.data
+                self.images = image
+                self.uploaded(image)
+              }
+              return result;
+            } catch (err) {
+              console.error(err)
             }
-            return result;
-          }
-      })
+          },
+      });
       uppy.upload().then((result) => {
         if (result.failed.length > 0) {
         result.failed.forEach((file) => {

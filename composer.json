@@ -9,7 +9,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Knight\\": "api/"
+      "Knight\\": "api/",
+      "Migration\\": "migration"
     }
   },
   "autoload-dev": {
@@ -56,7 +57,7 @@
     "riverline/multipart-parser": "dev-master",
     "jimdo/prometheus_client_php": "dev-master",
     "monolog/monolog": "^2.0@dev",
-    "mongodb/mongodb": "^1.7@dev"
+    "mongodb/mongodb": "1.5.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",

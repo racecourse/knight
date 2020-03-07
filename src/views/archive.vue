@@ -3,38 +3,41 @@
     <mu-container ref="container" class="demo-loadmore-content">
       <mu-load-more
         :loading="loading"
+        @refresh="refresh"
         @load="load">
         <div class="arch-wrap">
           <div v-for="(posts, month) in archive" :key="month">
             <div class="month">{{month}}</div>
             <div v-if="Array.isArray(posts)">
-              <mu-timeline
-                lineColor="black"
-                lineType="dashed"
-              >
-                <div v-for="post in posts" :key="post.id">
-                  <mu-timeline-item iconColor="red" iconType="dotted">
-                    <span slot="time">
-                      {{new Date(post.created * 1000).toLocaleString()}}
-                    </span>
-                    <span slot="des">{{post.title}}</span>
-                  </mu-timeline-item>
-                </div>
-              </mu-timeline>
+              <mu-list v-for="post in posts">
+                <mu-list-item avatar :ripple="false" button>
+                  <mu-list-item-action>
+                    <mu-avatar color="teal">
+                      {{post.title[0]}}
+                    </mu-avatar>
+                  </mu-list-item-action>
+                  <mu-list-item-content>
+                    <mu-list-item-title>{{post.title}}</mu-list-item-title>
+                    <mu-list-item-sub-title>
+                      {{moment(post.created * 1000).format()}}
+                    </mu-list-item-sub-title>
+                  </mu-list-item-content>
+                </mu-list-item>
+                <mu-divider></mu-divider>
+              </mu-list>
             </div>
           </div>
         </div>
       </mu-load-more>
     </mu-container>
-    <div class="a-page" @click="more" v-if="page * pageSize < total">
-      <div class="p-more">more</div>
-      <mu-icon value="more_horiz"></mu-icon>
-    </div>
+<!--    <div class="a-page" @click="more" v-if="page * pageSize < total">-->
+<!--      <div class="p-more">more</div>-->
+<!--      <mu-icon value="more_horiz"></mu-icon>-->
+<!--    </div>-->
   </div>
 </template>
 <script>
   import Pagination from '../components/pagination/post.vue';
-  import Bottom from '../components/common/bottom.vue';
   export default {
     data() {
       return {
@@ -42,7 +45,8 @@
         pageSize: 20,
         total: 0,
         list: [],
-        loading: false
+        loading: false,
+        moment: this.$moment
       }
     },
     beforeMount() {
@@ -74,7 +78,9 @@
         const res = this.$store.state.post;
         const data = res.post;
         const { list, page, pageSize, total } = data;
-        this.list = this.list.concat(list);
+        const ids = this.list.map(item => item.id);
+        const more = list.filter(item => !ids.includes(item.id));
+        this.list = this.list.concat(more);
         this.page = page;
         this.pageSize = pageSize;
         this.total = total;
