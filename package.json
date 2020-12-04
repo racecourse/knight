@@ -16,7 +16,7 @@
     "core-js": "^2.6.5",
     "fastclick": "^1.0.6",
     "fecha": "^3.0.3",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.4.1",
     "highlightjs-line-numbers.js": "^2.7.0",
     "js-cookie": "^2.2.0",
     "marked": "^0.6.2",
